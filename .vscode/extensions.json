@@ -1,0 +1,18 @@
+{
+	"recommendations": [
+		"formulahendry.auto-close-tag",
+		"formulahendry.auto-rename-tag",
+		"aaron-bond.better-comments",
+		"perkovec.emoji",
+		"waderyan.gitblame",
+		"eamodio.gitlens",
+		"heybourn.headwind",
+		"ecmel.vscode-html-css",
+		"cpylua.language-postcss",
+		"esbenp.prettier-vscode",
+		"alefragnani.project-manager",
+		"2gua.rainbow-brackets",
+		"bradlc.vscode-tailwindcss",
+		"dsznajder.es7-react-js-snippets"
+	]
+}

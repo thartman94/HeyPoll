@@ -1,0 +1,7 @@
+@import "partials/home.css";
+
+.class {
+	&__single {
+		@apply font-mont text-sm text-red-500 bg-blue-300;
+	}
+}
