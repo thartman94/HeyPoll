@@ -36,7 +36,7 @@ const LinkBoxes = () => {
 			>
 				<h3 className="text-2xl font-bold">Dog &rarr;</h3>
 				<p className="mt-4 text-xl">
-					Didnn't have anything for this box, so here's a dog. 😊
+					Didn't have anything for this box... so here's a dog. 😊
 				</p>
 			</a>
 		</div>
