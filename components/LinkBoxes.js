@@ -15,7 +15,7 @@ const LinkBoxes = () => {
 			</a>
 
 			<a
-				href="#"
+				href="https://trello.com/b/DCUEE3nb/classroom-polling-app-project"
 				target="_blank"
 				className="single hover:bg-red-500 focus:bg-red-500"
 			>
