@@ -15,7 +15,7 @@ const LinkBoxes = () => {
 			</a>
 
 			<a
-				href="#"
+				href="https://trello.com/b/DCUEE3nb/classroom-polling-app-project"
 				target="_blank"
 				className="single hover:bg-red-500 focus:bg-red-500"
 			>
@@ -25,13 +25,18 @@ const LinkBoxes = () => {
 				</p>
 			</a>
 
-			<a href="#" className="single hover:bg-green-600 focus:bg-green-600">
+			<a
+				href="https://docs.google.com/spreadsheets/d/1oq34ixRLF8oJ9MaO9eC47HMd9Elg3y2axLFqoWarMKE/edit#gid=0"
+				target="_blank"
+				className="single hover:bg-green-600 focus:bg-green-600"
+			>
 				<h3 className="text-2xl font-bold">User Stories &rarr;</h3>
 				<p className="mt-4 text-xl">Take a look at what we aim to acomplish.</p>
 			</a>
 
 			<a
 				href="https://www.vets4pets.com/siteassets/species/dog/large-dog-on-walk-looking-over-hills.jpg?w=585&scale=down"
+				target="_blank"
 				className="single hover:bg-yellow-500 focus:bg-yellow-500"
 			>
 				<h3 className="text-2xl font-bold">Dog &rarr;</h3>
