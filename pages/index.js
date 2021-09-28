@@ -7,11 +7,11 @@ export default function Home() {
 	return (
 		<div className="index">
 			<Head>
-				<title>Software Engineering Team 3</title>
+				<title>HeyPoll</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="index__main">
+			<main className="index__main font-mont">
 				<h2 className="title">
 					Welcome to <span className="nextjs">Group 3!</span>
 				</h2>

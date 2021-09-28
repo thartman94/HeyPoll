@@ -4,7 +4,7 @@ const LinkBoxes = () => {
 	return (
 		<div className="link-boxes">
 			<a
-				href="https://github.com/thartman94/se-project"
+				href="https://github.com/thartman94/HeyPoll"
 				target="_blank"
 				className="single hover:bg-blue-500 focus:bg-blue-500"
 			>
