@@ -1,0 +1,10 @@
+.link-boxes {
+	@apply sm:w-full font-mont flex flex-wrap items-center justify-around max-w-4xl mt-6;
+	.single {
+		@apply w-96 rounded-xl p-6 mt-6 text-left transition-all duration-300 ease-in-out border shadow;
+		&:hover,
+		&:focus {
+			@apply text-white;
+		}
+	}
+}

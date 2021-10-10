@@ -1,3 +1,13 @@
 .footer {
+<<<<<<< HEAD
 	@apply relative flex flex-col items-center justify-center w-full h-24 border-t;
+=======
+	@apply font-mont flex items-center justify-center w-full h-24 border-t;
+	&__link {
+		@apply flex items-center justify-center;
+	}
+	img {
+		@apply h-4 ml-2;
+	}
+>>>>>>> 775d5608d4ab079cacfd1567252e8c1a639d8f42
 }
