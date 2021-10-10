@@ -1,0 +1,16 @@
+.about-us {
+	@apply bg-hp-white;
+
+	&__main {
+		@apply flex flex-row w-full;
+
+		&--left,
+		&--right {
+			@apply flex flex-col w-1/2 px-12;
+		}
+
+		/* &--left {
+			@apply;
+		} */
+	}
+}

@@ -1,11 +1,17 @@
+/* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 /* When you add a new style sheet in the partials/pages folder, be sure to import it here
 	If you dont, the styles wont take effect. */
 
+/* Partials */
+@import "partials/header.css";
+@import "partials/footer.css";
+@import "partials/project-details.css";
+@import "partials/roster.css";
+@import "partials/link-box.css";
+
 /* Pages */
 @import "pages/index.css";
-
-/* Partials */
-@import "partials/link-boxes.css";
-@import "partials/footer.css";
+@import "pages/about-us.css";

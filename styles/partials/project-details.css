@@ -1,0 +1,7 @@
+.project-details {
+	@apply font-mont relative flex flex-col w-full p-8 bg-white shadow-xl;
+
+	h2 {
+		@apply w-full mb-4 text-2xl text-center;
+	}
+}

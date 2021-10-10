@@ -1,0 +1,19 @@
+.roster {
+	@apply font-mont relative flex flex-col w-full p-8 bg-white shadow-xl;
+
+	&__title {
+		@apply w-full mb-4 text-2xl text-center;
+	}
+
+	&__list {
+		@apply relative flex flex-col mb-4;
+
+		p {
+			@apply font-bold;
+		}
+
+		ul {
+			@apply flex flex-col ml-4;
+		}
+	}
+}

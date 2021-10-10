@@ -3,14 +3,8 @@ import React from "react";
 const Footer = () => {
 	return (
 		<footer className="footer">
-			<a
-				className="footer__link"
-				href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				Powered by <img src="/vercel.svg" alt="Vercel Logo" />
-			</a>
+			<p>Built and Designed by Software Team 3</p>
+			<a href="/about-us">More Info</a>
 		</footer>
 	);
 };
