@@ -1,5 +1,9 @@
 import React from "react";
 
-export const LinkBox = () => {
-	return <div class="link-box"></div>;
+export const LinkBox = ({ children, link }) => {
+	return (
+		<a href={link} target="_blank" className="link-box">
+			{children}
+		</a>
+	);
 };

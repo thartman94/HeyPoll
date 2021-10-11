@@ -13,42 +13,40 @@ export default function AboutUs() {
 				<title>Software Engineering Team 3</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Header></Header>
+			<Header title="About Us"></Header>
 
 			<main className="about-us__main">
 				<div className="about-us__main--left">
 					<ProjectDetails>
 						{" "}
-						Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-						dui. Curabitur aliquet quam id dui posuere blandit. Vestibulum ac
-						diam sit amet quam vehicula elementum sed sit amet dui. Donec
-						sollicitudin molestie malesuada. Mauris blandit aliquet elit, eget
-						tincidunt nibh pulvinar a. Pellentesque in ipsum id orci porta
-						dapibus. Pellentesque in ipsum id orci porta dapibus. Pellentesque
-						in ipsum id orci porta dapibus. Cras ultricies ligula sed magna
-						dictum porta. Nulla quis lorem ut libero malesuada feugiat.
-						Pellentesque in ipsum id orci porta dapibus. Curabitur aliquet quam
-						id dui posuere blandit. Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit. Proin eget tortor risus. Vestibulum ac diam sit
-						amet quam vehicula elementum sed sit amet dui. Donec rutrum congue
-						leo eget malesuada. Pellentesque in ipsum id orci porta dapibus.
-						Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vivamus
-						suscipit tortor eget felis porttitor volutpat. Donec sollicitudin
-						molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et,
-						porttitor at sem. Quisque velit nisi, pretium ut lacinia in,
-						elementum id enim. Cras ultricies ligula sed magna dictum porta.
-						Nulla porttitor accumsan tincidunt. Mauris blandit aliquet elit,
-						eget tincidunt nibh pulvinar a.
+						HeyPoll’s purpose is to create a better engagement between students
+						and professors or teachers. This is done by giving instructors the
+						ability to easily poll students while lecturing. This gives the
+						professors the ability to see if students are retaining the
+						information or if they need to go into more details of a subject. A
+						student gets the ability to see how they are doing in understanding
+						the material compared to their classmates.
 					</ProjectDetails>
 				</div>
 				<div className="about-us__main--right">
 					<Roster></Roster>
-					<div>
-						<LinkBox link="https://github.com/thartman94/HeyPoll"></LinkBox>
+					<div className="links box">
+						<p className="title">Links</p>
+						<LinkBox link="https://github.com/thartman94/HeyPoll">
+							Github
+						</LinkBox>
+						<LinkBox link="https://trello.com/b/DCUEE3nb/heypoll">
+							Trello
+						</LinkBox>
+						<LinkBox link="	https://docs.google.com/document/d/1WmoHVyQ7_uo9664lQ9L-k1pBZPYesTShY1PLu-DsKL8/edit">
+							Design Document
+						</LinkBox>
+						<LinkBox link="https://github.com/thartman94/HeyPoll">
+							User Stories
+						</LinkBox>
 					</div>
 				</div>
 			</main>
-
 			<Footer></Footer>
 		</div>
 	);
