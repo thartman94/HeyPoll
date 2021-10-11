@@ -9,7 +9,7 @@ const Roster = () => {
 				<p>Product Owner</p>
 				<ul>
 					<li>
-						<a href="#" target="blank">
+						<a href="https://github.com/henkel57" target="blank">
 							Emerson Henkel
 						</a>
 					</li>
@@ -19,7 +19,7 @@ const Roster = () => {
 				<p>Scrum Master</p>
 				<ul>
 					<li>
-						<a href="#" target="blank">
+						<a href="https://github.com/BrianRaley" target="blank">
 							Brian Raley
 						</a>
 					</li>
@@ -29,7 +29,7 @@ const Roster = () => {
 				<p>Development Team</p>
 				<ul>
 					<li>
-						<a href="#" target="blank">
+						<a href="https://github.com/flanne36" target="blank">
 							Kyle Flannelly
 						</a>
 					</li>
@@ -39,17 +39,17 @@ const Roster = () => {
 						</a>
 					</li>
 					<li>
-						<a href="#" target="blank">
+						<a href="https://github.com/zmanwinner" target="blank">
 							Zachary Leesman
 						</a>
 					</li>
 					<li>
-						<a href="#" target="blank">
+						<a href="https://github.com/raj161100" target="blank">
 							Rithwik Raj Mallam
 						</a>
 					</li>
 					<li>
-						<a href="#" target="blank">
+						<a href="https://github.com/pradeep458" target="blank">
 							Pradeep Chandra Matam
 						</a>
 					</li>
