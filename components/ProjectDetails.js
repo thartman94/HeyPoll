@@ -4,7 +4,7 @@ export default function ProjectDetails({ children }) {
 	return (
 		<div className="project-details box">
 			<p className="title">Project Details</p>
-			<p>{children}</p>
+			<p className="body">{children}</p>
 		</div>
 	);
 }

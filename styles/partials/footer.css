@@ -1,9 +1,12 @@
 .footer {
-	@apply font-mont flex items-center justify-center w-full h-24 border-t;
-	&__link {
-		@apply flex items-center justify-center;
-	}
-	img {
-		@apply h-4 ml-2;
+	@apply font-mont bg-hp-dark flex items-center justify-center w-full h-24 mb-0 text-sm font-bold text-white;
+
+	p {
+		a {
+			@apply transition-all duration-300 ease-in-out;
+			&:hover {
+				@apply text-hp-gold;
+			}
+		}
 	}
 }
