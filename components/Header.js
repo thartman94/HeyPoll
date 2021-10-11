@@ -1,10 +1,13 @@
 import React from "react";
+import logo from "../public/bars-logo.png";
 
-const Header = () => {
+const Header = ({ title, front }) => {
 	return (
 		<header className="header">
-			<p>This is a header</p>
-			<a href="/">Home</a>
+			<a href="/" className="logo">
+				<img src={"./bars-logo.png"} />
+			</a>
+			<p className="page">{title}</p>
 		</header>
 	);
 };

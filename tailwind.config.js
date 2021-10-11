@@ -4,6 +4,16 @@ module.exports = {
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
+			spacing: {
+				px: "1px",
+				"2px": "2px",
+				14: "3.5rem",
+				18: "4.5rem",
+				28: "7rem",
+				30: "7.5rem",
+				36: "9rem",
+				44: "11rem",
+			},
 			colors: {
 				hp: {
 					dark: "#0B3C5D",
@@ -17,6 +27,9 @@ module.exports = {
 				lato: ["Lato", "sans-serif"],
 				mont: ["Montserrat", "sans-serif"],
 				pacifico: ["Pacifico", "cursive"],
+			},
+			zIndex: {
+				behind: "-1",
 			},
 		},
 	},

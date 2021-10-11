@@ -1,19 +1,30 @@
 .roster {
-	@apply font-mont relative flex flex-col w-full p-8 bg-white shadow-xl;
-
-	&__title {
-		@apply w-full mb-4 text-2xl text-center;
-	}
-
 	&__list {
-		@apply relative flex flex-col mb-4;
+		@apply relative flex flex-col pl-4 mb-4;
 
 		p {
 			@apply font-bold;
 		}
 
 		ul {
-			@apply flex flex-col ml-4;
+			@apply text-hp-black relative flex flex-col pl-4 mt-1;
+
+			&:before {
+				@apply w-2px bg-hp-gold absolute top-0 left-0 flex h-full;
+				content: "";
+			}
+
+			li {
+				@apply relative flex flex-col transition-all duration-300 ease-in-out;
+
+				&:hover {
+					@apply text-hp-light pl-2;
+				}
+
+				a {
+					@apply relative flex py-1;
+				}
+			}
 		}
 	}
 }

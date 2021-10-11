@@ -1,16 +1,51 @@
 .about-us {
-	@apply bg-hp-white;
+	@apply bg-hp-white relative flex flex-col;
 
 	&__main {
-		@apply flex flex-row w-full;
+		@apply relative flex flex-row w-full h-full gap-12 py-16;
+
+		@media (max-width: 1023px) {
+			@apply flex-col;
+		}
+
+		.title {
+			@apply text-hp-dark relative w-full pb-2 mb-6 text-3xl font-bold text-center;
+
+			&:after {
+				@apply h-2px bg-hp-dark absolute bottom-0 left-0 flex w-full opacity-25;
+				content: "";
+			}
+		}
+
+		.box {
+			@apply font-mont relative flex flex-col w-full p-8 bg-white shadow-2xl;
+		}
 
 		&--left,
 		&--right {
-			@apply flex flex-col w-1/2 px-12;
+			@apply relative flex flex-col w-1/2 h-full;
+
+			@media (max-width: 1023px) {
+				@apply w-full px-12;
+			}
 		}
 
-		/* &--left {
-			@apply;
-		} */
+		&--left {
+			@apply h-full pl-12;
+		}
+
+		&--right {
+			@apply justify-between gap-16 pr-12;
+
+			.links {
+				.title {
+					@apply mb-12;
+				}
+
+				.link-box {
+					@apply mb-6;
+				}
+			}
+		}
 	}
 }
