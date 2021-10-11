@@ -1,2 +1,5 @@
 .project-details {
+	.body {
+		@apply leading-relaxed;
+	}
 }
