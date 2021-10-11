@@ -21,21 +21,19 @@ export default function Home() {
 				<h1 className="title">
 					Welcome to <span className="text-red-600 font-pacifico">HeyPoll</span>
 				</h1>
-				<br></br>	
-				<HomePageButton 
-					title={'Join a lobby'}
-					button={JoinLobby}
-				></HomePageButton>
 				<br></br>
-				<HomePageButton 
-					title={'Create a poll (as guest)'}
-					button={CreatePoll}	
-				></HomePageButton>
-				<br></br>
-				<HomePageButton 
-					title={'Sign in / Sign up'}
-					button={Login}
-				></HomePageButton>
+					<HomePageButton 
+						title={'Join a lobby'}
+						button={JoinLobby}
+					></HomePageButton>
+					<HomePageButton 
+						title={'Create a poll (as guest)'}
+						button={CreatePoll}	
+					></HomePageButton>
+					<HomePageButton 
+						title={'Sign in / Sign up'}
+						button={Login}
+					></HomePageButton>
 			</main>
 
 			<Footer></Footer>

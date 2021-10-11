@@ -1,13 +1,15 @@
 .HomePageButton {
-    @apply text-white px-8 py-4 bg-hp-gold flex;
-    border: none;
-    color: white;
-    padding: 20px 100px;
+    @apply font-mont text-white px-8 py-4 bg-hp-gold flex;
     text-align: center;
-    text-decoration: none;
-    font-size: 24px;
-    border-radius: 8px;
+    justify-content: center;
+    border: none;
+    width: 500px;
+    font-size: 34px;
+    border-radius: 18px;
     transition-duration: 0.4s;
+    flex: 1;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .HomePageButton:hover {
