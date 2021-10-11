@@ -1,0 +1,16 @@
+.HomePageButton {
+    @apply text-white px-8 py-4 bg-hp-gold flex;
+    border: none;
+    color: white;
+    padding: 20px 100px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+.HomePageButton:hover {
+    @apply bg-hp-light;
+    
+}
