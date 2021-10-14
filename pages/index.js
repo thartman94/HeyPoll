@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Footer from "../components/Footer";
@@ -21,19 +22,20 @@ export default function Home() {
 				<h1 className="title">
 					Welcome to <span className="text-red-600 font-pacifico">HeyPoll</span>
 				</h1>
-				<br></br>
+				<div>
 					<HomePageButton 
 						title={'Join a lobby'}
-						button={JoinLobby}
+						buttonClick={JoinLobby}
 					></HomePageButton>
 					<HomePageButton 
 						title={'Create a poll (as guest)'}
-						button={CreatePoll}	
+						buttonClick={CreatePoll}	
 					></HomePageButton>
 					<HomePageButton 
 						title={'Sign in / Sign up'}
-						button={Login}
+						buttonClick={Login}
 					></HomePageButton>
+				</div>
 			</main>
 
 			<Footer></Footer>

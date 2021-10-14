@@ -1,9 +1,10 @@
 .HomePageButton {
     @apply font-mont text-white px-8 py-4 bg-hp-gold flex;
+    @apply w-full;
+    max-width: 500px;
     text-align: center;
     justify-content: center;
     border: none;
-    width: 500px;
     font-size: 34px;
     border-radius: 18px;
     transition-duration: 0.4s;

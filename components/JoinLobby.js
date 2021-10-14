@@ -1,7 +1,8 @@
 import React from 'react'
 
 function JoinLobby() {
-    console.log('Join lobby')
+    console.log('Join lobby');
+    
 };
 
 export default JoinLobby
