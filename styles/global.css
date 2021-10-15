@@ -11,6 +11,7 @@
 @import "partials/project-details.css";
 @import "partials/roster.css";
 @import "partials/link-box.css";
+@import "partials/HomePageButton.css";
 
 /* Pages */
 @import "pages/index.css";
