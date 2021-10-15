@@ -1,19 +1,18 @@
-.HomePageButton {
+.home-page-button {
     @apply font-mont text-white px-8 py-4 bg-hp-gold flex;
     @apply w-full;
     max-width: 500px;
+    max-height: 250px;
     text-align: center;
     justify-content: center;
-    border: none;
     font-size: 34px;
-    border-radius: 18px;
     transition-duration: 0.4s;
+    border-radius: 16px;
     flex: 1;
     margin: 1rem 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-.HomePageButton:hover {
+.home-page-button:hover {
     @apply bg-hp-light;
-    
 }
