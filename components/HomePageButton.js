@@ -4,7 +4,7 @@ function HomePageButton(props) {
     return (
         <div className="home-page-button">
             <button onClick={props.buttonClick}>
-                {props.title}
+                <a href = {props.path}>{props.title}</a>
             </button>           
         </div>
     );

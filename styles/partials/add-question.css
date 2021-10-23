@@ -1,0 +1,22 @@
+.addQuestion{
+    @apply font-mont bg-hp-dark flex items-center justify-center w-full h-24 mb-0 text-sm font-bold text-white;
+}
+
+.formControl{
+    @apply flex;
+}
+
+.questionLabel{
+    margin:5px;
+}
+.questionInput{
+    @apply text-black;
+}
+
+.questionSubmit{
+    @apply border-hp-light bg-hp-light w-full h-10;
+    margin: 10px; 
+    &:hover {
+		@apply text-black bg-white;
+	}
+}
