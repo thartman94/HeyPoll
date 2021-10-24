@@ -15,15 +15,15 @@ const AddQuestion = ({onAdd}) => {
         setText("")
     }
     return (
-        <div className="poll-editor-main">
+        <div className="addQuestion">
             <form className="poll-editor-form" onSubmit = {onSubmit}>
-                <div className="form-control">
-                    <label>Question</label>
-                    <input type="text" placeholder="Enter Question"
+                <div className = "formControl">
+                    <label className = "questionLabel">Question: </label>
+                    <input className = "questionInput"type="text" placeholder="Enter Question"
                      value = {text} onChange={(e) => setText(e.target.value)}>
                      </input>
                 </div> 
-                <input type ="submit" value ="Save Question" />
+                <input className = "questionSubmit" type ="submit" value ="Save Question" />
             </form>
             <div className = "poll-editor-questions">
 

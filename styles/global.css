@@ -12,6 +12,8 @@
 @import "partials/roster.css";
 @import "partials/link-box.css";
 @import "partials/HomePageButton.css";
+@import "partials/add-question.css";
+@import "partials/poll-editor.css";
 
 /* Pages */
 @import "pages/index.css";

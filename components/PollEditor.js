@@ -5,7 +5,7 @@ import AddQuestion from './AddQuestion'
 const PollEditor = () => { 
 
     const [questions, setQuestions] = useState([])
-
+    
     const addQuestion = (question) => {
         const id = questions.length + 1
         const newQuestion = {id, ...question}
@@ -16,11 +16,11 @@ const PollEditor = () => {
         <div>
             <AddQuestion onAdd={addQuestion}>   
             </AddQuestion>
-
-            {questions.map((question) => (
-                <h3 key={question.id}>{question.text}</h3>
-            ))}
-            
+            <div className = "questionDisplay">
+                {questions.map((question) => (
+                    <h3 key={question.id}>{question.text}</h3>
+                ))}
+            </div>
         </div>
     )
 }
