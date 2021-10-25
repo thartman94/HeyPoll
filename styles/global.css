@@ -12,6 +12,7 @@
 @import "partials/roster.css";
 @import "partials/link-box.css";
 @import "partials/HomePageButton.css";
+@import "partials/roomcode.css";
 
 /* Pages */
 @import "pages/index.css";
