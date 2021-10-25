@@ -29,6 +29,7 @@ export default function Home() {
           <HomePageButton
             title={"Create a poll (as guest)"}
             buttonClick={CreatePoll}
+            path = '/polledit'
           ></HomePageButton>
           <HomePageButton
             title={"Sign in / Sign up"}
