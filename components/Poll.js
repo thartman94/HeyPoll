@@ -45,9 +45,6 @@ export const Poll = ({ prof, edit, student }) => {
 							<FontAwesomeIcon className="icon" icon={faMinusCircle} />
 						</button>
 					)}
-					{student && (
-						
-					)}
 				</div>
 				<div className="poll__answers--single">
 					<Answer index="B" answerText="Not a bunch" />
