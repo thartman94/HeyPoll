@@ -1,0 +1,3 @@
+.prof-view {
+	@apply bg-hp-white relative flex flex-col items-center justify-center w-full h-full px-12;
+}
