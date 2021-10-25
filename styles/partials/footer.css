@@ -1,9 +1,11 @@
 .footer {
-	@apply font-mont bg-hp-dark flex items-center justify-center w-full h-24 mb-0 text-sm font-bold text-white;
+	@apply font-mont bg-hp-dark bottom-0 flex items-center justify-center w-full h-24 mb-0 text-sm font-bold text-white;
 
 	p {
+		@apply text-center;
+
 		a {
-			@apply transition-all duration-300 ease-in-out;
+			@apply whitespace-nowrap transition-all duration-300 ease-in-out;
 			&:hover {
 				@apply text-hp-gold;
 			}

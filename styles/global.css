@@ -14,7 +14,11 @@
 @import "partials/HomePageButton.css";
 @import "partials/add-question.css";
 @import "partials/poll-editor.css";
+@import "partials/poll.css";
+@import "partials/room-views.css";
+@import "partials/answer.css";
 
 /* Pages */
 @import "pages/index.css";
 @import "pages/about-us.css";
+@import "pages/poll-lobby.css";
