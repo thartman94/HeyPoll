@@ -21,7 +21,10 @@ export default function Home() {
           Welcome to <span className="text-red-600 font-pacifico">HeyPoll</span>
         </h1>
         <br></br>
-        <div>
+
+        <div className="landing-side-panels"></div>
+
+        <div className="landing-container">
           <HomePageButton
             title={"Join a lobby"}
             buttonClick={JoinLobby}
