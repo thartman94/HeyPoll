@@ -12,8 +12,19 @@
 @import "partials/roster.css";
 @import "partials/link-box.css";
 @import "partials/HomePageButton.css";
+<<<<<<< HEAD
 @import "partials/landing-container.css";
+=======
+@import "partials/roomcode.css";
+@import "partials/add-question.css";
+@import "partials/poll-editor.css";
+@import "partials/poll.css";
+@import "partials/room-views.css";
+@import "partials/answer.css";
+
+>>>>>>> ee560539ce2d083c42cec8a9f15f8103a7d2249b
 
 /* Pages */
 @import "pages/index.css";
 @import "pages/about-us.css";
+@import "pages/poll-lobby.css";

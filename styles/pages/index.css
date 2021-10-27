@@ -1,15 +1,19 @@
 .index {
-	@apply flex flex-col items-center justify-center min-h-screen py-2;
+	@apply flex flex-col items-center justify-center min-h-screen;
 
 	&__main {
 		@apply flex flex-col items-center justify-center flex-1 w-full px-20 text-center;
 
 		.title {
 			@apply text-6xl font-bold;
+<<<<<<< HEAD
 
 			.nextjs {
 				@apply text-green-600 uppercase;
 			}
 		}	
+=======
+		}
+>>>>>>> ee560539ce2d083c42cec8a9f15f8103a7d2249b
 	}
 }

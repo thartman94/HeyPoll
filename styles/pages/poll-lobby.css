@@ -1,0 +1,3 @@
+.poll-lobby {
+	@apply flex flex-col w-full h-screen;
+}

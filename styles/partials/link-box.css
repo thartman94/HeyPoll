@@ -1,2 +1,7 @@
 .link-box {
+	@apply font-mont border-hp-light bg-hp-light relative z-20 flex flex-row items-center justify-center w-full py-4 text-xl font-bold text-center text-white transition-all duration-500 ease-in-out border-2 rounded-md;
+
+	&:hover {
+		@apply text-black bg-white;
+	}
 }
