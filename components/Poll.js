@@ -1,75 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import { Answer } from "./Answer";
+import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import Input from "./Input";
 
-export const Poll = ({ prof, edit, student }) => {
-	let choices = 2;
-	// prof = true;
-	// edit = true;
-	student = true;
+export const Poll = ({ userRole }) => {
+	const [edit, toggleEdit] = useState(false);
 
-	const edit_title = (e) => {
+	userRole = "student";
+	// userRole = "professor";
+	// userRole = "spectator";
+
+	let question = "What should we order for dinner?";
+	let answers = ["Subs", "Pizza", "Sushi"];
+
+	// function to switch the selected answer
+	const selectAnswer = (e) => {
 		e.preventDefault();
-		console.log("change question text");
+		e.target.closest(".poll__answers--single").classList.toggle("selected");
+		console.log("clicked answer");
 	};
 
-	const add_choice = (e) => {
-		e.preventDefault();
-		console.log("add choice");
-	};
-
-	const remove_choice = (e) => {
-		e.preventDefault();
-		console.log("remove choice");
-	};
+	// function that creates a list of answers
+	const makeAnswers = (items) =>
+		answers.map((item, i) => (
+			<div
+				className={`poll__answers--single ${userRole}`}
+				onClick={(e) => {
+					if (userRole === "student") {
+						selectAnswer(e);
+					}
+				}}
+			>
+				<Answer
+					key={i}
+					index={String.fromCharCode(97 + i)}
+					answer={item}
+					edit={edit}
+					userRole={userRole}
+				/>
+			</div>
+		));
 
 	return (
-		<div className="poll">
+		<form
+			className="poll"
+			onSubmit={(e) => {
+				e.preventDefault();
+				console.log("submit poll");
+			}}
+		>
+			<button
+				className="poll__edit"
+				onClick={(e) => {
+					e.preventDefault();
+					toggleEdit((prevEdit) => !prevEdit);
+				}}
+			>
+				Edit
+			</button>
 			<div className="poll__question">
-				<p>How much wood could a woodchuck chuck?</p>
-				{/* {edit && (
-					<button onClick={edit_title}>
-						<FontAwesomeIcon icon={faEdit} />
-					</button>
-				)} */}
+				<Input readonly={!edit} value={question} />
 			</div>
-			<div className="poll__answers">
-				<div className="poll__answers--single">
-					<Answer index="A" answerText="A whole lot" />
-					{edit && (
-						<button className="remove" onClick={remove_choice}>
-							<FontAwesomeIcon className="icon" icon={faMinusCircle} />
-						</button>
-					)}
-				</div>
-				<div className="poll__answers--single">
-					<Answer index="B" answerText="Not a bunch" />
-					{edit && (
-						<button className="remove" onClick={remove_choice}>
-							<FontAwesomeIcon className="icon" icon={faMinusCircle} />
-						</button>
-					)}
-				</div>
-				<div className="poll__answers--single">
-					<Answer index="C" answerText="Need more info" />
-					{edit && (
-						<button className="remove" onClick={remove_choice}>
-							<FontAwesomeIcon className="icon" icon={faMinusCircle} />
-						</button>
-					)}
-				</div>
-				{edit && (
-					<button className="poll__answers--add" onClick={add_choice}>
-						<div className="line"></div>
-						<FontAwesomeIcon className="icon" icon={faPlusSquare} />
-						<div className="line"></div>
-					</button>
-				)}
-			</div>
-		</div>
+			<div className="poll__answers">{makeAnswers(answers)}</div>
+			<input
+				className={`poll__save ${!edit ? "hidden" : ""}`}
+				type="submit"
+				value="Save"
+			/>
+		</form>
 	);
+};
+
+Input.propTypes = {
+	userRole: PropTypes.oneOf(["professor", "student", "spectator"]).isRequired,
 };
