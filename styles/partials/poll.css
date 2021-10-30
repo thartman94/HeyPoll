@@ -9,6 +9,10 @@
 		&:hover {
 			@apply text-hp-dark bg-transparent cursor-pointer;
 		}
+
+		&.hidden {
+			@apply hidden;
+		}
 	}
 
 	&__question {
@@ -42,15 +46,6 @@
 				@apply cursor-pointer;
 			}
 
-			.remove {
-				@apply absolute right-0 flex px-3 text-xl text-red-500 transition-all duration-500 ease-in-out opacity-25;
-				transform: translateX(100%);
-
-				&:hover {
-					@apply opacity-100;
-				}
-			}
-
 			.answer {
 				@apply border-hp-dark relative flex flex-row w-full border-2;
 				height: 4.5rem;
@@ -76,6 +71,11 @@
 							}
 						}
 					}
+				}
+			}
+			&.selected {
+				.answer__index {
+					@apply bg-hp-gold;
 				}
 			}
 		}

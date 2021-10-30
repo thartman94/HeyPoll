@@ -18,14 +18,22 @@ export const Poll = ({ userRole }) => {
 	let question = "What should we order for dinner?";
 	let answers = ["Subs", "Pizza", "Sushi"];
 
-	// function to switch the selected answer
+	// ============================================================================================
+	//  swich which answer is sleceted when a student clicks on one
+	// ============================================================================================
 	const selectAnswer = (e) => {
 		e.preventDefault();
-		e.target.closest(".poll__answers--single").classList.toggle("selected");
-		console.log("clicked answer");
+		const selectedAnswer = e.target.closest(".poll__answers--single");
+		document.querySelectorAll(".poll__answers--single").forEach((answer) => {
+			answer === selectedAnswer
+				? answer.classList.add("selected")
+				: answer.classList.remove("selected");
+		});
 	};
 
-	// function that creates a list of answers
+	// ============================================================================================
+	// function that creates a list of answers divs, think of it like a for-each loop
+	// ============================================================================================
 	const makeAnswers = (items) =>
 		answers.map((item, i) => (
 			<div
@@ -46,6 +54,9 @@ export const Poll = ({ userRole }) => {
 			</div>
 		));
 
+	// ============================================================================================
+	// Component
+	// ============================================================================================
 	return (
 		<form
 			className="poll"
@@ -55,7 +66,7 @@ export const Poll = ({ userRole }) => {
 			}}
 		>
 			<button
-				className="poll__edit"
+				className={`poll__edit ${userRole === "professor" ? "" : "hidden"}`}
 				onClick={(e) => {
 					e.preventDefault();
 					toggleEdit((prevEdit) => !prevEdit);
