@@ -5,19 +5,14 @@ import Footer from "../components/Footer";
 import { ProfView } from "../components/ProfView";
 import { StudentView } from "../components/StudentView";
 
-const room = ({ prof }) => {
-	/*
-	 * Here temproraily, ability to detect if user is professor or student
-	 * remains to be developed
-	 */
-	prof = true;
-
-	const View = prof ? ProfView : StudentView;
+const room = ({ userRole }) => {
+	userRole = "professor	";
+	const View = userRole ? ProfView : StudentView;
 
 	return (
 		<section className="poll-lobby">
 			<Header title="Poll Lobby" />
-			<View prof={prof} />
+			<View userRole={userRole} />
 			<Footer />
 		</section>
 	);

@@ -5,18 +5,15 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import Input from "./Input";
 
 export const Poll = ({ userRole }) => {
 	const [edit, toggleEdit] = useState(false);
-
-	userRole = "student";
-	// userRole = "professor";
-	// userRole = "spectator";
+	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
 
 	let question = "What should we order for dinner?";
-	let answers = ["Subs", "Pizza", "Sushi"];
+	// let answers = ["Subs", "Pizza", "Sushi"];
 
 	// ============================================================================================
 	//  swich which answer is sleceted when a student clicks on one
@@ -78,6 +75,26 @@ export const Poll = ({ userRole }) => {
 				<Input readonly={!edit} value={question} />
 			</div>
 			<div className="poll__answers">{makeAnswers(answers)}</div>
+			<div className="poll__controls">
+				<button
+					className="poll__controls--minus"
+					onClick={(e) => {
+						e.preventDefault();
+						changeAnswersLength((prevAnswers) => prevAnswers.slice(0, -1));
+					}}
+				>
+					<FontAwesomeIcon className="icon" icon={faMinusSquare} />
+				</button>
+				<button
+					className="poll__controls--add"
+					onClick={(e) => {
+						e.preventDefault();
+						changeAnswersLength((prevAnswers) => [...prevAnswers, ""]);
+					}}
+				>
+					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
+				</button>
+			</div>
 			<input
 				className={`poll__save ${!edit ? "hidden" : ""}`}
 				type="submit"

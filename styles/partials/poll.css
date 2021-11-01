@@ -105,4 +105,15 @@
 			@apply hidden;
 		}
 	}
+
+	&__controls {
+		@apply relative bottom-0 flex flex-row items-center justify-center w-full gap-4 pb-4 bg-white;
+
+		&--minus,
+		&--add {
+			.icon {
+				@apply text-hp-dark opacity-30 text-3xl cursor-pointer;
+			}
+		}
+	}
 }

@@ -1,12 +1,13 @@
 import React from "react";
+import Link from "next/link";
 
 function HomePageButton(props) {
-    return (
-        <div className="home-page-button">
-            <button onClick={props.buttonClick}>
-                <a href = {props.path}>{props.title}</a>
-            </button>           
-        </div>
-    );
-};
+	return (
+		<div className="home-page-button">
+			<Link href={props.path}>
+				<a>{props.title}</a>
+			</Link>
+		</div>
+	);
+}
 export default HomePageButton;
