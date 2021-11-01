@@ -109,6 +109,10 @@
 	&__controls {
 		@apply relative bottom-0 flex flex-row items-center justify-center w-full gap-4 pb-4 bg-white;
 
+		&.hidden {
+			@apply hidden;
+		}
+
 		&--minus,
 		&--add {
 			.icon {

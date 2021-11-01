@@ -31,7 +31,7 @@ export const Poll = ({ userRole }) => {
 	// ============================================================================================
 	// function that creates a list of answers divs, think of it like a for-each loop
 	// ============================================================================================
-	const makeAnswers = (items) =>
+	const makeAnswers = (answers) =>
 		answers.map((item, i) => (
 			<div
 				className={`poll__answers--single ${userRole}`}
@@ -50,6 +50,27 @@ export const Poll = ({ userRole }) => {
 				/>
 			</div>
 		));
+
+	// ============================================================================================
+	// Lower button on the form. For the student it funcions as a answer submit button, for the
+	// professor it functions as a "save-edits" button
+	// ============================================================================================
+	const BottomButton = () => {
+		return userRole === "student" ? (
+			<button
+				className={`poll__save `}
+				onClick={(e) => (e.preventDefault(), console.log("User voted"))}
+			>
+				Vote!
+			</button>
+		) : (
+			<input
+				className={`poll__save ${!edit ? "hidden" : ""}`}
+				type="submit"
+				value="Save"
+			/>
+		);
+	};
 
 	// ============================================================================================
 	// Component
@@ -75,7 +96,7 @@ export const Poll = ({ userRole }) => {
 				<Input readonly={!edit} value={question} />
 			</div>
 			<div className="poll__answers">{makeAnswers(answers)}</div>
-			<div className="poll__controls">
+			<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
 				<button
 					className="poll__controls--minus"
 					onClick={(e) => {
@@ -95,11 +116,8 @@ export const Poll = ({ userRole }) => {
 					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
 				</button>
 			</div>
-			<input
-				className={`poll__save ${!edit ? "hidden" : ""}`}
-				type="submit"
-				value="Save"
-			/>
+
+			<BottomButton />
 		</form>
 	);
 };
