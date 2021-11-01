@@ -5,27 +5,32 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import Input from "./Input";
 
 export const Poll = ({ userRole }) => {
 	const [edit, toggleEdit] = useState(false);
-
-	userRole = "student";
-	// userRole = "professor";
-	// userRole = "spectator";
+	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
 
 	let question = "What should we order for dinner?";
-	let answers = ["Subs", "Pizza", "Sushi"];
+	// let answers = ["Subs", "Pizza", "Sushi"];
 
-	// function to switch the selected answer
+	// ============================================================================================
+	//  swich which answer is sleceted when a student clicks on one
+	// ============================================================================================
 	const selectAnswer = (e) => {
 		e.preventDefault();
-		e.target.closest(".poll__answers--single").classList.toggle("selected");
-		console.log("clicked answer");
+		const selectedAnswer = e.target.closest(".poll__answers--single");
+		document.querySelectorAll(".poll__answers--single").forEach((answer) => {
+			answer === selectedAnswer
+				? answer.classList.add("selected")
+				: answer.classList.remove("selected");
+		});
 	};
 
-	// function that creates a list of answers
+	// ============================================================================================
+	// function that creates a list of answers divs, think of it like a for-each loop
+	// ============================================================================================
 	const makeAnswers = (items) =>
 		answers.map((item, i) => (
 			<div
@@ -46,6 +51,9 @@ export const Poll = ({ userRole }) => {
 			</div>
 		));
 
+	// ============================================================================================
+	// Component
+	// ============================================================================================
 	return (
 		<form
 			className="poll"
@@ -55,7 +63,7 @@ export const Poll = ({ userRole }) => {
 			}}
 		>
 			<button
-				className="poll__edit"
+				className={`poll__edit ${userRole === "professor" ? "" : "hidden"}`}
 				onClick={(e) => {
 					e.preventDefault();
 					toggleEdit((prevEdit) => !prevEdit);
@@ -67,6 +75,26 @@ export const Poll = ({ userRole }) => {
 				<Input readonly={!edit} value={question} />
 			</div>
 			<div className="poll__answers">{makeAnswers(answers)}</div>
+			<div className="poll__controls">
+				<button
+					className="poll__controls--minus"
+					onClick={(e) => {
+						e.preventDefault();
+						changeAnswersLength((prevAnswers) => prevAnswers.slice(0, -1));
+					}}
+				>
+					<FontAwesomeIcon className="icon" icon={faMinusSquare} />
+				</button>
+				<button
+					className="poll__controls--add"
+					onClick={(e) => {
+						e.preventDefault();
+						changeAnswersLength((prevAnswers) => [...prevAnswers, ""]);
+					}}
+				>
+					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
+				</button>
+			</div>
 			<input
 				className={`poll__save ${!edit ? "hidden" : ""}`}
 				type="submit"

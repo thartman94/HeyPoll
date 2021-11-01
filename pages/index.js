@@ -25,6 +25,7 @@ export default function Home() {
 					<HomePageButton
 						title={"Join a lobby"}
 						buttonClick={JoinLobby}
+						path="#"
 					></HomePageButton>
 					<HomePageButton
 						title={"Create a poll (as guest)"}
@@ -34,6 +35,7 @@ export default function Home() {
 					<HomePageButton
 						title={"Sign in / Sign up"}
 						buttonClick={Login}
+						path="#"
 					></HomePageButton>
 				</div>
 			</main>
