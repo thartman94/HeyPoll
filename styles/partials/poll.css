@@ -2,11 +2,29 @@
 	@apply relative flex flex-col w-full shadow-xl;
 	max-width: 700px;
 
-	&__question {
-		@apply bg-hp-dark relative flex flex-row items-center justify-start py-8 pl-6 pr-20 text-white rounded-t-lg shadow-xl;
+	&__edit {
+		@apply bg-hp-light border-hp-light absolute right-0 z-50 flex px-10 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
+		transform: translateY(-150%);
 
-		p {
-			@apply text-3xl bg-transparent;
+		&:hover {
+			@apply text-hp-dark bg-transparent cursor-pointer;
+		}
+
+		&.hidden {
+			@apply hidden;
+		}
+	}
+
+	&__question {
+		@apply bg-hp-dark relative flex flex-row items-center justify-start text-white rounded-t-lg shadow-xl;
+
+		input {
+			@apply w-full h-full px-6 py-8 text-3xl leading-relaxed bg-transparent;
+			&.locked {
+				&:focus {
+					@apply outline-none;
+				}
+			}
 		}
 
 		button {
@@ -24,12 +42,40 @@
 		&--single {
 			@apply relative flex flex-row items-center w-full h-auto;
 
-			.remove {
-				@apply absolute right-0 flex px-3 text-xl text-red-500 transition-all duration-500 ease-in-out opacity-25;
-				transform: translateX(100%);
+			&.student {
+				@apply cursor-pointer;
+			}
 
-				&:hover {
-					@apply opacity-100;
+			.answer {
+				@apply border-hp-dark relative flex flex-row w-full border-2;
+				height: 4.5rem;
+
+				&__index {
+					@apply font-mont bg-hp-light relative flex items-center justify-center h-full text-3xl font-bold text-white uppercase;
+					min-width: 4.5rem;
+				}
+
+				&__body {
+					@apply border-hp-dark relative flex items-center w-full h-full border-l-2;
+
+					input {
+						@apply w-full h-full px-4 text-xl leading-relaxed;
+
+						&.student {
+							@apply cursor-pointer pointer-events-none;
+						}
+
+						&.locked {
+							&:focus {
+								@apply outline-none;
+							}
+						}
+					}
+				}
+			}
+			&.selected {
+				.answer__index {
+					@apply bg-hp-gold;
 				}
 			}
 		}
@@ -43,6 +89,34 @@
 
 			&:hover {
 				@apply opacity-70;
+			}
+		}
+	}
+
+	&__save {
+		@apply bg-hp-light border-hp-light absolute bottom-0 right-0 flex px-10 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-md;
+		transform: translateY(150%);
+
+		&:hover {
+			@apply text-hp-dark bg-transparent cursor-pointer;
+		}
+
+		&.hidden {
+			@apply hidden;
+		}
+	}
+
+	&__controls {
+		@apply relative bottom-0 flex flex-row items-center justify-center w-full gap-4 pb-4 bg-white;
+
+		&.hidden {
+			@apply hidden;
+		}
+
+		&--minus,
+		&--add {
+			.icon {
+				@apply text-hp-dark opacity-30 text-3xl cursor-pointer;
 			}
 		}
 	}
