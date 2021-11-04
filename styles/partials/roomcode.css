@@ -6,7 +6,7 @@
 		}
 
     &__box1{
-        @apply bg-white rounded min-w-max w-2/3 border shadow-lg max-w-3xl h-1/6;
+        @apply bg-white rounded min-w-max w-2/3 border shadow-lg max-w-3xl h-1/2;
     }
     &__box2{
         @apply bg-white rounded min-w-max w-2/3  border shadow-lg max-w-3xl;

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Answer } from "./Answer";
 import PropTypes from "prop-types";
 
+import RoomCode from "../components/RoomCode";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +13,7 @@ import Input from "./Input";
 export const Poll = ({ userRole }) => {
 	const [edit, toggleEdit] = useState(false);
 	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
+	const [showRoomCode, setRoomCode] = useState(false);
 
 	let question = "What should we order for dinner?";
 	// let answers = ["Subs", "Pizza", "Sushi"];
@@ -73,9 +76,41 @@ export const Poll = ({ userRole }) => {
 	};
 
 	// ============================================================================================
+	// Button for professor view to show roomcode
+	// ============================================================================================
+	const RoomButton = () => {
+		return userRole === "professor" ? (
+			<button 
+				className={`poll__roomcodeshow `}
+				onClick={(e) => {
+					setRoomCode(true);
+				}}
+			>
+				Show Room Code
+			</button>
+			
+		) : (
+			null
+		);
+	};
+
+
+	// ============================================================================================
 	// Component
 	// ============================================================================================
 	return (
+		<div className="pollroomcode">
+			{showRoomCode ? 
+			<div>
+				<button 
+				className={`poll__roomcodehide `}
+				onClick={(e) => {
+					setRoomCode(false);
+				}}
+				>Hide Room Code</button>
+				<RoomCode /> 
+			</div>
+			: 
 		<form
 			className="poll"
 			onSubmit={(e) => {
@@ -92,6 +127,7 @@ export const Poll = ({ userRole }) => {
 			>
 				Edit
 			</button>
+			<RoomButton />
 			<div className="poll__question">
 				<Input readonly={!edit} value={question} />
 			</div>
@@ -116,9 +152,11 @@ export const Poll = ({ userRole }) => {
 					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
 				</button>
 			</div>
-
 			<BottomButton />
 		</form>
+		}
+		</div>
+
 	);
 };
 
