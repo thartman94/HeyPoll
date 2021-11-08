@@ -1,6 +1,7 @@
-exports.JoinLobby = () => {
-    console.log("hello");
-
+exports.JoinLobby = (e) => {
+        e.preventDefault();
+        console.log("hello");
+        document.querySelector(".EnterRoomDiv").classList.add('active');;
 };
 
 exports.CreatePoll = () => {

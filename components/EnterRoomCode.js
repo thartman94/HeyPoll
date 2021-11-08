@@ -15,7 +15,7 @@ export default function EnterRoomCode() {
   return (
     <form onSubmit={handleSubmit} className="EnterRoomDiv">
       <label>Enter room code:
-        <input 
+        <input
           type="text" 
           value={code}
           onChange={(e) => roomCode(e.target.value)}
