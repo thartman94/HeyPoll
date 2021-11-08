@@ -1,5 +1,6 @@
 exports.JoinLobby = () => {
-    console.log("Join lobby");
+    console.log("hello");
+
 };
 
 exports.CreatePoll = () => {
