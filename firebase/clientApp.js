@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-
+import firebase from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -15,10 +15,19 @@ const firebaseConfig = {
 	measurementId: "G-4ZQ7C05NH2",
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 const auth = getAuth(app);
+
+const loginBtn = document.getElementById("loginBtn");
+
+const provider = new GoogleAuthProvider();
+
+//export const signInWithGoogle = () => signInWithPopup(provider);
+
+//loginBtn.buttonClick = () => signInWithPopup(provider);
 
 // Detect auth state
 onAuthStateChanged(auth, (user) => {
