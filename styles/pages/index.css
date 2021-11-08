@@ -6,6 +6,10 @@
 
 		.title {
 			@apply text-6xl font-bold;
-		}
+
+			.nextjs {
+				@apply text-green-600 uppercase;
+			}
+		}	
 	}
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Footer from "../components/Footer";
@@ -7,6 +7,8 @@ import LinkBoxes from "../components/LinkBoxes";
 import HomePageButton from "../components/HomePageButton";
 import EnterRoomCode from "../components/EnterRoomCode";
 import { JoinLobby, CreatePoll, Login } from "../functions/Functions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
 	return (
@@ -50,6 +52,6 @@ export default function Home() {
 				</div>
 			</main>
 			<Footer />
-		</div>
-	);
+		</div>    
+  	);
 }
