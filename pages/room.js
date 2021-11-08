@@ -6,8 +6,8 @@ import { ProfView } from "../components/ProfView";
 import { StudentView } from "../components/StudentView";
 
 const room = ({ userRole }) => {
-	// userRole = "professor";
-	userRole = "student";
+	userRole = "professor";
+	// userRole = "student";
 	const View = userRole ? ProfView : StudentView;
 
 	return (
