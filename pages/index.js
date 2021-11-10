@@ -7,10 +7,16 @@ import LinkBoxes from "../components/LinkBoxes";
 import HomePageButton from "../components/HomePageButton";
 import EnterRoomCode from "../components/EnterRoomCode";
 import { JoinLobby, CreatePoll, Login } from "../functions/Functions";
+import { googleLogin, logOut } from "../firebase/clientApp";
+import { createGuestPoll } from "../firebase/clientApp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/dist/client/router";
+import { collection, doc, addDoc, setDoc } from "firebase/firestore";
 
 export default function Home() {
+	const router = useRouter();
+
 	return (
 		<div className="index" style={{position:"relative"}}>
 			<Head>
@@ -27,7 +33,7 @@ export default function Home() {
 
 				<div>
 
-					<EnterRoomCode/>
+					<div><EnterRoomCode/></div>
 
 					<button  
 						className="home-page-button"
@@ -41,14 +47,16 @@ export default function Home() {
 					</button>
 					<HomePageButton
 						title={"Create a poll (as guest)"}
-						buttonClick={CreatePoll}
-						path="/room"
+						buttonClick={function(event){createGuestPoll(); router.push(`/room/`)}}
+						//path="/room"
 					></HomePageButton>
 					<HomePageButton
 						title={"Sign in / Sign up"}
-						buttonClick={Login}
+						buttonClick={googleLogin}
 						path="#"
 					></HomePageButton>
+
+					<button onClick={logOut}>Sign out</button>
 				</div>
 			</main>
 			<Footer />
