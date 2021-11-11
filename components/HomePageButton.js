@@ -3,11 +3,11 @@ import Link from "next/link";
 
 function HomePageButton(props) {
 	return (
-		<div className="home-page-button">
-			<Link href={props.path}>
+		<button className="home-page-button" onClick={props.buttonClick}>
+			{/* <Link href={props.path}> */}
 				<a>{props.title}</a>
-			</Link>
-		</div>
+			{/* </Link> */}
+		</button>
 	);
 }
 export default HomePageButton;

@@ -1,3 +1,8 @@
+.pollroomcode {
+	@apply w-full;
+	max-width:700px;
+}
+
 .poll {
 	@apply relative flex flex-col w-full shadow-xl;
 	max-width: 700px;
@@ -6,6 +11,30 @@
 		@apply bg-hp-light border-hp-light absolute right-0 z-50 flex px-10 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
 		transform: translateY(-150%);
 
+		&:hover {
+			@apply text-hp-dark bg-transparent cursor-pointer;
+		}
+
+		&.hidden {
+			@apply hidden;
+		}
+	}
+	
+	&__roomcodeshow {
+		@apply bg-hp-light border-hp-light absolute  z-50 flex px-5 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
+		transform: translateY(-150%);
+		&:hover {
+			@apply text-hp-dark bg-transparent cursor-pointer;
+		}
+
+		&.hidden {
+			@apply hidden;
+		}
+	}
+
+	&__roomcodehide {
+		@apply bg-hp-light border-hp-light absolute  z-50 flex px-5 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
+		transform: translateY(-110%);
 		&:hover {
 			@apply text-hp-dark bg-transparent cursor-pointer;
 		}
