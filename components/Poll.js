@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import RoomCode from "../components/RoomCode";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import Input from "./Input";

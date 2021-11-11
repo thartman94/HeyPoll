@@ -1,3 +1,35 @@
 .prof-view {
 	@apply bg-hp-white relative flex flex-col items-center justify-center w-full h-full px-12;
+
+	.poll {
+		@apply mx-6;
+	}
+
+	.control {
+		@apply text-4xl;
+	}
+
+	.toggle-results {
+		@apply relative flex flex-row w-full mt-8 overflow-hidden text-lg font-semibold text-black bg-white border-2 border-black rounded-lg shadow-md;
+		max-width: 15rem;
+
+		&:before {
+			@apply bg-hp-gold absolute left-0 w-1/2 h-full transition-all duration-500 ease-in-out;
+			content: "";
+		}
+
+		&.results {
+			&:before {
+				transform: translateX(100%);
+			}
+		}
+
+		&__divider {
+			@apply z-50 flex w-px h-full bg-black;
+		}
+
+		&__half {
+			@apply relative flex items-center justify-center w-1/2 py-1 text-center bg-transparent;
+		}
+	}
 }
