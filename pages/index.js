@@ -18,7 +18,7 @@ export default function Home() {
 	const router = useRouter();
 
 	return (
-		<div className="index" style={{position:"relative"}}>
+		<div className="index" style={{ position: "relative" }}>
 			<Head>
 				<title>HeyPoll</title>
 				<link rel="icon" href="/favicon.ico" />
@@ -27,27 +27,29 @@ export default function Home() {
 
 			<main className="index__main">
 				<h1 className="title">
-					Welcome to <span className="text-red-600 font-pacifico">HeyPoll</span>
+					Welcome to <span className="font-pacifico text-red-600">HeyPoll</span>
 				</h1>
 				<br></br>
 
-				<div>
+				<div className="button-wrapper">
+					{/* <div><EnterRoomCode/></div> */}
 
-					<div><EnterRoomCode/></div>
-
-					<button  
+					<button
 						className="home-page-button"
 						onClick={(e) => {
-        				e.preventDefault(),
-        				console.log("hello"),
-        				document.querySelector(".EnterRoomDiv").classList.add('active')
-					}}>
-						
+							e.preventDefault(),
+								console.log("hello"),
+								document.querySelector(".EnterRoomDiv").classList.add("active");
+						}}
+					>
 						Enter Room Code
 					</button>
 					<HomePageButton
 						title={"Create a poll (as guest)"}
-						buttonClick={function(event){createGuestPoll(); router.push(`/room/`)}}
+						buttonClick={function (event) {
+							createGuestPoll();
+							router.push(`/room/`);
+						}}
 						//path="/room"
 					></HomePageButton>
 					<HomePageButton
@@ -60,6 +62,6 @@ export default function Home() {
 				</div>
 			</main>
 			<Footer />
-		</div>    
-  	);
+		</div>
+	);
 }
