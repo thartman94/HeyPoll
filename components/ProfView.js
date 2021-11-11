@@ -9,11 +9,11 @@ export const ProfView = ({ userRole }) => {
 	return (
 		<section className="prof-view">
 			<div className="relative flex flex-row justify-center w-full">
-				<PollControl direction="left" />
+				{/* <PollControl direction="left" /> */}
 				{showResults ? <Result /> : <Poll userRole={userRole} />}
-				<PollControl direction="right" />
+				{/* <PollControl direction="right" /> */}
 			</div>
-			{/* !change this for acceibility later */}
+
 			<div className={`toggle-results ${showResults ? "results" : null}`}>
 				<button
 					className="toggle-results__half"
@@ -33,7 +33,7 @@ export const ProfView = ({ userRole }) => {
 					}}
 				>
 					Results
-				</button>
+				</button>{" "}
 			</div>
 		</section>
 	);

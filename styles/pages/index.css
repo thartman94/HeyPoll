@@ -2,14 +2,13 @@
 	@apply flex flex-col items-center justify-center min-h-screen;
 
 	&__main {
-		@apply flex flex-col items-center justify-center flex-1 w-full px-20 text-center;
+		@apply relative flex flex-col items-center justify-center flex-1 w-full px-20 text-center;
 
 		.title {
 			@apply text-6xl font-bold;
-
-			.nextjs {
-				@apply text-green-600 uppercase;
-			}
-		}	
+		}
+		.button-wrapper {
+			@apply relative flex flex-col w-full gap-6 mt-12;
+		}
 	}
 }
