@@ -48,7 +48,7 @@ export default function Home() {
 						title={"Create a poll (as guest)"}
 						buttonClick={function (event) {
 							createGuestPoll();
-							router.push(`/room/`);
+							// router.push(`/room/`);
 						}}
 						//path="/room"
 					></HomePageButton>

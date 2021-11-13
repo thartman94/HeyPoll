@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Poll } from "./Poll";
 import { PollControl } from "./PollControl";
 import { Result } from "./Result";
 
 export const ProfView = ({ userRole }) => {
-	const [showResults, toggleResults] = useState(false);
-
 	return (
 		<section className="prof-view">
 			<div className="relative flex flex-row justify-center w-full">
 				{/* <PollControl direction="left" /> */}
-				{showResults ? <Result /> : <Poll userRole={userRole} />}
+				<Poll />
 				{/* <PollControl direction="right" /> */}
 			</div>
 
-			<div className={`toggle-results ${showResults ? "results" : null}`}>
+			{/* <div className={`toggle-results ${showResults ? "results" : null}`}>
 				<button
 					className="toggle-results__half"
 					onClick={(e) => {
@@ -24,7 +22,7 @@ export const ProfView = ({ userRole }) => {
 				>
 					Poll
 				</button>
-				{/* <div className="toggle-results__divider"></div> */}
+				<div className="toggle-results__divider"></div>
 				<button
 					className="toggle-results__half"
 					onClick={(e) => {
@@ -34,7 +32,7 @@ export const ProfView = ({ userRole }) => {
 				>
 					Results
 				</button>{" "}
-			</div>
+			</div> */}
 		</section>
 	);
 };
