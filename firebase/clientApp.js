@@ -23,7 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 // createUserWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {
@@ -99,6 +99,18 @@ export const createGuestPoll = () => {
     })   
   }); 
 };
+
+export const saveGuestPoll = async (id) => { 
+  const docRef = doc(db, "guestPolls", id);
+  setDoc(doc(db, "guestPolls", ), {
+    question: question,
+    answers: answers,          // Array to store answers
+    correctAnswer: 0,     // Index of correct answer
+    results: [],          // Array to store results
+    //joinCode: guestRef.id.substring(0,5),
+    //guestID: user.uid
+  })   
+  };
 
 export const getJoinCode = () => {
 

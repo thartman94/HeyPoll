@@ -9,6 +9,8 @@ import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import Input from "./Input";
 
+import { saveGuestPoll } from "../firebase/clientApp";
+
 export const Poll = ({ userRole }) => {
 	const [edit, toggleEdit] = useState(false);
 	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
@@ -18,7 +20,7 @@ export const Poll = ({ userRole }) => {
 	// let answers = ["Subs", "Pizza", "Sushi"];
 
 	// ============================================================================================
-	//  swich which answer is sleceted when a student clicks on one
+	//  switch which answer is selected when a student clicks on one
 	// ============================================================================================
 	const selectAnswer = (e) => {
 		e.preventDefault();
@@ -115,6 +117,8 @@ export const Poll = ({ userRole }) => {
 			onSubmit={(e) => {
 				e.preventDefault();
 				console.log("submit poll");
+				// Need firebase function here to save question & answers to db
+				saveGuestPoll();
 			}}
 		>
 			<button
@@ -128,6 +132,7 @@ export const Poll = ({ userRole }) => {
 			</button>
 			<RoomButton />
 			<div className="poll__question">
+				{/* Question */}
 				<Input readonly={!edit} value={question} />
 			</div>
 			<div className="poll__answers">{makeAnswers(answers)}</div>

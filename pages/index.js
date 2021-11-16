@@ -7,12 +7,12 @@ import LinkBoxes from "../components/LinkBoxes";
 import HomePageButton from "../components/HomePageButton";
 import EnterRoomCode from "../components/EnterRoomCode";
 import { JoinLobby, CreatePoll, Login } from "../functions/Functions";
-import { googleLogin, logOut } from "../firebase/clientApp";
-import { createGuestPoll } from "../firebase/clientApp";
+import { auth, googleLogin, logOut } from "../firebase/clientApp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/dist/client/router";
 import { collection, doc, addDoc, setDoc } from "firebase/firestore";
+import { createGuestPoll } from "../firebase/clientApp";
 
 export default function Home() {
 	const router = useRouter();
@@ -33,7 +33,7 @@ export default function Home() {
 
 				<div>
 
-					<div><EnterRoomCode/></div>
+					{/* <div><EnterRoomCode/></div> */}
 
 					<button  
 						className="home-page-button"
