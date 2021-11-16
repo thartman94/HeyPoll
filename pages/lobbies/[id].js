@@ -9,11 +9,9 @@ import { useRouter } from "next/dist/client/router";
 
 export default function Lobby() {
 	const router = useRouter();
-	console.log(router.query);
 	const pollID = router.query.id;
-	const userRole = router.query.userRole;
 
-	// userRole = "professor";
+	let userRole = "professor";
 	// userRole = "student";
 
 	const View = userRole ? ProfView : StudentView;
@@ -21,9 +19,9 @@ export default function Lobby() {
 
 	return (
 		<section className="poll-lobby">
-			{/* <Header title="Poll Lobby" />
+			<Header title="Poll Lobby" />
 			<View userRole={userRole} />
-			<Footer /> */}
+			<Footer />
 		</section>
 	);
 }

@@ -54,7 +54,7 @@ export default function Home() {
 								router.push(
 									{
 										pathname: `/lobbies/${result}`,
-										query: userRole,
+										query: result,
 									},
 									`/lobbies/${result}`
 								);
