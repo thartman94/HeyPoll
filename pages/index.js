@@ -29,19 +29,26 @@ export default function Home() {
 
 			<main className="index__main">
 				<h1 className="title">
-					Welcome to <span className="font-pacifico text-red-600">HeyPoll</span>
+					Welcome to <span className="text-red-600 font-pacifico">HeyPoll</span>
 				</h1>
 				<br></br>
 
 				<div className="button-wrapper">
-					{/* <div><EnterRoomCode/></div> */}
+					<div style = {{display:"none"}} className ="enter-room-div"> <EnterRoomCode/>
+						<button className = "close-code-button" onClick ={(e) => {
+							e.preventDefault(),
+							document.querySelector(".enter-room-div").style.display = "none";
+						}}>
+							Close
+							</button>
+					</div> 
 
 					<button
 						className="home-page-button"
 						onClick={(e) => {
 							e.preventDefault(),
 								console.log("hello"),
-								document.querySelector(".EnterRoomDiv").classList.add("active");
+								document.querySelector(".enter-room-div").style.display = "block";
 						}}
 					>
 						Enter Room Code

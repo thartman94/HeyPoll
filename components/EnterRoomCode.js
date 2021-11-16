@@ -24,15 +24,6 @@ export default function EnterRoomCode() {
       <input
           className="EnterRoomSubmit"
           type="submit" />
-      <button
-          className="EnterRoomClose"
-          onClick={(e) => {
-          e.preventDefault(),
-          console.log("hello"),
-          document.querySelector(".EnterRoomDiv").classList.remove('active')
-    }}>
-        Close
-      </button>
     </form>
   )
 }
