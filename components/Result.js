@@ -29,7 +29,7 @@ const data = [
 
 export const Result = () => {
 	return (
-		<ResponsiveContainer width="100%" aspect={3}>
+		<ResponsiveContainer className="result" width="100%" aspect={3}>
 			<BarChart width={150} height={40} data={data}>
 				{/* <Tooltip /> */}
 				{/* <CartesianGrid /> */}

@@ -1,25 +1,29 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { ProfView } from "../components/ProfView";
-import { StudentView } from "../components/StudentView";
+// File is depricated, contents moved to lobbies/[id].js
+// Anything you would have done here should be done over there.
+// Leaving this file for now, will be deleted later.
 
-const room = ({ userRole }) => {
-	userRole = "professor";
-	// userRole = "student";
+// import React from "react";
+// import PropTypes from "prop-types";
+// import Header from "../components/Header";
+// import Footer from "../components/Footer";
+// import { ProfView } from "../components/ProfView";
+// import { StudentView } from "../components/StudentView";
 
-	const View = userRole ? ProfView : StudentView;
+// const room = ({ userRole }) => {
+// 	userRole = "professor";
+// 	// userRole = "student";
 
-	return (
-		<section className="poll-lobby">
-			<Header title="Poll Lobby" />
-			<View userRole={userRole} />
-			<Footer />
-		</section>
-	);
-};
+// 	const View = userRole ? ProfView : StudentView;
 
-room.propTypes = {};
+// 	return (
+// 		<section className="poll-lobby">
+// 			<Header title="Poll Lobby" />
+// 			<View userRole={userRole} />
+// 			<Footer />
+// 		</section>
+// 	);
+// };
 
-export default room;
+// room.propTypes = {};
+
+// export default room;

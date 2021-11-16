@@ -1,10 +1,10 @@
 .pollroomcode {
 	@apply w-full;
-	max-width:700px;
+	max-width: 700px;
 }
 
 .poll {
-	@apply relative flex flex-col w-full shadow-xl;
+	@apply relative flex flex-col w-full overflow-hidden shadow-xl;
 	max-width: 700px;
 
 	&__edit {
@@ -19,9 +19,9 @@
 			@apply hidden;
 		}
 	}
-	
+
 	&__roomcodeshow {
-		@apply bg-hp-light border-hp-light absolute  z-50 flex px-5 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
+		@apply bg-hp-light border-hp-light absolute z-50 flex px-5 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
 		transform: translateY(-150%);
 		&:hover {
 			@apply text-hp-dark bg-transparent cursor-pointer;
@@ -33,7 +33,7 @@
 	}
 
 	&__roomcodehide {
-		@apply bg-hp-light border-hp-light absolute  z-50 flex px-5 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
+		@apply bg-hp-light border-hp-light absolute z-50 flex px-5 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
 		transform: translateY(-110%);
 		&:hover {
 			@apply text-hp-dark bg-transparent cursor-pointer;
@@ -65,8 +65,17 @@
 		}
 	}
 
+	&__body {
+		@apply relative flex flex-row h-full transition-all duration-500 ease-in-out;
+		width: 200%;
+		transform: translateX(0);
+		&.show-results {
+			transform: translateX(-50%);
+		}
+	}
+
 	&__answers {
-		@apply relative flex flex-col w-full h-auto gap-6 p-12 bg-white;
+		@apply relative flex flex-col w-1/2 h-auto gap-6 p-12 bg-white;
 
 		&--single {
 			@apply relative flex flex-row items-center w-full h-auto;

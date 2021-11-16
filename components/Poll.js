@@ -8,11 +8,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import Input from "./Input";
+import { Result } from "./Result";
 
 export const Poll = ({ userRole }) => {
 	const [edit, toggleEdit] = useState(false);
 	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
 	const [showRoomCode, setRoomCode] = useState(false);
+	const [showResults, toggleResults] = useState(false);
 
 	let question = "What should we order for dinner?";
 	// let answers = ["Subs", "Pizza", "Sushi"];
@@ -79,7 +81,7 @@ export const Poll = ({ userRole }) => {
 	// ============================================================================================
 	const RoomButton = () => {
 		return userRole === "professor" ? (
-			<button 
+			<button
 				className={`poll__roomcodeshow `}
 				onClick={(e) => {
 					setRoomCode(true);
@@ -87,75 +89,91 @@ export const Poll = ({ userRole }) => {
 			>
 				Show Room Code
 			</button>
-			
-		) : (
-			null
-		);
+		) : null;
 	};
 
+	const PollBody = () => (
+		<div className={`poll__body ${showResults && "show-results"}`}>
+			<div className="poll__answers">{makeAnswers(answers)}</div>
+			<Result />
+		</div>
+	);
 
+	const ToggleView = () => (
+		<button
+			className=""
+			onClick={(e) => {
+				e.preventDefault();
+				toggleResults(!showResults);
+			}}
+		>
+			Switch View
+		</button>
+	);
 	// ============================================================================================
 	// Component
 	// ============================================================================================
 	return (
 		<div className="pollroomcode">
-			{showRoomCode ? 
-			<div>
-				<button 
-				className={`poll__roomcodehide `}
-				onClick={(e) => {
-					setRoomCode(false);
-				}}
-				>Hide Room Code</button>
-				<RoomCode /> 
-			</div>
-			: 
-		<form
-			className="poll"
-			onSubmit={(e) => {
-				e.preventDefault();
-				console.log("submit poll");
-			}}
-		>
-			<button
-				className={`poll__edit ${userRole === "professor" ? "" : "hidden"}`}
-				onClick={(e) => {
-					e.preventDefault();
-					toggleEdit((prevEdit) => !prevEdit);
-				}}
-			>
-				Edit
-			</button>
-			<RoomButton />
-			<div className="poll__question">
-				<Input readonly={!edit} value={question} />
-			</div>
-			<div className="poll__answers">{makeAnswers(answers)}</div>
-			<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
-				<button
-					className="poll__controls--minus"
-					onClick={(e) => {
+			{showRoomCode ? (
+				<div>
+					<button
+						className={`poll__roomcodehide `}
+						onClick={(e) => {
+							setRoomCode(false);
+						}}
+					>
+						Hide Room Code
+					</button>
+					<RoomCode />
+				</div>
+			) : (
+				<form
+					className="poll"
+					onSubmit={(e) => {
 						e.preventDefault();
-						changeAnswersLength((prevAnswers) => prevAnswers.slice(0, -1));
+						console.log("submit poll");
 					}}
 				>
-					<FontAwesomeIcon className="icon" icon={faMinusSquare} />
-				</button>
-				<button
-					className="poll__controls--add"
-					onClick={(e) => {
-						e.preventDefault();
-						changeAnswersLength((prevAnswers) => [...prevAnswers, ""]);
-					}}
-				>
-					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
-				</button>
-			</div>
-			<BottomButton />
-		</form>
-		}
+					<button
+						className={`poll__edit ${userRole === "professor" ? "" : "hidden"}`}
+						onClick={(e) => {
+							e.preventDefault();
+							toggleEdit((prevEdit) => !prevEdit);
+						}}
+					>
+						Edit
+					</button>
+					<RoomButton />
+					<div className="poll__question">
+						<Input readonly={!edit} value={question} />
+					</div>
+					<PollBody showResults={showResults} />
+					<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
+						<button
+							className="poll__controls--minus"
+							onClick={(e) => {
+								e.preventDefault();
+								changeAnswersLength((prevAnswers) => prevAnswers.slice(0, -1));
+							}}
+						>
+							<FontAwesomeIcon className="icon" icon={faMinusSquare} />
+						</button>
+						<button
+							className="poll__controls--add"
+							onClick={(e) => {
+								e.preventDefault();
+								changeAnswersLength((prevAnswers) => [...prevAnswers, ""]);
+							}}
+						>
+							<FontAwesomeIcon className="icon" icon={faPlusSquare} />
+						</button>
+					</div>
+					<ToggleView />
+					<BottomButton />
+				</form>
+			)}
 		</div>
-
 	);
 };
 

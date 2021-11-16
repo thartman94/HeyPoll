@@ -12,10 +12,12 @@ import { createGuestPoll } from "../firebase/clientApp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/dist/client/router";
-import { collection, doc, addDoc, setDoc } from "firebase/firestore";
 
 export default function Home() {
 	const router = useRouter();
+	let userRole = "professor";
+
+	async function createGuestPollNew() {}
 
 	return (
 		<div className="index" style={{ position: "relative" }}>
@@ -46,9 +48,17 @@ export default function Home() {
 					</button>
 					<HomePageButton
 						title={"Create a poll (as guest)"}
-						buttonClick={function (event) {
-							createGuestPoll();
-							router.push(`/room/`);
+						buttonClick={() => {
+							createGuestPoll().then(async (result) => {
+								// console.log(result);
+								router.push(
+									{
+										pathname: `/lobbies/${result}`,
+										query: userRole,
+									},
+									`/lobbies/${result}`
+								);
+							});
 						}}
 						//path="/room"
 					></HomePageButton>
