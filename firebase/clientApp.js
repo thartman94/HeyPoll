@@ -86,12 +86,9 @@ export const logOut = () => {
 };
 
 export const createGuestPoll = () => {
-	signInAnonymously(auth).then(async (result) => {
+	const guestRefID = signInAnonymously(auth).then(async (result) => {
 		const user = result.user;
-
-		const guestRef = await addDoc(collection(db, "guestPolls"), {
-			// Create empty guest poll
-		});
+		const guestRef = await addDoc(collection(db, "guestPolls"), {}); // Create empty guest poll
 
 		setDoc(doc(db, "guestPolls", guestRef.id), {
 			question: "",
@@ -101,7 +98,11 @@ export const createGuestPoll = () => {
 			joinCode: guestRef.id.substring(0, 5),
 			guestID: user.uid,
 		});
+
+		return guestRef.id;
 	});
+
+	return guestRefID;
 };
 
 export const getJoinCode = () => {};
