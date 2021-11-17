@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, doc, addDoc, setDoc } from "firebase/firestore";
+import { collection, doc, addDoc, setDoc, query, where, getDocs } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -116,5 +116,14 @@ onAuthStateChanged(auth, (user) => {
 		console.log("No user");
 	}
 });
-
+export const getFullCode = async (inputCode) =>{
+	const q = query(collection(db, "guestPolls"), where ("joinCode", "==", inputCode));
+	const querySnapshot = await getDocs(q);
+	console.log(querySnapshot.docs.length);
+	if (querySnapshot.docs.length > 0){
+		return querySnapshot.docs[0].id;
+	}else {
+		return "none";
+	}
+}
 export default { db, auth };

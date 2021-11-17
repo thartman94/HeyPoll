@@ -1,35 +1,24 @@
 .EnterRoomDiv{
-    @apply transition-all ease-in-out duration-500 opacity-100 pointer-events-none;
+    @apply transition-all ease-in-out duration-500 opacity-100;
     @apply font-mont text-white px-8 py-4 bg-hp-gold flex;
     @apply w-full;
     @apply bg-hp-dark;
     display:flex;
     flex-direction:column;
     z-index:100;
-    position:absolute; 
+    /* position:absolute;  */
     margin: auto auto;
-    height:20rem;
+    padding: auto auto;
+    height:10rem;
     width:30rem;
+    border-radius: 16px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    @apply mx-auto;
 
     &.active{
        @apply pointer-events-auto opacity-100; 
     }
 }
-
-.EnterRoomClose{
-    @apply font-mont text-white px-8 py-4 bg-hp-gold flex;
-    @apply w-full;
-    max-width: 100px;
-    max-height: 100px;
-    text-align: center;
-    justify-content: center;
-    font-size: 24px;
-    transition-duration: 0.4s;
-    border-radius: 16px;
-    margin: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-}
-
 .EnterRoomSubmit{
     @apply font-mont text-white px-8 py-4 bg-hp-gold flex;
     @apply w-full;
@@ -42,4 +31,7 @@
     border-radius: 16px;
     margin: auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    &:hover{
+        @apply bg-hp-light;
+    }
 }

@@ -1,39 +1,50 @@
 import { faAlignCenter, faAlignJustify } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useState } from "react";
-
+import { useRouter } from "next/dist/client/router";
+import { getFullCode } from "../firebase/clientApp";
 
 
 export default function EnterRoomCode() {
-  const [code, roomCode] = useState("");
+  const [text, setText] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(code)
+  const handleSubmit = (e) => {
+    e.preventDefault(),
+    console.log("submitted")
+    getFullCode(text).then(async (result) => {
+      if(result == "none"){
+        alert("invalid poll code")
+      }else{
+        router.push(
+          {
+            pathname: `/lobbies/${result}`,
+            query: result,
+         },
+         `/lobbies/${result}`
+        )
+      }
+    }
+      ),
+    setText("");
   }
 
   return (
+    <div>
     <form onSubmit={handleSubmit} className="EnterRoomDiv">
-      <label>Enter room code:
-        <input
+      <label className = "questionLabel">Enter room code: </label>
+        <input className = "questionInput"
           type="text" 
-          value={code}
-          onChange={(e) => roomCode(e.target.value)}
+          value={text}
+          placeholder = "Enter code"
+          onChange={(e) => setText(e.target.value)}
         />
-      </label>
       <input
           className="EnterRoomSubmit"
-          type="submit" />
-      <button
-          className="EnterRoomClose"
-          onClick={(e) => {
-          e.preventDefault(),
-          console.log("hello"),
-          document.querySelector(".EnterRoomDiv").classList.remove('active')
-    }}>
-        Close
-      </button>
+          type="submit"
+          value = "Submit"/>
     </form>
+    </div>
   )
 }
 
