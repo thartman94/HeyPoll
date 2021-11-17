@@ -1,26 +1,33 @@
-.pollroomcode {
+/* .pollroomcode {
 	@apply w-full;
 	max-width: 700px;
-}
+} */
 
 .poll {
-	@apply relative flex flex-col w-full overflow-hidden shadow-xl;
+	@apply relative flex flex-col w-full shadow-xl;
 	max-width: 700px;
 
 	&__edit {
-		@apply bg-hp-light border-hp-light absolute right-0 z-50 flex px-10 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
-		transform: translateY(-150%);
+		@apply absolute top-0 right-0 z-40 text-3xl transition-all duration-300 ease-in-out bg-transparent;
+		transform: translateY(100%) translateX(calc(100% + 1rem));
 
-		&:hover {
-			@apply text-hp-dark bg-transparent cursor-pointer;
+		.icon {
+			@apply text-hp-dark opacity-30;
+
+			&.active {
+				@apply text-green-600 opacity-100;
+			}
 		}
 
-		&.hidden {
-			@apply hidden;
+		&:hover {
+			@apply cursor-pointer;
+			.icon {
+				@apply opacity-100;
+			}
 		}
 	}
 
-	&__roomcodeshow {
+	/* &__roomcodeshow {
 		@apply bg-hp-light border-hp-light absolute z-50 flex px-5 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
 		transform: translateY(-150%);
 		&:hover {
@@ -30,9 +37,9 @@
 		&.hidden {
 			@apply hidden;
 		}
-	}
+	} */
 
-	&__roomcodehide {
+	/* &__roomcodehide {
 		@apply bg-hp-light border-hp-light absolute z-50 flex px-5 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2;
 		transform: translateY(-110%);
 		&:hover {
@@ -42,7 +49,7 @@
 		&.hidden {
 			@apply hidden;
 		}
-	}
+	} */
 
 	&__question {
 		@apply bg-hp-dark relative flex flex-row items-center justify-start text-white rounded-t-lg shadow-xl;
@@ -63,6 +70,10 @@
 				@apply text-hp-gold;
 			}
 		}
+	}
+
+	&__wrapper {
+		@apply relative flex flex-col w-full h-full overflow-hidden;
 	}
 
 	&__body {
@@ -131,21 +142,8 @@
 		}
 	}
 
-	&__save {
-		@apply bg-hp-light border-hp-light absolute bottom-0 right-0 flex px-10 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-md;
-		transform: translateY(150%);
-
-		&:hover {
-			@apply text-hp-dark bg-transparent cursor-pointer;
-		}
-
-		&.hidden {
-			@apply hidden;
-		}
-	}
-
 	&__controls {
-		@apply relative bottom-0 flex flex-row items-center justify-center w-full gap-4 pb-4 bg-white;
+		@apply absolute bottom-0 left-0 right-0 flex flex-row items-center justify-center gap-4 pb-0 mx-auto mb-1 bg-transparent;
 
 		&.hidden {
 			@apply hidden;
@@ -154,8 +152,43 @@
 		&--minus,
 		&--add {
 			.icon {
-				@apply text-hp-dark opacity-30 text-3xl cursor-pointer;
+				@apply text-hp-dark opacity-30 text-3xl transition-all duration-300 ease-in-out cursor-pointer;
 			}
+		}
+		&--minus {
+			.icon {
+				&:hover {
+					@apply text-red-500 opacity-100;
+				}
+			}
+		}
+		&--add {
+			.icon {
+				&:hover {
+					@apply text-green-600 opacity-100;
+				}
+			}
+		}
+	}
+	.toggle-view {
+		@apply bg-hp-dark border-hp-dark absolute bottom-0 right-0 flex px-3 py-1 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-xl cursor-pointer;
+		transform: translateY(calc(100% + 1rem));
+
+		&.active {
+			@apply left-0 right-auto;
+		}
+
+		&:hover {
+			@apply text-hp-dark bg-transparent;
+		}
+	}
+
+	.clear-results {
+		@apply bg-hp-gold border-hp-gold absolute bottom-0 right-0 flex px-3 py-1 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-xl cursor-pointer;
+		transform: translateY(calc(100% + 1rem));
+
+		&:hover {
+			@apply text-hp-dark bg-transparent;
 		}
 	}
 }

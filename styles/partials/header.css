@@ -17,21 +17,29 @@
 		@apply font-mont text-hp-dark ml-8 text-4xl font-bold;
 	}
 
-	.hamburger {
-		@apply bg-hp-dark rounded-xl absolute top-0 bottom-0 right-0 flex flex-col items-center justify-center gap-2 px-3 my-auto mr-4 transition-all duration-500 ease-in-out;
-		width: 4rem;
-		height: 4rem;
+	.show-code {
+		@apply bg-hp-dark absolute right-0 flex flex-col items-center justify-center gap-2 px-4 py-3 my-auto mr-4 font-bold text-white transition-all duration-100 ease-in-out;
 
 		&:hover {
 			@apply bg-hp-light;
 		}
 
-		.line {
-			@apply h-2px flex w-full bg-white;
+		&.is-active {
+			@apply bg-hp-gold;
 
-			&:nth-of-type(2) {
-				transform: translateX(0.25rem);
+			&:hover {
+				@apply text-hp-dark bg-transparent;
 			}
+		}
+	}
+
+	.info-modal {
+		@apply bg-opacity-60 top-20 fixed left-0 z-30 flex items-center justify-center w-screen h-full mt-2 transition-all duration-500 ease-in-out bg-black opacity-0 pointer-events-none;
+		transform: scale(0.97);
+
+		&.is-active {
+			@apply opacity-100 pointer-events-auto;
+			transform: scale(1);
 		}
 	}
 }
