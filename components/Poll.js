@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Answer } from "./Answer";
-import PropTypes from "prop-types";
-import RoomCode from "../components/RoomCode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faPlusSquare,
@@ -159,19 +157,6 @@ export const Poll = ({ userRole }) => {
 	// ============================================================================================
 	return (
 		<div>
-			{/* {showRoomCode ? (
-				<div className="pollroomcode">
-					<button
-						className={`poll__roomcodehide `}
-						onClick={(e) => {
-							setRoomCode(false);
-						}}
-					>
-						Hide Room Code
-					</button>
-					<RoomCode />
-				</div>
-			) : ( */}
 			<form
 				className="poll"
 				onSubmit={(e) => {
@@ -180,8 +165,6 @@ export const Poll = ({ userRole }) => {
 				}}
 			>
 				<EditButton />
-
-				{/* <RoomButton /> */}
 				<div className="poll__question">
 					<Input readonly={!edit} value={question} />
 				</div>
@@ -212,7 +195,6 @@ export const Poll = ({ userRole }) => {
 				<ClearResults />
 				{/* <BottomButton /> */}
 			</form>
-			{/* )} */}
 		</div>
 	);
 };
