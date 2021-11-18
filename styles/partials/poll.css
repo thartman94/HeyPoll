@@ -162,4 +162,23 @@
 			@apply text-hp-dark bg-transparent;
 		}
 	}
+
+	.save-answer {
+		@apply bg-hp-gold border-hp-gold absolute bottom-0 right-0 flex px-6 py-1 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-xl cursor-pointer;
+		transform: translateY(calc(100% + 1rem));
+
+		&:hover {
+			@apply text-hp-dark bg-transparent;
+		}
+	}
+
+	.response {
+		@apply absolute bottom-0 flex items-center justify-center w-full mx-auto mb-1 text-sm font-bold text-center text-red-600 transition-all duration-500 ease-in-out opacity-0;
+		transform: translateY(50%);
+
+		&.active {
+			@apply opacity-100;
+			transform: translateY(0);
+		}
+	}
 }

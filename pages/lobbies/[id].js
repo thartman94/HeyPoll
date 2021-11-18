@@ -12,7 +12,7 @@ export default function Lobby() {
 	const pollID = router.query.id;
 
 	let userRole = "professor";
-	// userRole = "student";
+	// let userRole = "student";
 
 	const View = userRole ? ProfView : StudentView;
 	console.log(pollID, userRole);

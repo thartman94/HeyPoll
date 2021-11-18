@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Answer } from "./Answer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faPlusSquare,
@@ -7,28 +6,18 @@ import {
 	faEdit,
 	faSave,
 } from "@fortawesome/free-solid-svg-icons";
+
 import Input from "./Input";
 import { Result } from "./Result";
+import { Answer } from "./Answer";
 
 export const Poll = ({ userRole }) => {
 	const [edit, toggleEdit] = useState(false);
 	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
 	const [showResults, toggleResults] = useState(false);
+	const [selectedAnswer, selectAnswer] = useState(null);
 
 	let question = "What should we order for dinner?";
-
-	// ============================================================================================
-	//  swich which answer is sleceted when a student clicks on one
-	// ============================================================================================
-	const selectAnswer = (e) => {
-		e.preventDefault();
-		const selectedAnswer = e.target.closest(".poll__answers--single");
-		document.querySelectorAll(".poll__answers--single").forEach((answer) => {
-			answer === selectedAnswer
-				? answer.classList.add("selected")
-				: answer.classList.remove("selected");
-		});
-	};
 
 	// ============================================================================================
 	// function that creates a list of answers divs, think of it like a for-each loop
@@ -36,15 +25,17 @@ export const Poll = ({ userRole }) => {
 	const makeAnswers = (answers) =>
 		answers.map((item, i) => (
 			<div
-				className={`poll__answers--single ${userRole}`}
+				key={i}
+				className={`poll__answers--single ${userRole} ${
+					selectedAnswer === i && "selected"
+				}`}
 				onClick={(e) => {
 					if (userRole === "student") {
-						selectAnswer(e);
+						selectAnswer(i);
 					}
 				}}
 			>
 				<Answer
-					key={i}
 					index={String.fromCharCode(97 + i)}
 					answer={item}
 					edit={edit}
@@ -54,36 +45,25 @@ export const Poll = ({ userRole }) => {
 		));
 
 	// ============================================================================================
-	//
+	//	Function for Student submitting answer
 	// ============================================================================================
-	const BottomButton = () => {
-		return (
-			userRole === "student" && (
-				<button
-					className={`poll__save `}
-					onClick={(e) => (e.preventDefault(), console.log("User voted"))}
-				>
-					Vote!
-				</button>
-			)
-		);
+	const submitAnswer = (e) => {
+		e.preventDefault();
+		const answer = document.querySelector(".selected");
+		const response = document.querySelector(".response");
+		if (answer) {
+			toggleResults((prevShowResults) => !prevShowResults);
+		}
 	};
 
 	// ============================================================================================
-	// Button for professor view to show roomcode
+	//	Button for students to submit answer
 	// ============================================================================================
-	const RoomButton = () => {
-		return userRole === "professor" ? (
-			<button
-				className={`poll__roomcodeshow `}
-				onClick={(e) => {
-					setRoomCode(true);
-				}}
-			>
-				Show Room Code
-			</button>
-		) : null;
-	};
+	const SubmitAnswer = () => (
+		<button className={`save-answer`} onClick={submitAnswer}>
+			SUBMIT
+		</button>
+	);
 
 	// ============================================================================================
 	// Answer section of the poll compnent
@@ -98,36 +78,32 @@ export const Poll = ({ userRole }) => {
 	// ============================================================================================
 	// Button to switch between answers and results
 	// ============================================================================================
-	const ToggleView = () => {
-		return userRole === "professor" ? (
-			<button
-				className={`toggle-view ${showResults && "active"}`}
-				onClick={(e) => {
-					e.preventDefault();
-					toggleResults(!showResults);
-				}}
-			>
-				Show{showResults ? " Choices" : " Results"}
-			</button>
-		) : null;
-	};
+	const ToggleView = () => (
+		<button
+			className={`toggle-view ${showResults && "active"}`}
+			onClick={(e) => {
+				e.preventDefault();
+				toggleResults(!showResults);
+			}}
+		>
+			Show{showResults ? " Choices" : " Results"}
+		</button>
+	);
 
 	// ============================================================================================
 	// Button to clear poll results
 	// ============================================================================================
-	const ClearResults = () => {
-		return (userRole === "professor") & (showResults === true) ? (
-			<button
-				className={`clear-results`}
-				onClick={(e) => {
-					e.preventDefault();
-					toggleResults((prevShowResults) => !prevShowResults);
-				}}
-			>
-				Clear Results
-			</button>
-		) : null;
-	};
+	const ClearResults = () => (
+		<button
+			className={`clear-results`}
+			onClick={(e) => {
+				e.preventDefault();
+				toggleResults((prevShowResults) => !prevShowResults);
+			}}
+		>
+			Clear Results
+		</button>
+	);
 
 	// ============================================================================================
 	// Edit Button
@@ -191,9 +167,14 @@ export const Poll = ({ userRole }) => {
 						<FontAwesomeIcon className="icon" icon={faPlusSquare} />
 					</button>
 				</div>
-				<ToggleView />
-				<ClearResults />
-				{/* <BottomButton /> */}
+
+				{userRole === "professor" && <ToggleView />}
+				{userRole === "professor" && showResults === true ? (
+					<ClearResults />
+				) : null}
+				{selectedAnswer !== null && !showResults && userRole === "student" ? (
+					<SubmitAnswer />
+				) : null}
 			</form>
 		</div>
 	);

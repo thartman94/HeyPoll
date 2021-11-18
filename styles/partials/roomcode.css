@@ -18,8 +18,8 @@
 		}
 
 		&--codebox {
-			p {
-				@apply ml-10 font-bold;
+			.code {
+				@apply ml-10 font-bold uppercase;
 				letter-spacing: 0.5em;
 				font-size: 5em;
 			}
