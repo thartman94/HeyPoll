@@ -1,19 +1,16 @@
 import React from "react";
 import QRCode from "qrcode.react";
+import { useRouter } from "next/router";
 
 export default function RoomCode() {
-	function getCode() {
-		return typeof window !== "undefined"
-			? window.location.pathname.split("/")[2].substring(0, 5)
-			: null;
-	}
-	function getURL() {
-		return typeof window !== "undefined" ? window.location : null;
-	}
+	// function getURL() {
+	// 	return typeof window !== "undefined" ? window.location : null;
+	// }
+	const { query, asPath } = useRouter();
 
-	const code = getCode();
-	// const code = "12345";
-	const url = getURL();
+	const code = String(query.id).substring(0, 5);
+	const url = process.env.NEXT_PUBLIC_BASE_URL + asPath;
+	console.log({ url });
 
 	return (
 		<div class="roomcode">

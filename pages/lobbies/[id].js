@@ -13,7 +13,6 @@ export default function Lobby() {
 	// let userRole = "student";
 
 	const View = userRole ? ProfView : StudentView;
-	console.log(pollID, userRole);
 
 	return (
 		<section className="poll-lobby">
