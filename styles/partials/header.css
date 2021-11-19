@@ -16,30 +16,4 @@
 	.page {
 		@apply font-mont text-hp-dark ml-8 text-4xl font-bold;
 	}
-
-	.show-code {
-		@apply bg-hp-dark absolute right-0 flex flex-col items-center justify-center gap-2 px-4 py-3 my-auto mr-4 font-bold text-white transition-all duration-100 ease-in-out;
-
-		&:hover {
-			@apply bg-hp-light;
-		}
-
-		&.is-active {
-			@apply bg-hp-gold;
-
-			&:hover {
-				@apply text-hp-dark bg-transparent;
-			}
-		}
-	}
-
-	.info-modal {
-		@apply bg-opacity-60 top-20 fixed left-0 z-30 flex items-center justify-center w-screen h-full mt-2 transition-all duration-500 ease-in-out bg-black opacity-0 pointer-events-none;
-		transform: scale(0.97);
-
-		&.is-active {
-			@apply opacity-100 pointer-events-auto;
-			transform: scale(1);
-		}
-	}
 }

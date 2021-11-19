@@ -21,6 +21,7 @@
 @import "partials/EnterRoomDiv.css";
 @import "partials/result.css";
 @import "partials/button.css";
+@import "partials/modal.css";
 
 /* Pages */
 @import "pages/index.css";

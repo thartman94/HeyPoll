@@ -1,5 +1,5 @@
 .button {
-	@apply bg-hp-dark border-hp-dark absolute bottom-0 right-0 flex px-6 py-1 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-xl cursor-pointer;
+	@apply bg-hp-dark border-hp-dark absolute bottom-0 right-0 left-auto flex px-6 py-1 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-xl cursor-pointer;
 	transform: translateY(calc(100% + 1rem));
 
 	&:hover {
@@ -16,5 +16,22 @@
 
 	&.left {
 		@apply left-0 right-auto;
+	}
+
+	&.header {
+		@apply bg-hp-dark absolute top-auto bottom-auto items-center justify-center w-auto h-auto px-4 py-3 my-auto mr-4 shadow-none;
+		transform: translateY(0);
+
+		&:hover {
+			@apply text-hp-dark bg-transparent;
+		}
+
+		&.is-active {
+			@apply bg-hp-gold border-hp-gold;
+
+			&:hover {
+				@apply text-white bg-transparent;
+			}
+		}
 	}
 }

@@ -1,5 +1,5 @@
 .roomcode {
-	@apply relative flex flex-col items-center justify-start w-auto h-full gap-12 px-4 mt-24;
+	@apply absolute flex flex-col items-center justify-start w-auto h-auto gap-12 px-4;
 
 	@media (max-width: 1023px) {
 		@apply flex-col;
