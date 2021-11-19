@@ -11,20 +11,19 @@ export default function RoomCode() {
 	const code = String(query.id).substring(0, 5);
 	const url = process.env.NEXT_PUBLIC_BASE_URL + asPath;
 	console.log({ url });
-
 	return (
-		<div class="roomcode">
-			<div class="roomcode__box">
-				<div class="roomcode__box--titlebox">
-					<p class="title">Room Code</p>
+		<div className="roomcode">
+			<div className="roomcode__box">
+				<div className="roomcode__box--titlebox">
+					<p className="title">Room Code</p>
 				</div>
-				<div class="roomcode__box--codebox">
-					<p class="code">{code}</p>
+				<div className="roomcode__box--codebox">
+					<p className="code">{code}</p>
 				</div>
 			</div>
-			<div class="roomcode__box">
-				<div class="roomcode__box--titlebox">
-					<p class="title">Room QRcode</p>
+			<div className="roomcode__box">
+				<div className="roomcode__box--titlebox">
+					<p className="title">Room QRcode</p>
 				</div>
 				{/* <div class="roomcode__box--qrcodebox">
 					<img src="https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market_full/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"></img>

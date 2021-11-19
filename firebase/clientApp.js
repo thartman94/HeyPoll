@@ -26,7 +26,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 // createUserWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {
@@ -117,7 +117,8 @@ onAuthStateChanged(auth, (user) => {
 	}
 });
 export const getFullCode = async (inputCode) =>{
-	const q = query(collection(db, "guestPolls"), where ("joinCode", "==", inputCode));
+	const upperCode = inputCode.toUpperCase();
+	const q = query(collection(db, "guestPolls"), where ("joinCode", "==", upperCode));
 	const querySnapshot = await getDocs(q);
 	console.log(querySnapshot.docs.length);
 	if (querySnapshot.docs.length > 0){

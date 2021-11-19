@@ -5,8 +5,8 @@ const Input = ({ readonly, value, userRole }) => {
 	return (
 		<input
 			className={`${userRole} ${readonly && "locked"}`}
-			readonly={readonly && "readonly"}
-			autocomplete="off"
+			readOnly={readonly && "readonly"}
+			autoComplete="off"
 			value={readonly ? value : null}
 			placeholder={readonly ? "" : value}
 		/>
