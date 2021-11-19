@@ -18,21 +18,21 @@ const Header = ({ title }) => {
 		}
 	};
 
-	const ShowInfoButton = () => {
-		if (!(typeof window === "undefined")) {
-			return window.location.href.includes("/lobbies") ? (
-				<button className="show-code" onClick={toggleModal}>
-					Show Room Code
-				</button>
-			) : null;
-		} else {
-			return null;
-		}
-	};
+	// const ShowInfoButton = () => {
+	// 	if (!(typeof window === "undefined")) {
+	// 		return window.location.href.includes("/lobbies") ? (
+	// 			<button className="show-code" onClick={toggleModal}>
+	// 				Show Room Code
+	// 			</button>
+	// 		) : null;
+	// 	} else {
+	// 		return null;
+	// 	}
+	// };
 
 	const RoomInfoModal = () => (
 		<div className="info-modal" onClick={toggleModal}>
-			<RoomCode />
+			{/* <RoomCode /> */}
 		</div>
 	);
 
@@ -42,10 +42,7 @@ const Header = ({ title }) => {
 				<img src={"./bars-logo.png"} />
 			</a>
 			<p className="page">{title}</p>
-			{/* <button className="show-code" onClick={open_menu}>
-				Show Join Info
-			</button> */}
-			<ShowInfoButton />
+			{/* <ShowInfoButton /> */}
 			<RoomInfoModal />
 		</header>
 	);

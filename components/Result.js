@@ -27,7 +27,7 @@ const data = [
 	},
 ];
 
-export const Result = () => {
+const Result = () => {
 	return (
 		<ResponsiveContainer className="result" width="100%" aspect={3}>
 			<BarChart width={150} height={40} data={data}>
@@ -42,3 +42,5 @@ export const Result = () => {
 		</ResponsiveContainer>
 	);
 };
+
+export default Result;

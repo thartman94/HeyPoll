@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faPlusSquare,
-	faMinusSquare,
-	faEdit,
-	faSave,
-} from "@fortawesome/free-solid-svg-icons";
-
+import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
+import AppContext from "./AppContext";
 import Input from "./Input";
-import { Result } from "./Result";
-import { Answer } from "./Answer";
+import Button from "./Button";
+import PollBody from "./PollBody";
+import EditButton from "./EditButton";
 
-export const Poll = ({ userRole }) => {
+export const Poll = () => {
+	const { userRole } = useContext(AppContext);
 	const [edit, toggleEdit] = useState(false);
 	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
 	const [showResults, toggleResults] = useState(false);
@@ -19,118 +16,6 @@ export const Poll = ({ userRole }) => {
 
 	let question = "What should we order for dinner?";
 
-	// ============================================================================================
-	// function that creates a list of answers divs, think of it like a for-each loop
-	// ============================================================================================
-	const makeAnswers = (answers) =>
-		answers.map((item, i) => (
-			<div
-				key={i}
-				className={`poll__answers--single ${userRole} ${
-					selectedAnswer === i && "selected"
-				}`}
-				onClick={(e) => {
-					if (userRole === "student") {
-						selectAnswer(i);
-					}
-				}}
-			>
-				<Answer
-					index={String.fromCharCode(97 + i)}
-					answer={item}
-					edit={edit}
-					userRole={userRole}
-				/>
-			</div>
-		));
-
-	// ============================================================================================
-	//	Function for Student submitting answer
-	// ============================================================================================
-	const submitAnswer = (e) => {
-		e.preventDefault();
-		const answer = document.querySelector(".selected");
-		const response = document.querySelector(".response");
-		if (answer) {
-			toggleResults((prevShowResults) => !prevShowResults);
-		}
-	};
-
-	// ============================================================================================
-	//	Button for students to submit answer
-	// ============================================================================================
-	const SubmitAnswer = () => (
-		<button className={`save-answer`} onClick={submitAnswer}>
-			SUBMIT
-		</button>
-	);
-
-	// ============================================================================================
-	// Answer section of the poll compnent
-	// ============================================================================================
-	const PollBody = () => (
-		<div className={`poll__body ${showResults && "show-results"}`}>
-			<div className="poll__answers">{makeAnswers(answers)}</div>
-			<Result />
-		</div>
-	);
-
-	// ============================================================================================
-	// Button to switch between answers and results
-	// ============================================================================================
-	const ToggleView = () => (
-		<button
-			className={`toggle-view ${showResults && "active"}`}
-			onClick={(e) => {
-				e.preventDefault();
-				toggleResults(!showResults);
-			}}
-		>
-			Show{showResults ? " Choices" : " Results"}
-		</button>
-	);
-
-	// ============================================================================================
-	// Button to clear poll results
-	// ============================================================================================
-	const ClearResults = () => (
-		<button
-			className={`clear-results`}
-			onClick={(e) => {
-				e.preventDefault();
-				toggleResults((prevShowResults) => !prevShowResults);
-			}}
-		>
-			Clear Results
-		</button>
-	);
-
-	// ============================================================================================
-	// Edit Button
-	// ============================================================================================
-	const EditButton = () => {
-		return (
-			userRole === "professor" && (
-				<button
-					className="poll__edit"
-					onClick={(e) => {
-						e.preventDefault();
-						toggleEdit((prevEdit) => !prevEdit);
-					}}
-				>
-					{edit ? (
-						<FontAwesomeIcon className="icon active" icon={faSave} />
-					) : (
-						<FontAwesomeIcon className="icon" icon={faEdit} />
-					)}
-				</button>
-			)
-		);
-	};
-
-	// ============================================================================================
-	// Main Component
-	// ============================================================================================
 	return (
 		<div>
 			<form
@@ -140,12 +25,24 @@ export const Poll = ({ userRole }) => {
 					console.log("submit poll");
 				}}
 			>
-				<EditButton />
+				<EditButton
+					edit={edit}
+					onClick={(e) => {
+						e.preventDefault();
+						toggleEdit((prevEdit) => !prevEdit);
+					}}
+				/>
 				<div className="poll__question">
 					<Input readonly={!edit} value={question} />
 				</div>
 				<div className="poll__wrapper">
-					<PollBody showResults={showResults} />
+					<PollBody
+						showResults={showResults}
+						selectedAnswer={selectedAnswer}
+						answers={answers}
+						edit={edit}
+						selectAnswer={selectAnswer}
+					/>
 				</div>
 				<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
 					<button
@@ -168,12 +65,38 @@ export const Poll = ({ userRole }) => {
 					</button>
 				</div>
 
-				{userRole === "professor" && <ToggleView />}
+				{userRole === "professor" && (
+					<Button
+						className={`${showResults && "left"}`}
+						onClick={(e) => {
+							e.preventDefault();
+							toggleResults(!showResults);
+						}}
+					>
+						Show{showResults ? " Choices" : " Results"}
+					</Button>
+				)}
 				{userRole === "professor" && showResults === true ? (
-					<ClearResults />
+					<Button
+						className="gold"
+						onClick={(e) => {
+							e.preventDefault();
+							toggleResults((prevShowResults) => !prevShowResults);
+						}}
+					>
+						Clear Results
+					</Button>
 				) : null}
 				{selectedAnswer !== null && !showResults && userRole === "student" ? (
-					<SubmitAnswer />
+					<Button
+						className="gold"
+						onClick={(e) => {
+							e.preventDefault();
+							toggleResults((prevShowResults) => !prevShowResults);
+						}}
+					>
+						SUBMIT
+					</Button>
 				) : null}
 			</form>
 		</div>

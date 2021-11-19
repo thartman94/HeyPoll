@@ -1,7 +1,7 @@
 import React from "react";
 import Input from "./Input";
 
-export const Answer = ({ index, edit, answer, userRole }) => {
+const Answer = ({ index, edit, answer, userRole }) => {
 	return (
 		<div className="answer">
 			<div className="answer__index">{index}</div>
@@ -11,3 +11,5 @@ export const Answer = ({ index, edit, answer, userRole }) => {
 		</div>
 	);
 };
+
+export default Answer;
