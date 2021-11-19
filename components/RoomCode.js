@@ -10,7 +10,6 @@ export default function RoomCode() {
 
 	const code = String(query.id).substring(0, 5);
 	const url = process.env.NEXT_PUBLIC_BASE_URL + asPath;
-	console.log({ url });
 
 	return (
 		<div class="roomcode">
@@ -26,9 +25,6 @@ export default function RoomCode() {
 				<div class="roomcode__box--titlebox">
 					<p class="title">Room QRcode</p>
 				</div>
-				{/* <div class="roomcode__box--qrcodebox">
-					<img src="https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market_full/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"></img>
-				</div> */}
 				<QRCode
 					value={url}
 					size={256}
