@@ -1,37 +1,67 @@
-.EnterRoomDiv{
-    @apply transition-all ease-in-out duration-500 opacity-100;
-    @apply font-mont text-white px-8 py-4 bg-hp-gold flex;
-    @apply w-full;
-    @apply bg-hp-dark;
-    display:flex;
-    flex-direction:column;
-    z-index:100;
-    /* position:absolute;  */
-    margin: auto auto;
-    padding: auto auto;
-    height:10rem;
-    width:30rem;
-    border-radius: 16px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    @apply mx-auto;
+.enter-code {
+	@apply font-mont absolute flex flex-col w-full bg-white rounded;
+	max-width: 400px;
 
-    &.active{
-       @apply pointer-events-auto opacity-100; 
-    }
+	&__title {
+		@apply text-hp-dark py-4 text-2xl font-bold text-center bg-gray-200 rounded-t;
+	}
+
+	&__input-wrapper {
+		@apply relative flex flex-col items-center justify-center py-8;
+
+		&--input {
+			@apply border-hp-dark text-hp-dark relative flex p-2 text-xl font-bold text-center uppercase border-2 rounded;
+		}
+
+		&--error {
+			@apply relative flex text-sm font-bold text-left text-red-500 transition-all duration-500 ease-in-out opacity-0;
+			transform: translateY(10px);
+
+			&.active {
+				@apply opacity-100;
+				transform: translateY(0);
+			}
+		}
+
+		&--buttons {
+			@apply relative flex flex-row items-center justify-center w-full gap-8 px-8 mt-6;
+		}
+	}
 }
-.EnterRoomSubmit{
-    @apply font-mont text-white px-8 py-4 bg-hp-gold flex;
-    @apply w-full;
-    max-width: 100px;
-    max-height: 100px;
-    text-align: center;
-    justify-content: center;
-    font-size: 24px;
-    transition-duration: 0.4s;
-    border-radius: 16px;
-    margin: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    &:hover{
-        @apply bg-hp-light;
-    }
+
+.EnterRoomDiv {
+	@apply font-mont bg-hp-gold flex px-8 py-4 text-white;
+	@apply w-full;
+	@apply bg-hp-dark;
+	display: flex;
+	flex-direction: column;
+	z-index: 100;
+	/* position:absolute;  */
+	margin: auto auto;
+	padding: auto auto;
+	height: 10rem;
+	width: 30rem;
+	border-radius: 16px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+	@apply mx-auto;
+
+	&.active {
+		@apply opacity-100 pointer-events-auto;
+	}
+}
+.EnterRoomSubmit {
+	@apply font-mont bg-hp-gold flex px-8 py-4 text-white;
+	@apply w-full;
+	max-width: 100px;
+	max-height: 100px;
+	text-align: center;
+	justify-content: center;
+	font-size: 24px;
+	transition-duration: 0.4s;
+	border-radius: 16px;
+	margin: auto;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+	&:hover {
+		@apply bg-hp-light;
+	}
 }

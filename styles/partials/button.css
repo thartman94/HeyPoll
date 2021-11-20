@@ -34,4 +34,26 @@
 			}
 		}
 	}
+
+	&.homepage {
+		@apply bg-hp-light border-hp-light relative items-center justify-center py-5 text-3xl font-normal rounded;
+		transform: translateY(0);
+
+		&:hover {
+			@apply text-hp-dark bg-transparent;
+		}
+
+		&.gold {
+			@apply bg-hp-gold border-hp-gold;
+
+			&:hover {
+				@apply text-hp-gold bg-transparent;
+			}
+		}
+	}
+
+	&.enter-code {
+		@apply relative left-auto right-auto w-1/2 py-2 rounded-none;
+		transform: translateY(0);
+	}
 }
