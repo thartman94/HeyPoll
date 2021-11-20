@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { ProfView } from "../../components/View";
-import { StudentView } from "../../components/StudentView";
-import { useRouter } from "next/router";
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth, db } from "../../firebase/clientApp";
 import { doc } from "@firebase/firestore";
