@@ -7,15 +7,16 @@ import Button from "./Button";
 import PollBody from "./PollBody";
 import EditButton from "./EditButton";
 
-export const Poll = () => {
+const Poll = ({ poll }) => {
 	const { userRole } = useContext(AppContext);
 	const [edit, toggleEdit] = useState(false);
 	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
 	const [showResults, toggleResults] = useState(false);
 	const [selectedAnswer, selectAnswer] = useState(null);
 
-	let question = "What should we order for dinner?";
+	console.log(poll);
 
+	let question = "What should we order for dinner?";
 	return (
 		<div>
 			<form
@@ -25,13 +26,15 @@ export const Poll = () => {
 					console.log("submit poll");
 				}}
 			>
-				<EditButton
-					edit={edit}
-					onClick={(e) => {
-						e.preventDefault();
-						toggleEdit((prevEdit) => !prevEdit);
-					}}
-				/>
+				{userRole === "professor" && (
+					<EditButton
+						edit={edit}
+						onClick={(e) => {
+							e.preventDefault();
+							toggleEdit((prevEdit) => !prevEdit);
+						}}
+					/>
+				)}
 				<div className="poll__question">
 					<Input readonly={!edit} value={question} />
 				</div>
@@ -102,3 +105,5 @@ export const Poll = () => {
 		</div>
 	);
 };
+
+export default Poll;

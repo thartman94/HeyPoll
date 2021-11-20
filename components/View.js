@@ -1,15 +1,17 @@
 import React from "react";
-import { Poll } from "./Poll";
+import Poll from "./Poll";
 import { PollControl } from "./PollControl";
 
-export const ProfView = () => {
+const View = ({ poll }) => {
 	return (
 		<section className="prof-view">
 			<div className="relative flex flex-row justify-center w-full">
 				{/* <PollControl direction="left" /> */}
-				<Poll />
+				<Poll poll={poll} />
 				{/* <PollControl direction="right" /> */}
 			</div>
 		</section>
 	);
 };
+
+export default View;
