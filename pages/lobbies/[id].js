@@ -1,59 +1,51 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { ProfView } from "../../components/ProfView";
+import { ProfView } from "../../components/View";
 import { StudentView } from "../../components/StudentView";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import { onAuthStateChanged } from "@firebase/auth";
-import {auth} from "../../firebase/clientApp";
-import { collection, doc, getDoc, getDocs } from "@firebase/firestore";
-import { db } from "../../firebase/clientApp";
-import { useEffect } from "react";
+import { auth, db } from "../../firebase/clientApp";
+import { doc } from "@firebase/firestore";
+import { useDocumentData } from "react-firebase-hooks/firestore";
+import View from "../../components/View";
+
 import { useState } from "react/cjs/react.development";
+import AppContext from "../../components/AppContext";
 
 export const getServerSideProps = async (context) => {
-	const id = context.params.id;
-	const docRef = doc(db, "guestPolls", id);
-	const docSnap = await getDoc(docRef);
-	let temp = "";
-	if(docSnap.exists){
-		temp = docSnap.data().guestID;
-		console.log ("whats good baby");
-	} else {
-		temp = "reload the page";
-	}
-	
+	const { id } = context.params;
 	return {
-		props: {guestid : temp}
-	}
-}
-export default function Lobby({guestid}) {
-	console.log(guestid);
-	const router = useRouter();
-	const pollID = router.query.id;
-	const [currUser, setcurrUser] = useState("")
-	const [currPoll, setcurrPoll] = useState();
-	onAuthStateChanged(auth, (user) => {
-		if(user){
-			console.log(user.uid, " is the user");
-			setcurrUser(user.uid);
+		props: { id },
+	};
+};
 
-		} else{
+export default function Lobby({ id }) {
+	const { userRole, setRole } = useContext(AppContext);
+	const [currUser, setCurrUser] = useState("");
+
+	const docRef = doc(db, "guestPolls", id);
+	const [poll, isLoading, Error] = useDocumentData(docRef, {
+		snapshotListenOptions: { includeMetadataChanges: true },
+	});
+
+	// should be a hook, keeping it cuz zach made it and it works
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			console.log(user.uid, " is the user");
+			setCurrUser(user.uid);
+		} else {
 			console.log("we have no user");
 		}
 	});
 
-	let userRole = (guestid == currUser) ? "professor" : "student";
-	// let userRole = "student";
-	//console.log(currPoll);
-	console.log(userRole);
-	const View = userRole ? ProfView : StudentView;
+	setRole(poll?.guestID === currUser ? "professor" : "student");
+
 	return (
 		<section className="poll-lobby">
 			<Header title="Poll Lobby" />
-			<View userRole={userRole} />
+			<View poll={poll} />
 			<Footer />
 		</section>
 	);
 }
-

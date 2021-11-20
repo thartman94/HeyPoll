@@ -31,7 +31,6 @@ export default function Home() {
 					<Modal>
 						<EnterRoomCode />
 					</Modal>
-
 					<Button
 						className="homepage"
 						onClick={() => {

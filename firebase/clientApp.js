@@ -9,7 +9,15 @@ import {
 } from "firebase/auth";
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, doc, addDoc, setDoc, query, where, getDocs } from "firebase/firestore";
+import {
+	collection,
+	doc,
+	addDoc,
+	setDoc,
+	query,
+	where,
+	getDocs,
+} from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -23,7 +31,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
 export const auth = getAuth(app);
@@ -116,15 +124,18 @@ onAuthStateChanged(auth, (user) => {
 		console.log("No user");
 	}
 });
-export const getFullCode = async (inputCode) =>{
+export const getFullCode = async (inputCode) => {
 	const upperCode = inputCode.toUpperCase();
-	const q = query(collection(db, "guestPolls"), where ("joinCode", "==", upperCode));
+	const q = query(
+		collection(db, "guestPolls"),
+		where("joinCode", "==", upperCode)
+	);
 	const querySnapshot = await getDocs(q);
 	console.log(querySnapshot.docs.length);
-	if (querySnapshot.docs.length > 0){
+	if (querySnapshot.docs.length > 0) {
 		return querySnapshot.docs[0].id;
-	}else {
+	} else {
 		return "none";
 	}
-}
+};
 export default { db, auth };
