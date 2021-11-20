@@ -9,15 +9,13 @@ const Header = ({ title }) => {
 	const { modalVisible, setModalVisibility, userRole } = useContext(AppContext);
 	const { pathname } = useRouter();
 
-	const includeRoomCodes = pathname.includes("/lobbies");
-
 	return (
 		<header className="header">
 			<a href="/" className="logo">
 				<img src={"./bars-logo.png"} />
 			</a>
 			<p className="page">{title}</p>
-			{includeRoomCodes && userRole === "professor" && (
+			{pathname.includes("/lobbies") && userRole === "professor" && (
 				<Button
 					className={`header ${modalVisible && "is-active"}`}
 					onClick={() =>
@@ -27,7 +25,7 @@ const Header = ({ title }) => {
 					{modalVisible ? "Hide " : "Show "} Room Code
 				</Button>
 			)}
-			{includeRoomCodes && (
+			{pathname.includes("/lobbies") && (
 				<Modal>
 					<RoomCode />
 				</Modal>
