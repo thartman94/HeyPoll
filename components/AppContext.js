@@ -7,12 +7,6 @@ export const AppProvider = ({ children }) => {
 	const [isPollLeader, setPollLeader] = useState(false);
 	const [modalVisible, setModalVisibility] = useState(false);
 	const [user, loading, error] = useAuthState(auth);
-	const [answerChoices, setAnswerChoices] = useState([
-		"Subs",
-		"Pizza",
-		"Sushi",
-		"Burgers",
-	]);
 
 	return (
 		<AppContext.Provider
@@ -22,8 +16,6 @@ export const AppProvider = ({ children }) => {
 				modalVisible,
 				setModalVisibility,
 				user,
-				answerChoices,
-				setAnswerChoices,
 			}}
 		>
 			{children}
