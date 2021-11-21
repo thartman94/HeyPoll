@@ -23,8 +23,8 @@ const colors = [
 	"#cc0a53",
 ];
 
-const Result = ({ answerChoices }) => {
-	const data = answerChoices.map((answer, i) => ({
+const Result = ({ answers }) => {
+	const data = answers?.map((answer, i) => ({
 		name: answer,
 		key: i,
 		results: 20,
@@ -36,7 +36,7 @@ const Result = ({ answerChoices }) => {
 				{/* <Tooltip /> */}
 				{/* <CartesianGrid /> */}
 				<Bar dataKey="results" label={{ position: "top" }}>
-					{data.map((entry, j) => (
+					{data?.map((entry, j) => (
 						<Cell key={j} fill={colors[j % 7]} />
 					))}
 				</Bar>
