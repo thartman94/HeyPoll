@@ -11,6 +11,8 @@
 		"@fortawesome/free-solid-svg-icons": "^5.15.4",
 		"@fortawesome/react-fontawesome": "^0.1.16",
 		"@fullhuman/postcss-purgecss": "^4.0.3",
+		"d3-scale": "^4.0.2",
+		"d3-scale-chromatic": "^3.0.0",
 		"firebase": "^9.1.2",
 		"next": "latest",
 		"nth-check": "^2.0.1",

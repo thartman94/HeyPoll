@@ -18,20 +18,16 @@ export const getServerSideProps = async (context) => {
 };
 
 export default function Lobby({ id }) {
-	const { userRole, setRole } = useContext(AppContext);
+	const { setPollLeader } = useContext(AppContext);
 
 	const docRef = doc(db, "guestPolls", id);
 	const [poll, isLoading, Error] = useDocumentData(docRef, {
 		snapshotListenOptions: { includeMetadataChanges: true },
 	});
 
-	const {user} = useContext(AppContext);
-	if(!!poll && !!user && poll.guestID === user.uid){
-		setRole( "professor");
-	} else {
-		setRole("student");
-	}
-	
+	const { user } = useContext(AppContext);
+
+	setPollLeader(!!poll && !!user && poll.guestID === user.uid);
 
 	return (
 		<section className="poll-lobby">

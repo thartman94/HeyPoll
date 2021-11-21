@@ -8,13 +8,12 @@ import PollBody from "./PollBody";
 import EditButton from "./EditButton";
 
 const Poll = ({ poll }) => {
-	const { userRole } = useContext(AppContext);
+	const { isPollLeader, setAnswerChoices } = useContext(AppContext);
 	const [edit, toggleEdit] = useState(false);
-	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
 	const [showResults, toggleResults] = useState(false);
 	const [selectedAnswer, selectAnswer] = useState(null);
 
-	console.log(poll);
+	// console.log(poll);
 
 	let question = "What should we order for dinner?";
 	return (
@@ -26,7 +25,7 @@ const Poll = ({ poll }) => {
 					console.log("submit poll");
 				}}
 			>
-				{userRole === "professor" && (
+				{isPollLeader && (
 					<EditButton
 						edit={edit}
 						onClick={(e) => {
@@ -42,7 +41,6 @@ const Poll = ({ poll }) => {
 					<PollBody
 						showResults={showResults}
 						selectedAnswer={selectedAnswer}
-						answers={answers}
 						edit={edit}
 						selectAnswer={selectAnswer}
 					/>
@@ -52,7 +50,7 @@ const Poll = ({ poll }) => {
 						className="poll__controls--minus"
 						onClick={(e) => {
 							e.preventDefault();
-							changeAnswersLength((prevAnswers) => prevAnswers.slice(0, -1));
+							setAnswerChoices((answerChoices) => answerChoices.slice(0, -1));
 						}}
 					>
 						<FontAwesomeIcon className="icon" icon={faMinusSquare} />
@@ -61,14 +59,14 @@ const Poll = ({ poll }) => {
 						className="poll__controls--add"
 						onClick={(e) => {
 							e.preventDefault();
-							changeAnswersLength((prevAnswers) => [...prevAnswers, ""]);
+							setAnswerChoices((answerChoices) => [...answerChoices, ""]);
 						}}
 					>
 						<FontAwesomeIcon className="icon" icon={faPlusSquare} />
 					</button>
 				</div>
 
-				{userRole === "professor" && (
+				{isPollLeader && (
 					<Button
 						className={`${showResults && "left"}`}
 						onClick={(e) => {
@@ -79,7 +77,7 @@ const Poll = ({ poll }) => {
 						Show{showResults ? " Choices" : " Results"}
 					</Button>
 				)}
-				{userRole === "professor" && showResults === true ? (
+				{isPollLeader && showResults ? (
 					<Button
 						className="gold"
 						onClick={(e) => {
@@ -90,7 +88,7 @@ const Poll = ({ poll }) => {
 						Clear Results
 					</Button>
 				) : null}
-				{selectedAnswer !== null && !showResults && userRole === "student" ? (
+				{selectedAnswer !== null && !showResults && !isPollLeader ? (
 					<Button
 						className="gold"
 						onClick={(e) => {

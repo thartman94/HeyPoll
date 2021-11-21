@@ -3,25 +3,19 @@ import AppContext from "./AppContext";
 import Answer from "./Answer";
 import Result from "./Result";
 
-const PollBody = ({
-	showResults,
-	answers,
-	selectedAnswer,
-	edit,
-	selectAnswer,
-}) => {
-	const { userRole } = useContext(AppContext);
+const PollBody = ({ showResults, selectedAnswer, edit, selectAnswer }) => {
+	const { isPollLeader, answerChoices } = useContext(AppContext);
 	return (
 		<div className={`poll__body ${showResults && "show-results"}`}>
 			<div className="poll__answers">
-				{answers.map((item, i) => (
+				{answerChoices.map((item, i) => (
 					<div
 						key={i}
-						className={`poll__answers--single ${userRole} ${
+						className={`poll__answers--single ${!isPollLeader && "student"} ${
 							selectedAnswer === i && "selected"
 						}`}
 						onClick={(e) => {
-							if (userRole === "student") {
+							if (!isPollLeader) {
 								selectAnswer(i);
 							}
 						}}
@@ -30,7 +24,6 @@ const PollBody = ({
 							index={String.fromCharCode(97 + i)}
 							answer={item}
 							edit={edit}
-							userRole={userRole}
 						/>
 					</div>
 				))}

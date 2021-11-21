@@ -21,6 +21,7 @@
 @import "partials/result.css";
 @import "partials/button.css";
 @import "partials/modal.css";
+@import "partials/chart-label.css";
 
 /* Pages */
 @import "pages/index.css";
