@@ -7,7 +7,11 @@ const Answer = ({ index, edit, answer }) => {
 		<div className="answer">
 			<div className="answer__index">{index}</div>
 			<div className="answer__body">
-				<Input readonly={!edit} value={answer} />
+				<Input
+					className="poll__answer--input"
+					readonly={!edit}
+					value={answer}
+				/>
 			</div>
 		</div>
 	);
