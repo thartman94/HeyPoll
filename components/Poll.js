@@ -18,94 +18,104 @@ const Poll = ({ poll }) => {
 		"Sushi",
 		"Burgers",
 	]);
+	const [pollQuestion, setPollQuestion] = useState(
+		"What should we order for dinner?"
+	);
 
-	let question = "What should we order for dinner?";
+	const savePoll = (e) => {
+		const form = e.target.closest(".poll");
+		const question = form.querySelector(".poll__question");
+		const liveAnswers = form.querySelectorAll(".poll__answer--input");
+
+		setPollQuestion(question.value);
+
+		for (let i = 0; i < liveAnswers.length; i++) {
+			setAnswerChoices(
+				(answerChoices) => (answerChoices[i] = liveAnswers[i].value)
+			);
+		}
+	};
+
 	return (
-		<div>
-			<form
-				className="poll"
-				onSubmit={(e) => {
-					e.preventDefault();
-					console.log("submit poll");
-				}}
-			>
-				{isPollLeader && (
-					<EditButton
-						edit={edit}
-						onClick={(e) => {
-							e.preventDefault();
-							toggleEdit((prevEdit) => !prevEdit);
-						}}
-					/>
-				)}
-				<div className="poll__question">
-					<Input readonly={!edit} value={question} />
-				</div>
-				<div className="poll__wrapper">
-					<PollBody
-						showResults={showResults}
-						selectedAnswer={selectedAnswer}
-						edit={edit}
-						selectAnswer={selectAnswer}
-						answerChoices={answerChoices}
-					/>
-				</div>
-				<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
-					<button
-						className="poll__controls--minus"
-						onClick={(e) => {
-							e.preventDefault();
-							setAnswerChoices((answerChoices) => answerChoices.slice(0, -1));
-						}}
-					>
-						<FontAwesomeIcon className="icon" icon={faMinusSquare} />
-					</button>
-					<button
-						className="poll__controls--add"
-						onClick={(e) => {
-							e.preventDefault();
-							setAnswerChoices((answerChoices) => [...answerChoices, ""]);
-						}}
-					>
-						<FontAwesomeIcon className="icon" icon={faPlusSquare} />
-					</button>
-				</div>
+		<form className="poll">
+			{isPollLeader && (
+				<EditButton
+					edit={edit}
+					onClick={(e) => {
+						e.preventDefault();
+						toggleEdit((prevEdit) => !prevEdit);
+						savePoll(e);
+					}}
+				/>
+			)}
+			<div className="poll__question">
+				<Input readonly={!edit} value={pollQuestion} />
+			</div>
+			<div className="poll__wrapper">
+				<PollBody
+					showResults={showResults}
+					selectedAnswer={selectedAnswer}
+					edit={edit}
+					selectAnswer={selectAnswer}
+					answerChoices={answerChoices}
+					setAnswerChoices={setAnswerChoices}
+				/>
+			</div>
+			<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
+				<button
+					className="poll__controls--minus"
+					onClick={(e) => {
+						e.preventDefault();
+						setAnswerChoices((answerChoices) => answerChoices.slice(0, -1));
+					}}
+				>
+					<FontAwesomeIcon className="icon" icon={faMinusSquare} />
+				</button>
+				<button
+					className="poll__controls--add"
+					onClick={(e) => {
+						e.preventDefault();
+						setAnswerChoices((answerChoices) => [...answerChoices, ""]);
+					}}
+				>
+					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
+				</button>
+			</div>
 
-				{isPollLeader && (
-					<Button
-						className={`${showResults && "left"}`}
-						onClick={(e) => {
-							e.preventDefault();
-							toggleResults(!showResults);
-						}}
-					>
-						Show{showResults ? " Choices" : " Results"}
-					</Button>
-				)}
-				{isPollLeader && showResults ? (
-					<Button
-						className="gold"
-						onClick={(e) => {
-							e.preventDefault();
-							toggleResults((prevShowResults) => !prevShowResults);
-						}}
-					>
-						Clear Results
-					</Button>
-				) : null}
-				{selectedAnswer !== null && !showResults && !isPollLeader ? (
-					<Button
-						className="gold"
-						onClick={(e) => {
-							e.preventDefault();
-							toggleResults((prevShowResults) => !prevShowResults);
-						}}
-					>
-						SUBMIT
-					</Button>
-				) : null}
-			</form>
-		</div>
+			{isPollLeader && (
+				<Button
+					className={`${showResults && "left"}`}
+					onClick={(e) => {
+						e.preventDefault();
+						toggleResults(!showResults);
+					}}
+				>
+					Show{showResults ? " Choices" : " Results"}
+				</Button>
+			)}
+			{isPollLeader && showResults ? (
+				<Button
+					className="gold"
+					onClick={(e) => {
+						e.preventDefault();
+						toggleResults((prevShowResults) => !prevShowResults);
+					}}
+				>
+					Clear Results
+				</Button>
+			) : null}
+			{selectedAnswer !== null && !showResults && !isPollLeader ? (
+				<Button
+					className="gold"
+					onClick={(e) => {
+						e.preventDefault();
+						toggleResults((prevShowResults) => !prevShowResults);
+					}}
+				>
+					SUBMIT
+				</Button>
+			) : null}
+		</form>
 	);
 };
 

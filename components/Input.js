@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import AppContext from "./AppContext";
 
-const Input = ({ readonly, value }) => {
+const Input = ({ readonly, value, ...rest }) => {
 	const { isPollLeader } = useContext(AppContext);
 
 	return (
@@ -12,6 +12,7 @@ const Input = ({ readonly, value }) => {
 			autoComplete="off"
 			value={readonly ? value : null}
 			placeholder={readonly ? "" : value}
+			{...rest}
 		/>
 	);
 };
