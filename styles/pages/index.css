@@ -1,5 +1,5 @@
 .index {
-	@apply absolute flex flex-col items-center justify-center w-screen h-screen;
+	@apply font-mont absolute flex flex-col items-center justify-center w-screen h-screen;
 
 	&__main {
 		@apply relative flex flex-col items-center justify-center flex-1 w-full px-20 text-center;

@@ -1,5 +1,5 @@
 .poll {
-	@apply relative flex flex-col w-full shadow-xl;
+	@apply font-mont relative flex flex-col w-full shadow-xl;
 	max-width: 700px;
 
 	&__edit {
