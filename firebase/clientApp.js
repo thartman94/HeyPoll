@@ -99,9 +99,9 @@ export const createGuestPoll = () => {
 		const guestRef = await addDoc(collection(db, "guestPolls"), {}); // Create empty guest poll
 
 		setDoc(doc(db, "guestPolls", guestRef.id), {
-			question: "",
-			answers: [], // Array to store answers
-			correctAnswer: 0, // Index of correct answer
+			question: "How many baskets exist",
+			answers: ["3", "5", "6-trillion"], // Array to store answers
+			correctAnswer: 2, // Index of correct answer
 			results: [], // Array to store results
 			joinCode: guestRef.id.substring(0, 5),
 			guestID: user.uid,

@@ -8,13 +8,13 @@ const PollBody = ({
 	selectedAnswer,
 	edit,
 	selectAnswer,
-	answerChoices,
+	answers,
 }) => {
 	const { isPollLeader } = useContext(AppContext);
 	return (
 		<div className={`poll__body ${showResults && "show-results"}`}>
 			<div className="poll__answers">
-				{answerChoices.map((item, i) => (
+				{answers?.map((item, i) => (
 					<div
 						key={i}
 						className={`poll__answers--single ${!isPollLeader && "student"} ${
@@ -34,7 +34,7 @@ const PollBody = ({
 					</div>
 				))}
 			</div>
-			<Result answerChoices={answerChoices} />
+			<Result answers={answers} />
 		</div>
 	);
 };
