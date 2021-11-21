@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import AppContext from "./AppContext";
+import React from "react";
 
 import {
 	BarChart,
@@ -24,9 +23,7 @@ const colors = [
 	"#cc0a53",
 ];
 
-const Result = () => {
-	const { answerChoices } = useContext(AppContext);
-
+const Result = ({ answerChoices }) => {
 	const data = answerChoices.map((answer, i) => ({
 		name: answer,
 		key: i,

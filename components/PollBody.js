@@ -3,8 +3,14 @@ import AppContext from "./AppContext";
 import Answer from "./Answer";
 import Result from "./Result";
 
-const PollBody = ({ showResults, selectedAnswer, edit, selectAnswer }) => {
-	const { isPollLeader, answerChoices } = useContext(AppContext);
+const PollBody = ({
+	showResults,
+	selectedAnswer,
+	edit,
+	selectAnswer,
+	answerChoices,
+}) => {
+	const { isPollLeader } = useContext(AppContext);
 	return (
 		<div className={`poll__body ${showResults && "show-results"}`}>
 			<div className="poll__answers">
@@ -28,7 +34,7 @@ const PollBody = ({ showResults, selectedAnswer, edit, selectAnswer }) => {
 					</div>
 				))}
 			</div>
-			<Result />
+			<Result answerChoices={answerChoices} />
 		</div>
 	);
 };

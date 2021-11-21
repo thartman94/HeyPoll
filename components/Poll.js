@@ -8,12 +8,16 @@ import PollBody from "./PollBody";
 import EditButton from "./EditButton";
 
 const Poll = ({ poll }) => {
-	const { isPollLeader, setAnswerChoices } = useContext(AppContext);
+	const { isPollLeader } = useContext(AppContext);
 	const [edit, toggleEdit] = useState(false);
 	const [showResults, toggleResults] = useState(false);
 	const [selectedAnswer, selectAnswer] = useState(null);
-
-	// console.log(poll);
+	const [answerChoices, setAnswerChoices] = useState([
+		"Subs",
+		"Pizza",
+		"Sushi",
+		"Burgers",
+	]);
 
 	let question = "What should we order for dinner?";
 	return (
@@ -43,6 +47,7 @@ const Poll = ({ poll }) => {
 						selectedAnswer={selectedAnswer}
 						edit={edit}
 						selectAnswer={selectAnswer}
+						answerChoices={answerChoices}
 					/>
 				</div>
 				<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
