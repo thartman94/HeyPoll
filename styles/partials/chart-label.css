@@ -1,0 +1,5 @@
+.chart-label {
+	text {
+		@apply font-bold;
+	}
+}

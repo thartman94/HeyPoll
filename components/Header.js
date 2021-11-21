@@ -6,7 +6,8 @@ import RoomCode from "./RoomCode";
 import { useRouter } from "next/router";
 
 const Header = ({ title }) => {
-	const { modalVisible, setModalVisibility, userRole } = useContext(AppContext);
+	const { modalVisible, setModalVisibility, isPollLeader } =
+		useContext(AppContext);
 	const { pathname } = useRouter();
 
 	return (
@@ -15,7 +16,7 @@ const Header = ({ title }) => {
 				<img src={"./bars-logo.png"} />
 			</a>
 			<p className="page">{title}</p>
-			{pathname.includes("/lobbies") && userRole === "professor" && (
+			{pathname.includes("/lobbies") && isPollLeader && (
 				<Button
 					className={`header ${modalVisible && "is-active"}`}
 					onClick={() =>

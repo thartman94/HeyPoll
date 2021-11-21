@@ -13,7 +13,7 @@ import Modal from "../components/Modal";
 
 export default function Home() {
 	const router = useRouter();
-	const { modalVisible, setModalVisibility, userRole } = useContext(AppContext);
+	const { setModalVisibility } = useContext(AppContext);
 
 	return (
 		<div className="index">

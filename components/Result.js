@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "./AppContext";
+
 import {
 	BarChart,
 	Bar,
@@ -12,28 +14,35 @@ import {
 	LabelList,
 } from "recharts";
 
-const data = [
-	{
-		name: "A",
-		results: 40,
-	},
-	{
-		name: "B",
-		results: 30,
-	},
-	{
-		name: "C",
-		results: 20,
-	},
+const colors = [
+	"#2F55B2",
+	"#25ba0e",
+	"#f55919",
+	"#113450",
+	"#ee11aa",
+	"#be7457",
+	"#cc0a53",
 ];
 
 const Result = () => {
+	const { answerChoices } = useContext(AppContext);
+
+	const data = answerChoices.map((answer, i) => ({
+		name: answer,
+		key: i,
+		results: 20,
+	}));
+
 	return (
-		<ResponsiveContainer className="result" width="100%" aspect={3}>
+		<ResponsiveContainer className="result" width="100%" aspect={2}>
 			<BarChart width={150} height={40} data={data}>
 				{/* <Tooltip /> */}
 				{/* <CartesianGrid /> */}
-				<Bar dataKey="results" fill="#8884d8"></Bar>
+				<Bar dataKey="results" label={{ position: "top" }}>
+					{data.map((entry, j) => (
+						<Cell key={j} fill={colors[j % 7]} />
+					))}
+				</Bar>
 
 				{/* <Legend /> */}
 				<XAxis dataKey="name" />

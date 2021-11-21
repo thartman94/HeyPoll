@@ -7,7 +7,7 @@ const View = ({ poll }) => {
 		<section className="prof-view">
 			<div className="relative flex flex-row justify-center w-full">
 				{/* <PollControl direction="left" /> */}
-				<Poll poll={poll} />
+				<Poll />
 				{/* <PollControl direction="right" /> */}
 			</div>
 		</section>
