@@ -19,24 +19,19 @@ export const getServerSideProps = async (context) => {
 
 export default function Lobby({ id }) {
 	const { userRole, setRole } = useContext(AppContext);
-	const [currUser, setCurrUser] = useState("");
 
 	const docRef = doc(db, "guestPolls", id);
 	const [poll, isLoading, Error] = useDocumentData(docRef, {
 		snapshotListenOptions: { includeMetadataChanges: true },
 	});
 
-	// should be a hook, keeping it cuz zach made it and it works
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			console.log(user.uid, " is the user");
-			setCurrUser(user.uid);
-		} else {
-			console.log("we have no user");
-		}
-	});
-
-	setRole(poll?.guestID === currUser ? "professor" : "student");
+	const {user} = useContext(AppContext);
+	if(!!poll && !!user && poll.guestID === user.uid){
+		setRole( "professor");
+	} else {
+		setRole("student");
+	}
+	
 
 	return (
 		<section className="poll-lobby">
