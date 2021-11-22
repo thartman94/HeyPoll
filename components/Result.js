@@ -31,7 +31,7 @@ const Result = ({ answers }) => {
 		? answers.map((answer, i) => ({
 				name: answer.choice,
 				key: i,
-				results: total === 0 ? 0 : (answer.count * 100) / total,
+				results: total === 0 ? 0 : Math.round((answer.count * 100) / total),
 		  }))
 		: [];
 	console.log({ total, data });
