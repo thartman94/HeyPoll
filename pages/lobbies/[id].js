@@ -1,8 +1,24 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "../../components/AppContext";
-import { db } from "../../firebase/clientApp";
-import { doc, setDoc, onSnapshot } from "@firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+
+import { db, createCounter } from "../../firebase/clientApp";
+import {
+	doc,
+	setDoc,
+	increment,
+	updateDoc,
+	collection,
+	query,
+	where,
+	getDocs,
+	addDoc,
+	deleteDoc,
+} from "@firebase/firestore";
+import {
+	useCollection,
+	useDocumentData,
+	useCollectionData,
+} from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import Header from "../../components/Header";
@@ -12,14 +28,6 @@ import Button from "../../components/Button";
 import PollBody from "../../components/PollBody";
 import EditButton from "../../components/EditButton";
 
-// holding this for later... dont touch :)
-// document.dispatchEvent(event);
-// setTimeout(() => {
-// 	formResponse.innerHTML = "";
-// }, 5000);
-// if (this.hasDownloadTarget) this.downloadTarget.click();
-// form.reset();
-
 export const getServerSideProps = async (context) => {
 	const { id } = context.params;
 	return {
@@ -28,54 +36,73 @@ export const getServerSideProps = async (context) => {
 };
 
 export default function Lobby({ id }) {
-	const { setPollLeader, isPollLeader } = useContext(AppContext);
+	const { setPollLeader, isPollLeader, user } = useContext(AppContext);
 	const [edit, toggleEdit] = useState(false);
 	const [showResults, toggleResults] = useState(false);
 	const [selectedAnswer, selectAnswer] = useState(null);
 
 	const docRef = doc(db, "guestPolls", id);
+
 	const [poll, isLoading, Error] = useDocumentData(docRef, {
 		snapshotListenOptions: { includeMetadataChanges: true },
 	});
 
-	const [answerChoices, setAnswerChoices] = useState(poll?.answers);
-	const [pollQuestion, setPollQuestion] = useState(poll?.question);
-	const { user } = useContext(AppContext);
+	const [answers, isAnswersLoading, answersError] = useCollectionData(
+		collection(db, "guestPolls", id, "answers"),
+		{
+			snapshotListenOptions: { includeMetadataChanges: true },
+		}
+	);
 
 	setPollLeader(!!poll && !!user && poll.guestID === user.uid);
 
-	// useEffect(() => {
-	// const docRef = doc(db, "guestPolls", id);
-	// const [poll, isLoading, Error] = useDocumentData(docRef, {
-	// 	snapshotListenOptions: { includeMetadataChanges: true },
-	// });
-	// }),
-	// 	[id];
-
-	let newPoll = onSnapshot(docRef, (snapshot) => {
-		setAnswerChoices(snapshot.data().answers);
-		setPollQuestion(snapshot.data().question);
-	});
-
-	// console.log(newPoll);
-
 	const savePoll = (e) => {
-		const newQuestion = e.target
-			.closest(".poll")
-			.querySelector(".poll__question--actual").value;
-		const answerList = e.target
-			.closest(".poll")
-			.querySelectorAll(".poll__answer--input");
-		const newAnswers = [];
-		for (let i = 0; i < answerList.length; i++) {
-			newAnswers[i] = answerList[i].value;
-		}
+		if (edit === true) {
+			const inputs = document
+				? document.querySelectorAll(".poll__answers input")
+				: [];
 
-		setDoc(
-			docRef,
-			{ question: newQuestion, answers: newAnswers },
-			{ merge: true }
+			inputs.forEach((input, i) => {
+				console.log({ input });
+				if (input.value !== answers[i].choice) {
+					console.log("updating");
+					updateDoc(
+						doc(db, "guestPolls", id, "answers", answers[i].answerRef),
+						{
+							choice: input.value,
+						}
+					);
+				}
+			});
+		}
+	};
+
+	const changeAnswerAmount = async (answerID) => {
+		if (!!answerID) deleteDoc(doc(db, "guestPolls", id, "answers", answerID));
+		else {
+			// add doc and throw its ID into it
+			const answerRef = await addDoc(
+				collection(db, "guestPolls", id, "answers"),
+				{ choice: "", count: 0 }
+			);
+
+			await updateDoc(doc(db, "guestPolls", id, "answers", answerRef.id), {
+				answerRef: answerRef.id,
+			});
+		}
+	};
+
+	const clearPoll = async () => {
+		answers.forEach(({ answerRef }) =>
+			deleteDoc(doc(db, "guestPolls", id, "answers", answerRef))
 		);
+		updateDoc(docRef, { question: "" });
+	};
+
+	const studentSubmit = (answerID) => {
+		updateDoc(doc(db, "guestPolls", id, "answers", answerID), {
+			count: increment(1),
+		});
 	};
 
 	return (
@@ -84,14 +111,13 @@ export default function Lobby({ id }) {
 			<div className="prof-view">
 				<div className="relative flex flex-row justify-center w-full">
 					<form className="poll">
-						{isPollLeader && (
+						{isPollLeader && !showResults && (
 							<EditButton
 								edit={edit}
-								onClick={(e) => {
+								onClick={(e, edit) => {
 									e.preventDefault();
 									toggleEdit((prevEdit) => !prevEdit);
-
-									savePoll(e);
+									savePoll(e, edit);
 								}}
 							/>
 						)}
@@ -99,19 +125,18 @@ export default function Lobby({ id }) {
 							<Input
 								className="poll__question--actual"
 								readonly={!edit}
-								// value={poll?.question}
-								value={pollQuestion}
+								value={poll?.question}
+								placeholder={""}
 							/>
 						</div>
 						<div className="poll__wrapper">
 							<PollBody
+								docRef={docRef}
 								showResults={showResults}
 								selectedAnswer={selectedAnswer}
 								edit={edit}
 								selectAnswer={selectAnswer}
-								// answers={poll?.answers}
-								answers={answerChoices}
-								setAnswerChoices={setAnswerChoices}
+								answers={answers}
 							/>
 						</div>
 						<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
@@ -119,9 +144,7 @@ export default function Lobby({ id }) {
 								className="poll__controls--minus"
 								onClick={(e) => {
 									e.preventDefault();
-									setAnswerChoices((answerChoices) =>
-										answerChoices.slice(0, -1)
-									);
+									changeAnswerAmount(answers?.at(-1)?.answerRef);
 								}}
 							>
 								<FontAwesomeIcon className="icon" icon={faMinusSquare} />
@@ -130,14 +153,14 @@ export default function Lobby({ id }) {
 								className="poll__controls--add"
 								onClick={(e) => {
 									e.preventDefault();
-									setAnswerChoices((answerChoices) => [...answerChoices, ""]);
+									changeAnswerAmount();
 								}}
 							>
 								<FontAwesomeIcon className="icon" icon={faPlusSquare} />
 							</button>
 						</div>
 
-						{isPollLeader && (
+						{isPollLeader && !edit && (
 							<Button
 								className={`${showResults && "left"}`}
 								onClick={(e) => {
@@ -154,6 +177,7 @@ export default function Lobby({ id }) {
 								onClick={(e) => {
 									e.preventDefault();
 									toggleResults((prevShowResults) => !prevShowResults);
+									clearPoll();
 								}}
 							>
 								Clear Results
@@ -165,6 +189,7 @@ export default function Lobby({ id }) {
 								onClick={(e) => {
 									e.preventDefault();
 									toggleResults((prevShowResults) => !prevShowResults);
+									studentSubmit(answers[selectedAnswer]?.answerRef);
 								}}
 							>
 								SUBMIT

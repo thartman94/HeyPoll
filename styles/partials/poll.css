@@ -57,13 +57,21 @@
 	}
 
 	&__answers {
-		@apply relative flex flex-col w-1/2 h-auto gap-6 p-12 bg-white;
+		@apply relative flex flex-col justify-center w-1/2 h-auto gap-6 p-12 bg-white;
 
 		&--single {
 			@apply relative flex flex-row items-center w-full h-auto;
 
 			&.student {
 				@apply cursor-pointer;
+
+				input {
+					@apply cursor-pointer pointer-events-none;
+
+					&:hover {
+						@apply cursor-pointer;
+					}
+				}
 			}
 
 			.answer {
@@ -81,10 +89,6 @@
 					input {
 						@apply w-full h-full px-4 text-xl leading-relaxed;
 
-						&.student {
-							@apply cursor-pointer pointer-events-none;
-						}
-
 						&.locked {
 							&:focus {
 								@apply outline-none;
@@ -93,6 +97,7 @@
 					}
 				}
 			}
+
 			&.selected {
 				.answer__index {
 					@apply bg-hp-gold;

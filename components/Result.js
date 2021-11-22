@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
 	BarChart,
@@ -24,11 +24,17 @@ const colors = [
 ];
 
 const Result = ({ answers }) => {
-	const data = answers?.map((answer, i) => ({
-		name: answer,
-		key: i,
-		results: 20,
-	}));
+	const total = answers
+		? answers.reduce((acc, { count }) => acc + count, 0)
+		: 0;
+	const data = answers
+		? answers.map((answer, i) => ({
+				name: answer.choice,
+				key: i,
+				results: total === 0 ? 0 : (answer.count * 100) / total,
+		  }))
+		: [];
+	console.log({ total, data });
 
 	return (
 		<ResponsiveContainer className="result" width="100%" aspect={2}>

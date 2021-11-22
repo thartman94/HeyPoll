@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import AppContext from "./AppContext";
 import Answer from "./Answer";
 import Result from "./Result";
@@ -9,13 +9,14 @@ const PollBody = ({
 	edit,
 	selectAnswer,
 	answers,
+	docRef,
 }) => {
 	const { isPollLeader } = useContext(AppContext);
 	return (
 		<div className={`poll__body ${showResults && "show-results"}`}>
-			<div className="poll__answers">
+			<ul className="poll__answers">
 				{answers?.map((item, i) => (
-					<div
+					<li
 						key={i}
 						className={`poll__answers--single ${!isPollLeader && "student"} ${
 							selectedAnswer === i && "selected"
@@ -28,12 +29,13 @@ const PollBody = ({
 					>
 						<Answer
 							index={String.fromCharCode(97 + i)}
-							answer={item}
+							answer={item.choice}
 							edit={edit}
+							docRef={docRef}
 						/>
-					</div>
+					</li>
 				))}
-			</div>
+			</ul>
 			<Result answers={answers} />
 		</div>
 	);

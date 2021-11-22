@@ -1,4 +1,4 @@
 .result {
-	@apply absolute top-0 bottom-0 right-0 flex items-center justify-center flex-grow w-1/2 h-auto bg-white;
+	@apply relative top-0 bottom-0 right-0 flex items-center justify-center flex-grow w-1/2 h-auto py-6 bg-white;
 	max-width: 50%;
 }
