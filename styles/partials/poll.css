@@ -1,12 +1,37 @@
 .poll {
-	@apply relative flex flex-col w-full shadow-xl;
+	@apply font-mont relative flex flex-col w-full shadow-xl;
 	max-width: 700px;
 
-	&__question {
-		@apply bg-hp-dark relative flex flex-row items-center justify-start py-8 pl-6 pr-20 text-white rounded-t-lg shadow-xl;
+	&__edit {
+		@apply absolute top-0 right-0 z-40 text-3xl transition-all duration-300 ease-in-out bg-transparent;
+		transform: translateY(100%) translateX(calc(100% + 1rem));
 
-		p {
-			@apply text-3xl bg-transparent;
+		.icon {
+			@apply text-hp-dark opacity-30;
+
+			&.active {
+				@apply text-green-600 opacity-100;
+			}
+		}
+
+		&:hover {
+			@apply cursor-pointer;
+			.icon {
+				@apply opacity-100;
+			}
+		}
+	}
+
+	&__question {
+		@apply bg-hp-dark relative flex flex-row items-center justify-start text-white rounded-t-lg shadow-xl;
+
+		input {
+			@apply w-full h-full px-6 py-8 text-3xl leading-relaxed bg-transparent;
+			&.locked {
+				&:focus {
+					@apply outline-none;
+				}
+			}
 		}
 
 		button {
@@ -18,18 +43,64 @@
 		}
 	}
 
+	&__wrapper {
+		@apply relative flex flex-col w-full h-full overflow-hidden;
+	}
+
+	&__body {
+		@apply relative flex flex-row h-full transition-all duration-500 ease-in-out;
+		width: 200%;
+		transform: translateX(0);
+		&.show-results {
+			transform: translateX(-50%);
+		}
+	}
+
 	&__answers {
-		@apply relative flex flex-col w-full h-auto gap-6 p-12 bg-white;
+		@apply relative flex flex-col justify-center w-1/2 h-auto gap-6 p-12 bg-white;
 
 		&--single {
 			@apply relative flex flex-row items-center w-full h-auto;
 
-			.remove {
-				@apply absolute right-0 flex px-3 text-xl text-red-500 transition-all duration-500 ease-in-out opacity-25;
-				transform: translateX(100%);
+			&.student {
+				@apply cursor-pointer;
 
-				&:hover {
-					@apply opacity-100;
+				input {
+					@apply cursor-pointer pointer-events-none;
+
+					&:hover {
+						@apply cursor-pointer;
+					}
+				}
+			}
+
+			.answer {
+				@apply border-hp-dark relative flex flex-row w-full border-2;
+				height: 4.5rem;
+
+				&__index {
+					@apply font-mont bg-hp-light relative flex items-center justify-center h-full text-3xl font-bold text-white uppercase;
+					min-width: 4.5rem;
+				}
+
+				&__body {
+					@apply border-hp-dark relative flex items-center w-full h-full border-l-2;
+
+					input {
+						@apply w-full h-full px-4 text-xl leading-relaxed;
+
+						&.locked {
+							&:focus {
+								@apply outline-none;
+							}
+						}
+					}
+				}
+			}
+
+			&.selected {
+				.answer__index {
+					@apply bg-hp-gold;
 				}
 			}
 		}
@@ -44,6 +115,45 @@
 			&:hover {
 				@apply opacity-70;
 			}
+		}
+	}
+
+	&__controls {
+		@apply absolute bottom-0 left-0 right-0 flex flex-row items-center justify-center gap-4 pb-0 mx-auto mb-1 bg-transparent;
+
+		&.hidden {
+			@apply hidden;
+		}
+
+		&--minus,
+		&--add {
+			.icon {
+				@apply text-hp-dark opacity-30 text-3xl transition-all duration-300 ease-in-out cursor-pointer;
+			}
+		}
+		&--minus {
+			.icon {
+				&:hover {
+					@apply text-red-500 opacity-100;
+				}
+			}
+		}
+		&--add {
+			.icon {
+				&:hover {
+					@apply text-green-600 opacity-100;
+				}
+			}
+		}
+	}
+
+	.response {
+		@apply absolute bottom-0 flex items-center justify-center w-full mx-auto mb-1 text-sm font-bold text-center text-red-600 transition-all duration-500 ease-in-out opacity-0;
+		transform: translateY(50%);
+
+		&.active {
+			@apply opacity-100;
+			transform: translateY(0);
 		}
 	}
 }

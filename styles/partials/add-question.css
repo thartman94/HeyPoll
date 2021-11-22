@@ -7,10 +7,10 @@
 }
 
 .questionLabel{
-    margin:5px;
+    @apply mx-5;
 }
 .questionInput{
-    @apply text-black;
+    @apply text-black mx-2;
 }
 
 .questionSubmit{

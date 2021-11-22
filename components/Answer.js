@@ -1,12 +1,21 @@
 import React from "react";
+import AppContext from "./AppContext";
+import Input from "./Input";
 
-export const Answer = ({ index, answerText }) => {
+const Answer = ({ index, edit, answer, docRef, isQuestion }) => {
 	return (
 		<div className="answer">
 			<div className="answer__index">{index}</div>
 			<div className="answer__body">
-				<p>{answerText}</p>
+				<Input
+					className="poll__answer--input"
+					readonly={!edit}
+					value={answer}
+					placeholder={""}
+				/>
 			</div>
 		</div>
 	);
 };
+
+export default Answer;

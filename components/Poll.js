@@ -1,75 +1,122 @@
-import React from "react";
-import { Answer } from "./Answer";
+// import React, { useState, useContext } from "react";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
+// import AppContext from "./AppContext";
+// import Input from "./Input";
+// import Button from "./Button";
+// import PollBody from "./PollBody";
+// import EditButton from "./EditButton";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+// const Poll = ({ poll }) => {
+// 	const { isPollLeader } = useContext(AppContext);
+// 	const [edit, toggleEdit] = useState(false);
+// 	const [showResults, toggleResults] = useState(false);
+// 	const [selectedAnswer, selectAnswer] = useState(null);
+// 	const [answerChoices, setAnswerChoices] = useState([
+// 		"Subs",
+// 		"Pizza",
+// 		"Sushi",
+// 		"Burgers",
+// 	]);
+// 	const [pollQuestion, setPollQuestion] = useState(
+// 		"What should we order for dinner?"
+// 	);
 
-export const Poll = ({ prof, edit, student }) => {
-	let choices = 2;
-	// prof = true;
-	edit = true;
-	student = true;
+// 	const savePoll = (e) => {
+// 		const form = e.target.closest(".poll");
+// 		const question = form.querySelector(".poll__question");
+// 		const liveAnswers = form.querySelectorAll(".poll__answer--input");
 
-	const edit_title = (e) => {
-		e.preventDefault();
-		console.log("change question text");
-	};
+// 		setPollQuestion(question.value);
 
-	const add_choice = (e) => {
-		e.preventDefault();
-		console.log("add choice");
-	};
+// 		for (let i = 0; i < liveAnswers.length; i++) {
+// 			setAnswerChoices(
+// 				(answerChoices) => (answerChoices[i] = liveAnswers[i].value)
+// 			);
+// 		}
+// 	};
 
-	const remove_choice = (e) => {
-		e.preventDefault();
-		console.log("remove choice");
-	};
+// 	return (
+// 		<form className="poll">
+// 			{isPollLeader && (
+// 				<EditButton
+// 					edit={edit}
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						toggleEdit((prevEdit) => !prevEdit);
+// 						savePoll(e);
+// 					}}
+// 				/>
+// 			)}
+// 			<div className="poll__question">
+// 				<Input readonly={!edit} value={pollQuestion} />
+// 			</div>
+// 			<div className="poll__wrapper">
+// 				<PollBody
+// 					showResults={showResults}
+// 					selectedAnswer={selectedAnswer}
+// 					edit={edit}
+// 					selectAnswer={selectAnswer}
+// 					answerChoices={answerChoices}
+// 					setAnswerChoices={setAnswerChoices}
+// 				/>
+// 			</div>
+// 			<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
+// 				<button
+// 					className="poll__controls--minus"
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						setAnswerChoices((answerChoices) => answerChoices.slice(0, -1));
+// 					}}
+// 				>
+// 					<FontAwesomeIcon className="icon" icon={faMinusSquare} />
+// 				</button>
+// 				<button
+// 					className="poll__controls--add"
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						setAnswerChoices((answerChoices) => [...answerChoices, ""]);
+// 					}}
+// 				>
+// 					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
+// 				</button>
+// 			</div>
 
-	return (
-		<div className="poll">
-			<div className="poll__question">
-				<p>How much wood could a woodchuck chuck?</p>
-				{edit && (
-					<button onClick={edit_title}>
-						<FontAwesomeIcon icon={faEdit} />
-					</button>
-				)}
-			</div>
-			<div className="poll__answers">
-				<div className="poll__answers--single">
-					<Answer index="A" answerText="A whole lot" />
-					{edit && (
-						<button className="remove" onClick={remove_choice}>
-							<FontAwesomeIcon className="icon" icon={faMinusCircle} />
-						</button>
-					)}
-				</div>
-				<div className="poll__answers--single">
-					<Answer index="B" answerText="Not a bunch" />
-					{edit && (
-						<button className="remove" onClick={remove_choice}>
-							<FontAwesomeIcon className="icon" icon={faMinusCircle} />
-						</button>
-					)}
-				</div>
-				<div className="poll__answers--single">
-					<Answer index="C" answerText="Need more info" />
-					{edit && (
-						<button className="remove" onClick={remove_choice}>
-							<FontAwesomeIcon className="icon" icon={faMinusCircle} />
-						</button>
-					)}
-				</div>
-				{edit && (
-					<button className="poll__answers--add" onClick={add_choice}>
-						<div className="line"></div>
-						<FontAwesomeIcon className="icon" icon={faPlusSquare} />
-						<div className="line"></div>
-					</button>
-				)}
-			</div>
-		</div>
-	);
-};
+// 			{isPollLeader && (
+// 				<Button
+// 					className={`${showResults && "left"}`}
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						toggleResults(!showResults);
+// 					}}
+// 				>
+// 					Show{showResults ? " Choices" : " Results"}
+// 				</Button>
+// 			)}
+// 			{isPollLeader && showResults ? (
+// 				<Button
+// 					className="gold"
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						toggleResults((prevShowResults) => !prevShowResults);
+// 					}}
+// 				>
+// 					Clear Results
+// 				</Button>
+// 			) : null}
+// 			{selectedAnswer !== null && !showResults && !isPollLeader ? (
+// 				<Button
+// 					className="gold"
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						toggleResults((prevShowResults) => !prevShowResults);
+// 					}}
+// 				>
+// 					SUBMIT
+// 				</Button>
+// 			) : null}
+// 		</form>
+// 	);
+// };
+
+// export default Poll;
