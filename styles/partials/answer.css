@@ -3,7 +3,7 @@
 	height: 4.5rem;
 
 	&__index {
-		@apply font-mont bg-hp-light relative flex items-center justify-center h-full text-3xl font-bold text-white;
+		@apply font-mont bg-hp-light rounded-l-md relative flex items-center justify-center h-full text-3xl font-bold text-white;
 		min-width: 4.5rem;
 	}
 

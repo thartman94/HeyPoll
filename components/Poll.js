@@ -9,7 +9,7 @@ import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 export const Poll = ({ prof, edit, student }) => {
 	let choices = 2;
 	// prof = true;
-	// edit = true;
+	edit = true;
 	student = true;
 
 	const edit_title = (e) => {
@@ -31,11 +31,11 @@ export const Poll = ({ prof, edit, student }) => {
 		<div className="poll">
 			<div className="poll__question">
 				<p>How much wood could a woodchuck chuck?</p>
-				{/* {edit && (
+				{edit && (
 					<button onClick={edit_title}>
 						<FontAwesomeIcon icon={faEdit} />
 					</button>
-				)} */}
+				)}
 			</div>
 			<div className="poll__answers">
 				<div className="poll__answers--single">
