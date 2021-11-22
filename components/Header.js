@@ -13,7 +13,7 @@ const Header = ({ title }) => {
 	return (
 		<header className="header">
 			<a href="/" className="logo">
-				<img src={"./bars-logo.png"} />
+				<img src={"/bars-logo.png"} />
 			</a>
 			<p className="page">{title}</p>
 			{pathname.includes("/lobbies") && isPollLeader && (

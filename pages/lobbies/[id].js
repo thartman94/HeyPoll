@@ -61,7 +61,7 @@ export default function Lobby({ id }) {
 			const inputs = document
 				? document.querySelectorAll(".poll__answers input")
 				: [];
-
+			const newQuestion = document.querySelector(".poll__question input").value;
 			inputs.forEach((input, i) => {
 				console.log({ input });
 				if (input.value !== answers[i].choice) {
@@ -73,6 +73,9 @@ export default function Lobby({ id }) {
 						}
 					);
 				}
+			});
+			updateDoc(docRef, {
+				question: newQuestion,
 			});
 		}
 	};
@@ -123,7 +126,7 @@ export default function Lobby({ id }) {
 						)}
 						<div className="poll__question">
 							<Input
-								className="poll__question--actual"
+								className="poll__question"
 								readonly={!edit}
 								value={poll?.question}
 								placeholder={""}
