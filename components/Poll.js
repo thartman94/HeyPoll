@@ -1,164 +1,122 @@
-import React, { useState } from "react";
-import { Answer } from "./Answer";
-import PropTypes from "prop-types";
+// import React, { useState, useContext } from "react";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
+// import AppContext from "./AppContext";
+// import Input from "./Input";
+// import Button from "./Button";
+// import PollBody from "./PollBody";
+// import EditButton from "./EditButton";
 
-import RoomCode from "../components/RoomCode";
+// const Poll = ({ poll }) => {
+// 	const { isPollLeader } = useContext(AppContext);
+// 	const [edit, toggleEdit] = useState(false);
+// 	const [showResults, toggleResults] = useState(false);
+// 	const [selectedAnswer, selectAnswer] = useState(null);
+// 	const [answerChoices, setAnswerChoices] = useState([
+// 		"Subs",
+// 		"Pizza",
+// 		"Sushi",
+// 		"Burgers",
+// 	]);
+// 	const [pollQuestion, setPollQuestion] = useState(
+// 		"What should we order for dinner?"
+// 	);
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
-import Input from "./Input";
+// 	const savePoll = (e) => {
+// 		const form = e.target.closest(".poll");
+// 		const question = form.querySelector(".poll__question");
+// 		const liveAnswers = form.querySelectorAll(".poll__answer--input");
 
-export const Poll = ({ userRole }) => {
-	const [edit, toggleEdit] = useState(false);
-	const [answers, changeAnswersLength] = useState(["Subs", "Pizza", "Sushi"]);
-	const [showRoomCode, setRoomCode] = useState(false);
+// 		setPollQuestion(question.value);
 
-	let question = "What should we order for dinner?";
-	// let answers = ["Subs", "Pizza", "Sushi"];
+// 		for (let i = 0; i < liveAnswers.length; i++) {
+// 			setAnswerChoices(
+// 				(answerChoices) => (answerChoices[i] = liveAnswers[i].value)
+// 			);
+// 		}
+// 	};
 
-	// ============================================================================================
-	//  swich which answer is sleceted when a student clicks on one
-	// ============================================================================================
-	const selectAnswer = (e) => {
-		e.preventDefault();
-		const selectedAnswer = e.target.closest(".poll__answers--single");
-		document.querySelectorAll(".poll__answers--single").forEach((answer) => {
-			answer === selectedAnswer
-				? answer.classList.add("selected")
-				: answer.classList.remove("selected");
-		});
-	};
+// 	return (
+// 		<form className="poll">
+// 			{isPollLeader && (
+// 				<EditButton
+// 					edit={edit}
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						toggleEdit((prevEdit) => !prevEdit);
+// 						savePoll(e);
+// 					}}
+// 				/>
+// 			)}
+// 			<div className="poll__question">
+// 				<Input readonly={!edit} value={pollQuestion} />
+// 			</div>
+// 			<div className="poll__wrapper">
+// 				<PollBody
+// 					showResults={showResults}
+// 					selectedAnswer={selectedAnswer}
+// 					edit={edit}
+// 					selectAnswer={selectAnswer}
+// 					answerChoices={answerChoices}
+// 					setAnswerChoices={setAnswerChoices}
+// 				/>
+// 			</div>
+// 			<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
+// 				<button
+// 					className="poll__controls--minus"
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						setAnswerChoices((answerChoices) => answerChoices.slice(0, -1));
+// 					}}
+// 				>
+// 					<FontAwesomeIcon className="icon" icon={faMinusSquare} />
+// 				</button>
+// 				<button
+// 					className="poll__controls--add"
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						setAnswerChoices((answerChoices) => [...answerChoices, ""]);
+// 					}}
+// 				>
+// 					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
+// 				</button>
+// 			</div>
 
-	// ============================================================================================
-	// function that creates a list of answers divs, think of it like a for-each loop
-	// ============================================================================================
-	const makeAnswers = (answers) =>
-		answers.map((item, i) => (
-			<div
-				className={`poll__answers--single ${userRole}`}
-				onClick={(e) => {
-					if (userRole === "student") {
-						selectAnswer(e);
-					}
-				}}
-			>
-				<Answer
-					key={i}
-					index={String.fromCharCode(97 + i)}
-					answer={item}
-					edit={edit}
-					userRole={userRole}
-				/>
-			</div>
-		));
+// 			{isPollLeader && (
+// 				<Button
+// 					className={`${showResults && "left"}`}
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						toggleResults(!showResults);
+// 					}}
+// 				>
+// 					Show{showResults ? " Choices" : " Results"}
+// 				</Button>
+// 			)}
+// 			{isPollLeader && showResults ? (
+// 				<Button
+// 					className="gold"
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						toggleResults((prevShowResults) => !prevShowResults);
+// 					}}
+// 				>
+// 					Clear Results
+// 				</Button>
+// 			) : null}
+// 			{selectedAnswer !== null && !showResults && !isPollLeader ? (
+// 				<Button
+// 					className="gold"
+// 					onClick={(e) => {
+// 						e.preventDefault();
+// 						toggleResults((prevShowResults) => !prevShowResults);
+// 					}}
+// 				>
+// 					SUBMIT
+// 				</Button>
+// 			) : null}
+// 		</form>
+// 	);
+// };
 
-	// ============================================================================================
-	// Lower button on the form. For the student it funcions as a answer submit button, for the
-	// professor it functions as a "save-edits" button
-	// ============================================================================================
-	const BottomButton = () => {
-		return userRole === "student" ? (
-			<button
-				className={`poll__save `}
-				onClick={(e) => (e.preventDefault(), console.log("User voted"))}
-			>
-				Vote!
-			</button>
-		) : (
-			<input
-				className={`poll__save ${!edit ? "hidden" : ""}`}
-				type="submit"
-				value="Save"
-			/>
-		);
-	};
-
-	// ============================================================================================
-	// Button for professor view to show roomcode
-	// ============================================================================================
-	const RoomButton = () => {
-		return userRole === "professor" ? (
-			<button 
-				className={`poll__roomcodeshow `}
-				onClick={(e) => {
-					setRoomCode(true);
-				}}
-			>
-				Show Room Code
-			</button>
-			
-		) : (
-			null
-		);
-	};
-
-
-	// ============================================================================================
-	// Component
-	// ============================================================================================
-	return (
-		<div className="pollroomcode">
-			{showRoomCode ? 
-			<div>
-				<button 
-				className={`poll__roomcodehide `}
-				onClick={(e) => {
-					setRoomCode(false);
-				}}
-				>Hide Room Code</button>
-				<RoomCode /> 
-			</div>
-			: 
-		<form
-			className="poll"
-			onSubmit={(e) => {
-				e.preventDefault();
-				console.log("submit poll");
-			}}
-		>
-			<button
-				className={`poll__edit ${userRole === "professor" ? "" : "hidden"}`}
-				onClick={(e) => {
-					e.preventDefault();
-					toggleEdit((prevEdit) => !prevEdit);
-				}}
-			>
-				Edit
-			</button>
-			<RoomButton />
-			<div className="poll__question">
-				<Input readonly={!edit} value={question} />
-			</div>
-			<div className="poll__answers">{makeAnswers(answers)}</div>
-			<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
-				<button
-					className="poll__controls--minus"
-					onClick={(e) => {
-						e.preventDefault();
-						changeAnswersLength((prevAnswers) => prevAnswers.slice(0, -1));
-					}}
-				>
-					<FontAwesomeIcon className="icon" icon={faMinusSquare} />
-				</button>
-				<button
-					className="poll__controls--add"
-					onClick={(e) => {
-						e.preventDefault();
-						changeAnswersLength((prevAnswers) => [...prevAnswers, ""]);
-					}}
-				>
-					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
-				</button>
-			</div>
-			<BottomButton />
-		</form>
-		}
-		</div>
-
-	);
-};
-
-Input.propTypes = {
-	userRole: PropTypes.oneOf(["professor", "student", "spectator"]).isRequired,
-};
+// export default Poll;

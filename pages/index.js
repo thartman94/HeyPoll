@@ -1,64 +1,65 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Head from "next/head";
-import Link from "next/link";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import LinkBoxes from "../components/LinkBoxes";
-import HomePageButton from "../components/HomePageButton";
-import EnterRoomCode from "../components/EnterRoomCode";
-import { JoinLobby, CreatePoll, Login } from "../functions/Functions";
 import { googleLogin, logOut } from "../firebase/clientApp";
 import { createGuestPoll } from "../firebase/clientApp";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/dist/client/router";
-import { collection, doc, addDoc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
+
+import AppContext from "../components/AppContext";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import EnterRoomCode from "../components/EnterRoomCode";
+import Button from "../components/Button";
+import Modal from "../components/Modal";
 
 export default function Home() {
 	const router = useRouter();
+	const { setModalVisibility } = useContext(AppContext);
 
 	return (
-		<div className="index" style={{ position: "relative" }}>
+		<div className="index">
 			<Head>
 				<title>HeyPoll</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Header></Header>
-
+			<Header />
 			<main className="index__main">
 				<h1 className="title">
 					Welcome to <span className="font-pacifico text-red-600">HeyPoll</span>
 				</h1>
-				<br></br>
 
 				<div className="button-wrapper">
-					{/* <div><EnterRoomCode/></div> */}
-
-					<button
-						className="home-page-button"
-						onClick={(e) => {
-							e.preventDefault(),
-								console.log("hello"),
-								document.querySelector(".EnterRoomDiv").classList.add("active");
+					<Modal>
+						<EnterRoomCode />
+					</Modal>
+					<Button
+						className="homepage"
+						onClick={() => {
+							setModalVisibility(true);
 						}}
 					>
 						Enter Room Code
-					</button>
-					<HomePageButton
-						title={"Create a poll (as guest)"}
-						buttonClick={function (event) {
-							createGuestPoll();
-							router.push(`/room/`);
+					</Button>
+					<Button
+						className="homepage "
+						onClick={() => {
+							createGuestPoll().then(async (result) => {
+								router.push(
+									{
+										pathname: `/lobbies/${result}`,
+										query: result,
+									},
+									`/lobbies/${result}`
+								);
+							});
 						}}
-						//path="/room"
-					></HomePageButton>
-					<HomePageButton
-						title={"Sign in / Sign up"}
-						buttonClick={googleLogin}
-						path="#"
-					></HomePageButton>
+					>
+						Create Poll (as guest)
+					</Button>
+					<Button className="gold homepage" onClick={googleLogin}>
+						Sign in / Sign up
+					</Button>
 
-					<button onClick={logOut}>Sign out</button>
+					<Button onClick={logOut}>Sign out</Button>
 				</div>
 			</main>
 			<Footer />

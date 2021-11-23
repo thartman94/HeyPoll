@@ -1,22 +1,36 @@
-import React from "react";
-import logo from "../public/bars-logo.png";
+import React, { useContext } from "react";
+import Button from "./Button";
+import AppContext from "./AppContext";
+import Modal from "./Modal";
+import RoomCode from "./RoomCode";
+import { useRouter } from "next/router";
 
-const Header = ({ title, front, prof, edit }) => {
-	const open_menu = (e) => {
-		e.preventDefault();
-		console.log("open");
-	};
+const Header = ({ title }) => {
+	const { modalVisible, setModalVisibility, isPollLeader } =
+		useContext(AppContext);
+	const { pathname } = useRouter();
+
 	return (
 		<header className="header">
 			<a href="/" className="logo">
-				<img src={"./bars-logo.png"} />
+				<img src={"/bars-logo.png"} />
 			</a>
 			<p className="page">{title}</p>
-			<button className="hamburger" onClick={open_menu}>
-				<div className="line"></div>
-				<div className="line"></div>
-				<div className="line"></div>
-			</button>
+			{pathname.includes("/lobbies") && isPollLeader && (
+				<Button
+					className={`header ${modalVisible && "is-active"}`}
+					onClick={() =>
+						setModalVisibility((prevModalVisible) => !prevModalVisible)
+					}
+				>
+					{modalVisible ? "Hide " : "Show "} Room Code
+				</Button>
+			)}
+			{pathname.includes("/lobbies") && (
+				<Modal>
+					<RoomCode />
+				</Modal>
+			)}
 		</header>
 	);
 };

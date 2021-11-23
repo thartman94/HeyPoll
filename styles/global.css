@@ -11,7 +11,6 @@
 @import "partials/project-details.css";
 @import "partials/roster.css";
 @import "partials/link-box.css";
-@import "partials/HomePageButton.css";
 @import "partials/landing-container.css";
 @import "partials/roomcode.css";
 @import "partials/add-question.css";
@@ -21,6 +20,11 @@
 @import "partials/EnterRoomDiv.css";
 @import "partials/sidebar.css";
 @import "partials/profile.css";
+@import "partials/enter-code.css";
+@import "partials/result.css";
+@import "partials/button.css";
+@import "partials/modal.css";
+@import "partials/chart-label.css";
 
 /* Pages */
 @import "pages/index.css";
