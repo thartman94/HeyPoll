@@ -12,15 +12,19 @@ import {
   } from "react-pro-sidebar";
 
 export default function PollsSubMenu(){
-    var Polls = new Array();
-    Polls[0] = new Array("Question 1", " Question 2", "Question 3", "Question 4", "Question 5", "Question 6")
-    Polls[1] = new Array("Question 1", " Question 2", "Question 3", "Question 4"); 
-    Polls[2] = new Array("Question 1", " Question 2", "Question 3", "Question 4"); 
 
-    var temp = new Array("Question 1", " Question 2", "Question 3");
-    let txt = temp[0];
-    
-   
+    function NumberList(props) {
+        const numbers = props.numbers;
+        const listItems = questions.map((question) =>
+          <MenuItem key={question.toString()}>
+            {question}
+          </MenuItem>
+        );
+        return (
+          <MenuItem>{listItems}</MenuItem>
+        );
+      }
+      const questions = ["Question 1", "Question 2", "Question 3", "Question 4"];
 
     
 
@@ -29,13 +33,7 @@ export default function PollsSubMenu(){
         <SubMenu 
         title="Poll 1"
         >
-            
-            <MenuItem>Question 1 </MenuItem>
-            <MenuItem>Question 2</MenuItem>
-            <MenuItem>Question 3</MenuItem>
-            <MenuItem>Question 4</MenuItem>
-            <MenuItem>Question 5</MenuItem>
-            <MenuItem>Question 6</MenuItem>
+            <NumberList questions={questions} />
         </SubMenu> 
         <SubMenu
         title="Poll 2"
@@ -48,8 +46,7 @@ export default function PollsSubMenu(){
         <SubMenu
         title="Poll 3"
         >
-            <MenuItem
-            >Question 1</MenuItem>
+            <MenuItem>Question 1</MenuItem>
             <MenuItem>Question 2</MenuItem>
             <MenuItem>Question 3</MenuItem>
             <MenuItem>Question 4</MenuItem>

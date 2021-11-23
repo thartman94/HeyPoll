@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar'
-import { AccountPollEditor } from '../components/AccountPollEditor';
+//import { AccountPollEditor } from '../components/AccountPollEditor';
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -10,9 +10,7 @@ function profile() {
         <div className="sidebar">
           <Sidebar />
         </div>
-        <div className="polleditor">
-          <AccountPollEditor />
-        </div>
+        
     </div>
   );
 }
