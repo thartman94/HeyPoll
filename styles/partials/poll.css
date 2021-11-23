@@ -44,6 +44,20 @@
 		}
 	}
 
+	&__newQuestion {
+	
+		@apply bg-hp-light border-hp-light absolute bottom-0  flex px-10 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-md;
+		transform: translateY(150%);
+
+		&:hover {
+			@apply text-hp-dark bg-transparent cursor-pointer;
+		}
+
+		&.hidden {
+			@apply hidden;
+		}	
+	}
+
 	&__question {
 		@apply bg-hp-dark relative flex flex-row items-center justify-start text-white rounded-t-lg shadow-xl;
 

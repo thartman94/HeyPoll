@@ -19,6 +19,8 @@
 @import "partials/poll.css";
 @import "partials/room-views.css";
 @import "partials/EnterRoomDiv.css";
+@import "partials/sidebar.css";
+@import "partials/profile.css";
 
 /* Pages */
 @import "pages/index.css";

@@ -1,0 +1,14 @@
+.polleditor{
+    @apply flex justify-center py-20;
+}
+
+.addPollSubmenu {
+    
+    padding: 20px 12px;
+    position: absolute;
+        @apply text-hp-dark;
+
+    &__button {
+        @apply text-hp-dark;
+    }
+}
