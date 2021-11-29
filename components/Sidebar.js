@@ -56,15 +56,9 @@ const Header = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              {/* <MenuItem active={true} icon={<FiHome />}>
-                Home
-              </MenuItem> */}
               {menuCollapse ? 
               <MenuItem onClick={menuIconClick} icon={<FaList />} ></MenuItem>
               :(<PollsSubMenu />)}
-              {/* <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
-              <MenuItem icon={<RiPencilLine />}>Author</MenuItem> 
-              <MenuItem icon={<BiCog />}>Settings</MenuItem> */}
             </Menu>
           </SidebarContent>
           <SidebarFooter>

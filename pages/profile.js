@@ -1,8 +1,4 @@
 import Sidebar from '../components/Sidebar'
-//import { AccountPollEditor } from '../components/AccountPollEditor';
-
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 function profile() {
   return (
