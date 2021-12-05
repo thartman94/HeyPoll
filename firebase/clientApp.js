@@ -78,7 +78,7 @@ export const auth = getAuth(app);
 
 export const googleLogin = () => {
 	const provider = new GoogleAuthProvider();
-	signInWithPopup(auth, provider)
+	const tempUser = signInWithPopup(auth, provider)
 		.then((result) => {
 			// This gives you a Google Access Token. You can use it to access the Google API.
 			const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -86,6 +86,7 @@ export const googleLogin = () => {
 			// The signed-in user info.
 			const user = result.user;
 			// ...
+			return user.uid;
 		})
 		.catch((error) => {
 			// Handle Errors here.
@@ -97,6 +98,7 @@ export const googleLogin = () => {
 			const credential = GoogleAuthProvider.credentialFromError(error);
 			// ...
 		});
+	return tempUser;
 };
 
 export const logOut = () => {

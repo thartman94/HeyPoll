@@ -55,7 +55,20 @@ export default function Home() {
 					>
 						Create Poll (as guest)
 					</Button>
-					<Button className="gold homepage" onClick={googleLogin}>
+					<Button
+						className="gold homepage"
+						onClick={() => {
+							googleLogin().then(async (id) => {
+								router.push(
+									{
+										pathname: `/profile/${id}`,
+										query: id,
+									},
+									`/profile/${id}`
+								);
+							});
+						}}
+					>
 						Sign in / Sign up
 					</Button>
 
