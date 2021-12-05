@@ -17,7 +17,6 @@ import {
 	query,
 	where,
 	getDocs,
-	writeBatch,
 } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
@@ -32,27 +31,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-
 export const app = initializeApp(firebaseConfig);
+
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-// export const createCounter = (ref, num_shards) => {
-// 	var batch = writeBatch(db);
-// 	// Initialize the counter document
-// 	batch.set(ref, { num_shards: num_shards });
-// 	// Initialize each shard with count=0
-// 	for (let i = 0; i < num_shards; i++) {
-// 		// const shardRef = ref.collection("shards").doc(i.toString());
-// 		const shardRef = doc(ref, "shards", i.toString());
-// 		// doc(db, "guestPolls", id);
-// 		batch.set(shardRef, { count: 0 });
-// 	}
-// 	// Commit the write batch
-// 	return batch.commit();
-// };
-
-// For creating accounts, tbd
 // createUserWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {
 //     // Signed in
@@ -78,7 +61,7 @@ export const auth = getAuth(app);
 
 export const googleLogin = () => {
 	const provider = new GoogleAuthProvider();
-	signInWithPopup(auth, provider)
+	const tempUser = signInWithPopup(auth, provider)
 		.then((result) => {
 			// This gives you a Google Access Token. You can use it to access the Google API.
 			const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -86,6 +69,7 @@ export const googleLogin = () => {
 			// The signed-in user info.
 			const user = result.user;
 			// ...
+			return user.uid;
 		})
 		.catch((error) => {
 			// Handle Errors here.
@@ -97,6 +81,7 @@ export const googleLogin = () => {
 			const credential = GoogleAuthProvider.credentialFromError(error);
 			// ...
 		});
+		return tempUser;
 };
 
 export const logOut = () => {
@@ -112,25 +97,13 @@ export const createGuestPoll = () => {
 		const user = result.user;
 		const guestRef = await addDoc(collection(db, "guestPolls"), {}); // Create empty guest poll
 
-		await setDoc(doc(db, "guestPolls", guestRef.id), {
-			question: "Your Question Here",
-			// answers: [
-			// 	{ choice: "Yes", count: 0 },
-			// 	{ choice: "No", count: 0 },
-			// ], // Array to store answers
-			joinCode: guestRef.id.substring(0, 5).toUpperCase(),
+		setDoc(doc(db, "guestPolls", guestRef.id), {
+			question: "",
+			answers: [], // Array to store answers
+			correctAnswer: 0, // Index of correct answer
+			results: [], // Array to store results
+			joinCode: guestRef.id.substring(0, 5),
 			guestID: user.uid,
-		});
-
-		const answerRef = await addDoc(
-			collection(db, "guestPolls", guestRef.id, "answers"),
-			{}
-		);
-
-		await setDoc(doc(db, "guestPolls", guestRef.id, "answers", answerRef.id), {
-			choice: "Yes",
-			count: 0,
-			answerRef: answerRef.id,
 		});
 
 		return guestRef.id;
@@ -138,6 +111,8 @@ export const createGuestPoll = () => {
 
 	return guestRefID;
 };
+
+export const getJoinCode = () => {};
 
 // Detect auth state
 onAuthStateChanged(auth, (user) => {
@@ -148,6 +123,7 @@ onAuthStateChanged(auth, (user) => {
 		console.log("No user");
 	}
 });
+
 export const getFullCode = async (inputCode) => {
 	const upperCode = inputCode.toUpperCase();
 	const q = query(
