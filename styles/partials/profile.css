@@ -1,6 +1,9 @@
 .polleditor{
     @apply flex justify-center py-20;
 }
+.profilepoll{
+    @apply flex justify-center items-center;
+}
 
 .addPollSubmenu {
     

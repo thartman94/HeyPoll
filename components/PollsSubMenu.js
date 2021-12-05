@@ -1,4 +1,5 @@
 import React from "react";
+import { RiArrowDropDownFill } from "react-icons/ri";
 
 //import react pro sidebar components
 import {
@@ -38,16 +39,25 @@ export default function PollsSubMenu(){
           listItems
         );
     }
+
+    function addPoll() {
+      polls.push('unknown');
+      console.log('yekkw')
+    };
     
-    const questions = ["Question 1", "Question 2", "Question 3", "Question 4"];
-    const polls = ["Poll 1","Poll 2", "Poll 3"]
+    var questions = ["Question 1", "Question 2", "Question 3", "Question 4"];
+    var polls = ["Poll 1","Poll 2", "Poll 3"]
 
     return (
         <div>
           <PollList polls={polls} />
         <div className="addPollSubmenu">
             <button 
-            className="addPollSubmenu__button"> + Add Poll</button>
+            className="addPollSubmenu__button" 
+            onClick={(e) => {
+              addPoll(e);
+            }}
+            > + Add Poll</button>
         </div>
         </div>
     );

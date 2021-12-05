@@ -25,6 +25,7 @@
 		"react-icons": "^4.3.1",
 		"react-pro-sidebar": "^0.7.1",
 		"recharts": "^2.1.6",
+		"swr": "^1.1.0",
 		"twin.macro": "^2.8.0"
 	},
 	"devDependencies": {
