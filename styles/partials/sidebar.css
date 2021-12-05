@@ -1,12 +1,35 @@
 .sidebar {
-	@apply relative flex flex-col w-full py-12 bg-pink-300;
+	@apply relative flex flex-col w-full py-12 bg-gray-200 shadow-lg;
 	max-width: 300px;
 
 	&__header {
 		@apply text-hp-dark flex flex-row items-center justify-between py-4 pl-6 text-2xl font-bold;
+
+		&--toggle {
+			@apply relative flex px-2;
+			svg {
+			}
+		}
 	}
 
-	&__toggle {
-		@apply bg-hp-dark flex w-4 h-4;
+	&__body {
+		@apply relative flex flex-col pl-6;
+
+		li {
+			@apply relative flex flex-col;
+
+			p {
+				@apply flex font-bold;
+			}
+
+			ul {
+				@apply relative flex flex-col pl-2;
+
+				&:after {
+					@apply bg-hp-dark absolute top-0 left-0 flex w-px h-full;
+					content: "";
+				}
+			}
+		}
 	}
 }
