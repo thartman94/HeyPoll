@@ -1,8 +1,8 @@
 .profile {
-	@apply relative flex flex-col w-full h-screen;
+	@apply relative flex flex-col justify-between w-full h-screen;
 
 	&__body {
-		@apply relative flex flex-row w-full;
+		@apply relative flex flex-row w-full h-full;
 
 		.poll-wrapper {
 			@apply relative flex flex-col items-center justify-center w-full;

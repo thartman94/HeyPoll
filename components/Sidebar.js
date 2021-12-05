@@ -13,17 +13,21 @@ const Sidebar = () => {
 	return (
 		<div className="sidebar">
 			<div className="sidebar__header">
-				<h3>Sidebar</h3>
-				<button className="sidebar__header--toggle">
-					<FontAwesomeIcon className="" icon={faChevronCircleRight} />
-				</button>
+				<h3>Your Saved Polls</h3>
+				{/* <button className="sidebar__header--toggle">
+					<FontAwesomeIcon icon={faChevronCircleRight} />
+				</button> */}
 			</div>
 			<ul className="sidebar__body">
 				{polls.map((poll, i) => (
 					<SidebarItem key={i} title={poll} questions={questions} />
 				))}
 			</ul>
-			<div className="sidebar__footer"></div>
+			<div className="sidebar__footer">
+				<button className="sidebar__footer--button">
+					Sign-out button go here plz
+				</button>
+			</div>
 		</div>
 	);
 };

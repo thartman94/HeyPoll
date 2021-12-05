@@ -1,5 +1,5 @@
 .sidebar {
-	@apply relative flex flex-col w-full py-12 bg-gray-200 shadow-lg;
+	@apply relative flex flex-col w-full h-full py-4 bg-gray-200 shadow-lg;
 	max-width: 300px;
 
 	&__header {
@@ -13,23 +13,45 @@
 	}
 
 	&__body {
-		@apply relative flex flex-col pl-6;
+		@apply relative flex flex-col h-full pl-6;
 
-		li {
+		.sidebarItem {
 			@apply relative flex flex-col;
 
-			p {
-				@apply flex font-bold;
+			&__title {
+				@apply hover:text-hp-light flex flex-row items-center justify-between py-2 pr-4 font-bold transition-all duration-300 ease-in-out;
+				&.open {
+					@apply text-hp-light;
+				}
+				svg {
+					@apply transition-all duration-300 ease-in-out;
+
+					&.rotate {
+						transform: rotate(180deg);
+					}
+				}
 			}
 
-			ul {
-				@apply relative flex flex-col pl-2;
+			&__questions {
+				@apply relative flex flex-col gap-1 pl-3 ml-1;
+				max-height: 250px;
 
-				&:after {
+				/* &:after {
 					@apply bg-hp-dark absolute top-0 left-0 flex w-px h-full;
 					content: "";
+				} */
+
+				&--single {
+					@apply relative flex transition-colors duration-100 ease-in-out;
+
+					&:hover {
+						@apply text-hp-light cursor-pointer;
+					}
 				}
 			}
 		}
+	}
+	&__footer {
+		@apply relative flex flex-row items-center justify-between px-2 py-4 text-2xl font-bold;
 	}
 }

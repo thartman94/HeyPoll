@@ -19,11 +19,10 @@
 		"postcss-import": "^14.0.2",
 		"qrcode.react": "^1.0.1",
 		"react": "^17.0.2",
+		"react-animate-height": "^2.0.23",
 		"react-dom": "^17.0.2",
 		"react-firebase-hooks": "^4.0.1",
 		"react-firebaseui": "^5.0.2",
-		"react-icons": "^4.3.1",
-		"react-pro-sidebar": "^0.7.1",
 		"recharts": "^2.1.6",
 		"swr": "^1.1.0",
 		"twin.macro": "^2.8.0"
