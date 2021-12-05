@@ -34,7 +34,6 @@ const Result = ({ answers }) => {
 				results: total === 0 ? 0 : Math.round((answer.count * 100) / total),
 		  }))
 		: [];
-	console.log({ total, data });
 
 	return (
 		<ResponsiveContainer className="result" width="100%" aspect={2}>

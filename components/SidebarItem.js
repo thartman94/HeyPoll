@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import AnimateHeight from "react-animate-height";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { collection } from "@firebase/firestore";
+import { db } from "../firebase/clientApp";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-const SidebarItem = ({ title, questions }) => {
+const SidebarItem = ({ title, id }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	let scollTime = questions.length > 7 ? 700 : questions.length * 100;
+	const [questions, isQuestionsLoading, questionsError] = useCollectionData(
+		collection(db, "savedPolls", id, "pollQuestions"),
+		{
+			snapshotListenOptions: { includeMetadataChanges: true },
+		}
+	);
+	let scollTime = isQuestionsLoading
+		? 0
+		: questions.length > 7
+		? 700
+		: questions.length * 100;
 
 	return (
 		<li className={`sidebarItem ${isOpen && "open"}`}>
@@ -25,11 +38,12 @@ const SidebarItem = ({ title, questions }) => {
 
 			<AnimateHeight duration={scollTime} height={isOpen ? "auto" : 0}>
 				<ul className={`sidebarItem__questions  ${isOpen && "open"}`}>
-					{questions.map((question, i) => (
-						<li className="sidebarItem__questions--single" key={i}>
-							{question}
-						</li>
-					))}
+					{!isQuestionsLoading &&
+						questions.map((question, i) => (
+							<li className="sidebarItem__questions--single" key={i}>
+								{question.question}
+							</li>
+						))}
 				</ul>
 			</AnimateHeight>
 		</li>

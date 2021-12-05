@@ -1,27 +1,33 @@
 //import useState hook to create menu collapse state
-import React, { useState } from "react";
+import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
-
 import SidebarItem from "./SidebarItem";
-
-const Sidebar = () => {
-	const questions = ["Question 1", "Question 2", "Question 3"];
-	const polls = ["Poll 1", "Poll 2", "Poll 3"];
+import { collection, query, where } from "@firebase/firestore";
+import { db } from "../firebase/clientApp";
+import { useCollection } from "react-firebase-hooks/firestore";
+const Sidebar = ({ id }) => {
+	const [polls, isPollsLoading, pollsError] = useCollection(
+		query(collection(db, "savedPolls"), where("userID", "==", id)),
+		{
+			snapshotListenOptions: { includeMetadataChanges: true },
+		}
+	);
 
 	return (
 		<div className="sidebar">
 			<div className="sidebar__header">
-				<h3>Your Saved Polls</h3>
+				<h3>Saved Polls</h3>
 				{/* <button className="sidebar__header--toggle">
-					<FontAwesomeIcon icon={faChevronCircleRight} />
+					<FontAwesomeIcon className="" icon={faChevronCircleRight} />
 				</button> */}
 			</div>
 			<ul className="sidebar__body">
-				{polls.map((poll, i) => (
-					<SidebarItem key={i} title={poll} questions={questions} />
-				))}
+				{!isPollsLoading &&
+					polls.docs.map((poll, i) => (
+						<SidebarItem key={i} title={poll.data().title} id={poll.id} />
+					))}
 			</ul>
 			<div className="sidebar__footer">
 				<button className="sidebar__footer--button">
