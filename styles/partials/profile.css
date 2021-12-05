@@ -1,17 +1,11 @@
-.polleditor{
-    @apply flex justify-center py-20;
-}
-.profilepoll{
-    @apply flex justify-center items-center;
-}
+.profile {
+	@apply relative flex flex-col w-full h-screen;
 
-.addPollSubmenu {
-    
-    padding: 20px 12px;
-    position: absolute;
-        @apply text-hp-dark;
+	&__body {
+		@apply relative flex flex-row w-full;
 
-    &__button {
-        @apply text-hp-dark;
-    }
+		.poll-wrapper {
+			@apply relative flex flex-col items-center justify-center w-full;
+		}
+	}
 }

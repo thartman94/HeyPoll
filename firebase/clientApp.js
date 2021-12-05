@@ -102,12 +102,9 @@ export const googleLogin = () => {
 export const logOut = () => {
 	signOut(auth)
 		.then(() => {
-			// Sign out success
 			console.log("Signed out");
 		})
-		.catch((error) => {
-			// Error occurred
-		});
+		.catch((error) => {});
 };
 
 export const createGuestPoll = () => {
