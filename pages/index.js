@@ -24,7 +24,7 @@ export default function Home() {
 			<Header />
 			<main className="index__main">
 				<h1 className="title">
-					Welcome to <span className="text-red-600 font-pacifico">HeyPoll</span>
+					Welcome to <span className="font-pacifico text-red-600">HeyPoll</span>
 				</h1>
 
 				<div className="button-wrapper">
@@ -55,18 +55,23 @@ export default function Home() {
 					>
 						Create Poll (as guest)
 					</Button>
-					<Button className="gold homepage" onClick={() => {
-						googleLogin().then( async (id) =>{
-							router.push(
-								{
-									pathname: `/profile/${id}`,
-									query: id,
-								},
-								`/profile/${id}`
-							)
 
-						});
-						}}>
+					<Button
+						className="gold homepage"
+						onClick={() => {
+							googleLogin().then(async (id) => {
+								if (id) {
+									router.push(
+										{
+											pathname: `/profile/${id}`,
+											query: id,
+										},
+										`/profile/${id}`
+									);
+								}
+							});
+						}}
+					>
 						Sign in / Sign up
 					</Button>
 

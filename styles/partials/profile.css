@@ -1,5 +1,5 @@
 .profile {
-	@apply relative flex flex-col justify-between w-full h-screen;
+	@apply font-mont relative flex flex-col justify-between w-full h-screen;
 
 	&__body {
 		@apply relative flex flex-row w-full h-full;
