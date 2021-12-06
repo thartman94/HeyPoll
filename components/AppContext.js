@@ -7,6 +7,8 @@ export const AppProvider = ({ children }) => {
 	const [isPollLeader, setPollLeader] = useState(false);
 	const [modalVisible, setModalVisibility] = useState(false);
 	const [user, loading, error] = useAuthState(auth);
+	const [slideIndex, setSlideIndex] = useState(null);
+	const [currentPollID, setCurrentPollID] = useState("");
 
 	return (
 		<AppContext.Provider
@@ -16,6 +18,10 @@ export const AppProvider = ({ children }) => {
 				modalVisible,
 				setModalVisibility,
 				user,
+				slideIndex,
+				setSlideIndex,
+				currentPollID,
+				setCurrentPollID,
 			}}
 		>
 			{children}

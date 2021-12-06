@@ -56,4 +56,10 @@
 		@apply relative left-auto right-auto w-1/2 py-2 rounded-none;
 		transform: translateY(0);
 	}
+
+	&.sidebar {
+		@apply relative items-center justify-center px-2 mx-auto text-xl text-center rounded-md;
+		max-width: 200px;
+		transform: translateY(0);
+	}
 }

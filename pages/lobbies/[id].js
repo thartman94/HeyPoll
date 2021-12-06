@@ -63,9 +63,7 @@ export default function Lobby({ id }) {
 				: [];
 			const newQuestion = document.querySelector(".poll__question input").value;
 			inputs.forEach((input, i) => {
-				console.log({ input });
 				if (input.value !== answers[i].choice) {
-					console.log("updating");
 					updateDoc(
 						doc(db, "guestPolls", id, "answers", answers[i].answerRef),
 						{

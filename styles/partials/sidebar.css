@@ -30,6 +30,20 @@
 						transform: rotate(180deg);
 					}
 				}
+				&--trash {
+					@apply absolute left-0 px-1 text-sm transition-all duration-200 ease-in-out opacity-0;
+					transform: translateX(-100%);
+
+					&:hover {
+						@apply text-red-500;
+					}
+				}
+
+				&:hover {
+					.sidebarItem__title--trash {
+						@apply opacity-100;
+					}
+				}
 			}
 
 			&__questions {
@@ -42,11 +56,37 @@
 				} */
 
 				&--single {
-					@apply relative flex transition-colors duration-100 ease-in-out;
+					@apply relative flex items-center justify-start transition-colors duration-100 ease-in-out;
+
+					.trash {
+						@apply absolute left-0 flex items-center justify-center px-1;
+						transform: translateX(-100%);
+
+						svg {
+							@apply text-hp-dark opacity-0 pointer-events-none;
+
+							&:hover {
+								@apply text-red-500;
+							}
+						}
+					}
 
 					&:hover {
 						@apply text-hp-light cursor-pointer;
+
+						.trash {
+							svg {
+								@apply opacity-50 pointer-events-auto;
+							}
+						}
 					}
+				}
+			}
+
+			&__add {
+				@apply flex items-center justify-center w-full;
+				svg {
+					@apply text-hp-dark hover:opacity-100 text-lg rounded-full opacity-50;
 				}
 			}
 		}
