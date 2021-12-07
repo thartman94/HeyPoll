@@ -102,7 +102,7 @@ export const createGuestPoll = () => {
       answers: [], // Array to store answers
       correctAnswer: 0, // Index of correct answer
       results: [], // Array to store results
-      joinCode: guestRef.id.substring(0, 5),
+      joinCode: guestRef.id.substring(0, 5).toUpperCase(),
       guestID: user.uid,
     });
 
