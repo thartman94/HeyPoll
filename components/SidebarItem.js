@@ -10,6 +10,7 @@ import {
 	doc,
 	addDoc,
 	getDocs,
+	updateDoc,
 } from "@firebase/firestore";
 import { db } from "../firebase/clientApp";
 import AppContext from "./AppContext";
@@ -19,12 +20,24 @@ import {
 	faChevronDown,
 	faTrashAlt,
 	faPlusSquare,
+	faEdit,
+	faSave,
 } from "@fortawesome/free-solid-svg-icons";
+
+// const savePollTitle = (newPollTitle) => {
+// 	console.log(newPollTitle);
+// 	updateDoc(doc(db, "savedPolls", id), {
+// 		title: newPollTitle,
+// 	});
+// };
 
 const SidebarItem = ({ title, id }) => {
 	const { slideIndex, setSlideIndex, currentPollID, setCurrentPollID } =
 		useContext(AppContext);
+
 	const [isOpen, setIsOpen] = useState(false);
+	const [isEdit, setIsEdit] = useState(false);
+
 	const [questions, isQuestionsLoading, questionsError] = useCollection(
 		collection(db, "savedPolls", id, "pollQuestions"),
 		{
@@ -44,22 +57,51 @@ const SidebarItem = ({ title, id }) => {
 			<button
 				className={`sidebarItem__title ${isOpen && "open"}`}
 				onClick={() => {
-					setIsOpen(!isOpen);
+					!isEdit && setIsOpen(!isOpen);
 				}}
 			>
-				{title}
-				<FontAwesomeIcon
-					className={`${isOpen && "rotate"}`}
-					icon={faChevronDown}
-				/>
-				<button
-					className="sidebarItem__title--trash"
-					onClick={() => {
-						deleteDoc(doc(db, "savedPolls", id));
-					}}
-				>
-					<FontAwesomeIcon icon={faTrashAlt} />
-				</button>
+				<div className="wrapper">
+					<input
+						className={`text ${isEdit ? "active" : "locked"}`}
+						readOnly={!isEdit}
+						value={isEdit ? null : title}
+						placeholder={title}
+					/>
+
+					<FontAwesomeIcon
+						className={`chevron ${isOpen && "rotate"}`}
+						icon={faChevronDown}
+					/>
+				</div>
+				<div className={`sidebarItem__title--actions ${isEdit && "hold-open"}`}>
+					<button
+						className={`edit ${isEdit && "green"}`}
+						onClick={(e) => {
+							e.stopPropagation();
+							if (isEdit) {
+								const currentValue = e.target
+									.closest(".sidebarItem__title")
+									.querySelector(".text").value;
+								const newTitle = currentValue ? currentValue : title;
+								updateDoc(doc(db, "savedPolls", id), {
+									title: newTitle,
+								});
+							}
+							setIsEdit(!isEdit);
+						}}
+					>
+						<FontAwesomeIcon icon={isEdit ? faSave : faEdit} />
+					</button>
+					<button
+						className="trash"
+						onClick={(e) => {
+							e.stopPropagation();
+							deleteDoc(doc(db, "savedPolls", id));
+						}}
+					>
+						<FontAwesomeIcon icon={faTrashAlt} />
+					</button>
+				</div>
 			</button>
 
 			<AnimateHeight duration={scollTime} height={isOpen ? "auto" : 0}>

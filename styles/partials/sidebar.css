@@ -7,47 +7,85 @@
 
 		&--toggle {
 			@apply relative flex px-2;
-			svg {
-			}
 		}
 	}
 
 	&__body {
-		@apply relative flex flex-col h-full pl-6;
+		@apply relative flex flex-col h-full pl-0;
 
 		.sidebarItem {
 			@apply relative flex flex-col;
 
 			&__title {
-				@apply hover:text-hp-light flex flex-row items-center justify-between py-2 pr-4 font-bold transition-all duration-300 ease-in-out;
+				@apply hover:text-hp-light flex flex-row items-center justify-between py-2 pr-2 font-bold transition-all duration-300 ease-in-out;
+
 				&.open {
 					@apply text-hp-light;
 				}
-				svg {
-					@apply transition-all duration-300 ease-in-out;
 
-					&.rotate {
-						transform: rotate(180deg);
+				.wrapper {
+					@apply flex flex-row relative items-center;
+					width: min-content;
+
+					.text {
+						@apply flex flex-row bg-black bg-opacity-0 font-bold rounded-md px-3;
+						width: min-content;
+
+						&.locked {
+							@apply cursor-pointer;
+						}
+
+						&.active {
+							@apply bg-opacity-5;
+						}
+					}
+
+					.chevron {
+						@apply transition-all duration-300 ease-in-out ml-4;
+
+						&.rotate {
+							transform: rotate(180deg);
+						}
 					}
 				}
-				&--trash {
-					@apply absolute left-0 px-1 text-sm transition-all duration-200 ease-in-out opacity-0;
-					transform: translateX(-100%);
 
-					&:hover {
-						@apply text-red-500;
+				&--actions {
+					@apply flex pl-4 flex-row items-center gap-1 relative right-0 justify-between py-1 z-50 opacity-0 pointer-events-none;
+
+					&.hold-open {
+						@apply opacity-100 pointer-events-auto;
+					}
+
+					button {
+						@apply transition-all relative duration-200 ease-in-out px-1 text-base flex text-black;
+
+						&.trash {
+							&:hover {
+								@apply text-red-500;
+							}
+						}
+
+						&.edit {
+							&:hover {
+								@apply text-hp-dark;
+							}
+
+							&.green {
+								@apply text-green-500 !important;
+							}
+						}
 					}
 				}
 
 				&:hover {
-					.sidebarItem__title--trash {
-						@apply opacity-100;
+					.sidebarItem__title--actions {
+						@apply opacity-100 pointer-events-auto;
 					}
 				}
 			}
 
 			&__questions {
-				@apply relative flex flex-col gap-1 pl-3 ml-1;
+				@apply relative flex flex-col gap-1 pl-3 ml-1 mb-1;
 				max-height: 250px;
 
 				/* &:after {

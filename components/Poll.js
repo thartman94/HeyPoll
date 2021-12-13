@@ -1,9 +1,16 @@
 import React, { useState, useContext } from "react";
-import AppContext from "./AppContext";
+import { useRouter } from "next/router";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { collection, updateDoc, doc } from "@firebase/firestore";
+import {
+	collection,
+	updateDoc,
+	doc,
+	addDoc,
+	setDoc,
+} from "@firebase/firestore";
 import { db } from "../firebase/clientApp";
 
+import AppContext from "./AppContext";
 import Input from "./Input";
 import Button from "./Button";
 import PollBody from "./PollBody";
@@ -12,7 +19,8 @@ import EditButton from "./EditButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 
-const Poll = () => {
+const Poll = ({ userID, isProfile }) => {
+	const router = useRouter();
 	const [edit, toggleEdit] = useState(false);
 	const { slideIndex, currentPollID } = useContext(AppContext);
 
@@ -76,6 +84,33 @@ const Poll = () => {
 		}
 	};
 
+	const createGuestPoll = async () => {
+		const guestRef = await addDoc(collection(db, "guestPolls"), {}); // Create empty guest poll
+
+		if (!!guestRef) {
+			setDoc(doc(db, "guestPolls", guestRef.id), {
+				question: questions.docs[slideIndex]?.data().question,
+				correctAnswer: 0, //literally serves no purpose
+				joinCode: guestRef.id.substring(0, 5).toUpperCase(),
+				guestID: userID,
+			});
+
+			const promises = questions.docs[slideIndex]
+				?.data()
+				?.answers.map((answer) => {
+					console.log(answer);
+					addDoc(collection(db, "guestPolls", guestRef.id, "answers"), {
+						choice: answer,
+						count: 0,
+					});
+				});
+
+			await Promise.all(promises);
+		}
+
+		return guestRef.id;
+	};
+
 	return (
 		<form className="poll">
 			<EditButton
@@ -100,7 +135,7 @@ const Poll = () => {
 			<div className="poll__wrapper">
 				{!isQuestionsLoading && (
 					<PollBody
-						isProfile
+						isProfile={isProfile}
 						docRef={"docRef"}
 						edit={edit}
 						answers={questions.docs[slideIndex]?.data()?.answers}
@@ -127,6 +162,23 @@ const Poll = () => {
 					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
 				</button>
 			</div>
+			<Button
+				className="gold"
+				onClick={(e) => {
+					e.preventDefault();
+					createGuestPoll().then((result) => {
+						router.push(
+							{
+								pathname: `/lobbies/${result}`,
+								query: result,
+							},
+							`/lobbies/${result}`
+						);
+					});
+				}}
+			>
+				Create New Room
+			</Button>
 		</form>
 	);
 };

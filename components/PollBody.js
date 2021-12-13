@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from "react";
+
 import AppContext from "./AppContext";
 import Answer from "./Answer";
 import Result from "./Result";
@@ -13,6 +14,7 @@ const PollBody = ({
 	isProfile,
 }) => {
 	const { isPollLeader } = useContext(AppContext);
+
 	return (
 		<div
 			className={`poll__body ${showResults && !isProfile && "show-results"}`}
@@ -33,7 +35,7 @@ const PollBody = ({
 						>
 							<Answer
 								index={String.fromCharCode(97 + i)}
-								answer={isProfile ? item : item.choice}
+								answer={isProfile ? item : item.data().choice}
 								edit={edit}
 								docRef={docRef}
 							/>
