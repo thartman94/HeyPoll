@@ -24,7 +24,8 @@ import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 const Poll = ({ userID, isProfile }) => {
   const router = useRouter();
   const [edit, toggleEdit] = useState(false);
-  const { slideIndex, currentPollID } = useContext(AppContext);
+  const { slideIndex, setSlideIndex, currentPollID, setCurrentPollID } =
+    useContext(AppContext);
 
   const questionColRef = collection(
     db,
@@ -140,6 +141,25 @@ const Poll = ({ userID, isProfile }) => {
           }
         />
       </div>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          slideIndex > 0 && setSlideIndex(slideIndex - 1);
+        }}
+      >
+        LEFT
+      </button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          slideIndex < questions.docs.length - 1 &&
+            setSlideIndex(slideIndex + 1);
+        }}
+      >
+        Right
+      </button>
       <div className="poll__wrapper">
         {!isQuestionsLoading && (
           <PollBody
