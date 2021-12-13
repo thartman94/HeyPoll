@@ -1,5 +1,5 @@
 .poll {
-	@apply font-mont relative flex flex-col w-full shadow-xl;
+	@apply font-mont relative flex flex-col w-full shadow-xl justify-center;
 	max-width: 700px;
 
 	&__edit {
@@ -23,7 +23,6 @@
 	}
 
 	&__newQuestion {
-	
 		@apply bg-hp-light border-hp-light absolute bottom-0  flex px-10 py-2 font-bold text-white transition-all duration-300 ease-in-out border-2 shadow-md;
 		transform: translateY(150%);
 
@@ -33,7 +32,7 @@
 
 		&.hidden {
 			@apply hidden;
-		}	
+		}
 	}
 
 	&__question {

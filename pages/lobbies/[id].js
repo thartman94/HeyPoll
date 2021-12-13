@@ -27,6 +27,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import PollBody from "../../components/PollBody";
 import EditButton from "../../components/EditButton";
+import PollControl from "../../components/PollControl";
 
 export const getServerSideProps = async (context) => {
 	const { id } = context.params;
@@ -192,6 +193,8 @@ export default function Lobby({ id }) {
 								SUBMIT
 							</Button>
 						) : null}
+						<PollControl left />
+						<PollControl />
 					</form>
 				</div>
 			</div>

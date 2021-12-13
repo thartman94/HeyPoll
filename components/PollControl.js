@@ -15,14 +15,16 @@ const advancePoll = (e) => {
 	console.log("Professor has advanced the poll");
 };
 
-export const PollControl = ({ direction }) => {
+const PollControl = ({ left }) => {
 	return (
-		<button class="control">
+		<button class={`control ${left && "left"}`}>
 			<FontAwesomeIcon
 				className="control__icon"
-				onClick={direction === "left" ? reversePoll : advancePoll}
-				icon={direction === "left" ? faChevronLeft : faChevronRight}
+				onClick={left ? reversePoll : advancePoll}
+				icon={left ? faChevronLeft : faChevronRight}
 			/>
 		</button>
 	);
 };
+
+export default PollControl;

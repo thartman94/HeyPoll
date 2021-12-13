@@ -24,6 +24,7 @@
 @import "partials/button.css";
 @import "partials/modal.css";
 @import "partials/chart-label.css";
+@import "partials/poll-control.css";
 
 /* Pages */
 @import "pages/index.css";
