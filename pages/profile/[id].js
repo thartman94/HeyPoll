@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import AppContext from "../../components/AppContext";
 
+import AppContext from "../../components/AppContext";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Sidebar from "../../components/Sidebar";
@@ -21,7 +21,9 @@ function Profile({ id }) {
 			<Header className="relative" title="User Profile" />
 			<div className="profile__body">
 				<Sidebar id={id} />
-				<div className="poll-wrapper">{!!currentPollID && <Poll />}</div>
+				<div className="poll-wrapper">
+					{!!currentPollID && <Poll isProfile userID={id} />}
+				</div>
 			</div>
 			<Footer />
 		</section>

@@ -38,15 +38,10 @@ const Sidebar = ({ id }) => {
 		});
 	};
 
-	console.log(!isPollsLoading && polls.docs);
-
 	return (
 		<div className="sidebar">
 			<div className="sidebar__header">
 				<h3>Saved Polls</h3>
-				{/* <button className="sidebar__header--toggle">
-					<FontAwesomeIcon className="" icon={faChevronCircleRight} />
-				</button> */}
 			</div>
 			<ul className="sidebar__body">
 				{!isPollsLoading &&
