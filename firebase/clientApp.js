@@ -97,12 +97,14 @@ export const createGuestPoll = () => {
 		const user = result.user;
 		const guestRef = await addDoc(collection(db, "guestPolls"), {}); // Create empty guest poll
 
+
 		setDoc(doc(db, "guestPolls", guestRef.id), {
 			question: "",
 			correctAnswer: 0, // Index of correct answer
 			joinCode: guestRef.id.substring(0, 5).toUpperCase(), // 5-character join code
 			guestID: user.uid,
 		});
+
 
 		return guestRef.id;
 	});
