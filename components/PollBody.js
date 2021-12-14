@@ -43,7 +43,7 @@ const PollBody = ({
 					))}
 				</ul>
 			)}
-			<Result answers={answers} />
+			{!isProfile && <Result answers={answers} />}
 		</div>
 	);
 };

@@ -88,8 +88,8 @@ export default function Lobby({ id }) {
 	};
 
 	const clearPoll = async () => {
-		answers.docs.forEach(({ answerRef }) =>
-			deleteDoc(doc(db, "guestPolls", id, "answers", answerRef))
+		answers.docs.forEach((answer) =>
+			deleteDoc(doc(db, "guestPolls", id, "answers", answer.id))
 		);
 		updateDoc(docRef, { question: "" });
 	};
@@ -142,7 +142,7 @@ export default function Lobby({ id }) {
 								className="poll__controls--minus"
 								onClick={(e) => {
 									e.preventDefault();
-									changeAnswerAmount(answers?.docs?.at(-1)?.answerRef);
+									changeAnswerAmount(answers?.docs?.at(-1)?.id);
 								}}
 							>
 								<FontAwesomeIcon className="icon" icon={faMinusSquare} />
@@ -186,15 +186,16 @@ export default function Lobby({ id }) {
 								className="gold"
 								onClick={(e) => {
 									e.preventDefault();
+
 									toggleResults((prevShowResults) => !prevShowResults);
-									studentSubmit(answers.docs[selectedAnswer]?.answerRef);
+									studentSubmit(answers.docs[selectedAnswer]?.id);
 								}}
 							>
 								SUBMIT
 							</Button>
 						) : null}
-						<PollControl left />
-						<PollControl />
+						{isPollLeader && <PollControl left />}
+						{isPollLeader && <PollControl />}
 					</form>
 				</div>
 			</div>

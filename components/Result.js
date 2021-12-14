@@ -25,15 +25,18 @@ const colors = [
 
 const Result = ({ answers }) => {
 	const total = answers
-		? answers.reduce((acc, { count }) => acc + count, 0)
+		? answers.reduce((acc, answer) => acc + answer.data().count, 0)
 		: 0;
 	const data = answers
 		? answers.map((answer, i) => ({
-				name: answer.choice,
+				name: answer.data().choice,
 				key: i,
-				results: total === 0 ? 0 : Math.round((answer.count * 100) / total),
+				results:
+					total === 0 ? 0 : Math.round((answer.data().count * 100) / total),
 		  }))
 		: [];
+
+	console.log(answers);
 
 	return (
 		<ResponsiveContainer className="result" width="100%" aspect={2}>
