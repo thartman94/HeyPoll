@@ -1,0 +1,14 @@
+.control {
+	@apply flex absolute text-4xl my-auto items-center justify-center right-0 transition-all duration-200 ease-in-out;
+	transform: translateX(200%);
+
+	&.left {
+		@apply right-auto left-0;
+		transform: translateX(-200%);
+	}
+
+	&:hover {
+		@apply text-hp-light;
+		cursor: pointer;
+	}
+}

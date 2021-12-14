@@ -17,11 +17,14 @@
 @import "partials/poll-editor.css";
 @import "partials/poll.css";
 @import "partials/room-views.css";
+@import "partials/sidebar.css";
+@import "partials/profile.css";
 @import "partials/enter-code.css";
 @import "partials/result.css";
 @import "partials/button.css";
 @import "partials/modal.css";
 @import "partials/chart-label.css";
+@import "partials/poll-control.css";
 
 /* Pages */
 @import "pages/index.css";

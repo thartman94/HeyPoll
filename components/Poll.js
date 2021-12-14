@@ -1,122 +1,211 @@
-// import React, { useState, useContext } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
-// import AppContext from "./AppContext";
-// import Input from "./Input";
-// import Button from "./Button";
-// import PollBody from "./PollBody";
-// import EditButton from "./EditButton";
+import React, { useState, useContext } from "react";
+import { useRouter } from "next/router";
+import { useCollection } from "react-firebase-hooks/firestore";
+import {
+  collection,
+  updateDoc,
+  doc,
+  addDoc,
+  setDoc,
+  query,
+  orderBy,
+} from "@firebase/firestore";
+import { db } from "../firebase/clientApp";
 
-// const Poll = ({ poll }) => {
-// 	const { isPollLeader } = useContext(AppContext);
-// 	const [edit, toggleEdit] = useState(false);
-// 	const [showResults, toggleResults] = useState(false);
-// 	const [selectedAnswer, selectAnswer] = useState(null);
-// 	const [answerChoices, setAnswerChoices] = useState([
-// 		"Subs",
-// 		"Pizza",
-// 		"Sushi",
-// 		"Burgers",
-// 	]);
-// 	const [pollQuestion, setPollQuestion] = useState(
-// 		"What should we order for dinner?"
-// 	);
+import AppContext from "./AppContext";
+import Input from "./Input";
+import Button from "./Button";
+import PollBody from "./PollBody";
+import EditButton from "./EditButton";
 
-// 	const savePoll = (e) => {
-// 		const form = e.target.closest(".poll");
-// 		const question = form.querySelector(".poll__question");
-// 		const liveAnswers = form.querySelectorAll(".poll__answer--input");
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
+import PollControl from "./PollControl";
 
-// 		setPollQuestion(question.value);
+const Poll = ({ userID, isProfile }) => {
+  const router = useRouter();
+  const [edit, toggleEdit] = useState(false);
+  const { slideIndex, setSlideIndex, currentPollID } = useContext(AppContext);
 
-// 		for (let i = 0; i < liveAnswers.length; i++) {
-// 			setAnswerChoices(
-// 				(answerChoices) => (answerChoices[i] = liveAnswers[i].value)
-// 			);
-// 		}
-// 	};
+  const questionColRef = collection(
+    db,
+    "savedPolls",
+    currentPollID,
+    "pollQuestions"
+  );
+  const [questions, isQuestionsLoading, questionsError] = useCollection(
+    query(questionColRef, orderBy("order")),
 
-// 	return (
-// 		<form className="poll">
-// 			{isPollLeader && (
-// 				<EditButton
-// 					edit={edit}
-// 					onClick={(e) => {
-// 						e.preventDefault();
-// 						toggleEdit((prevEdit) => !prevEdit);
-// 						savePoll(e);
-// 					}}
-// 				/>
-// 			)}
-// 			<div className="poll__question">
-// 				<Input readonly={!edit} value={pollQuestion} />
-// 			</div>
-// 			<div className="poll__wrapper">
-// 				<PollBody
-// 					showResults={showResults}
-// 					selectedAnswer={selectedAnswer}
-// 					edit={edit}
-// 					selectAnswer={selectAnswer}
-// 					answerChoices={answerChoices}
-// 					setAnswerChoices={setAnswerChoices}
-// 				/>
-// 			</div>
-// 			<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
-// 				<button
-// 					className="poll__controls--minus"
-// 					onClick={(e) => {
-// 						e.preventDefault();
-// 						setAnswerChoices((answerChoices) => answerChoices.slice(0, -1));
-// 					}}
-// 				>
-// 					<FontAwesomeIcon className="icon" icon={faMinusSquare} />
-// 				</button>
-// 				<button
-// 					className="poll__controls--add"
-// 					onClick={(e) => {
-// 						e.preventDefault();
-// 						setAnswerChoices((answerChoices) => [...answerChoices, ""]);
-// 					}}
-// 				>
-// 					<FontAwesomeIcon className="icon" icon={faPlusSquare} />
-// 				</button>
-// 			</div>
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
+  const savePoll = () => {
+    if (edit === true) {
+      const inputs = document
+        ? document.querySelectorAll(".poll__answers input")
+        : [];
+      const newQuestion = document.querySelector(".poll__question input").value;
 
-// 			{isPollLeader && (
-// 				<Button
-// 					className={`${showResults && "left"}`}
-// 					onClick={(e) => {
-// 						e.preventDefault();
-// 						toggleResults(!showResults);
-// 					}}
-// 				>
-// 					Show{showResults ? " Choices" : " Results"}
-// 				</Button>
-// 			)}
-// 			{isPollLeader && showResults ? (
-// 				<Button
-// 					className="gold"
-// 					onClick={(e) => {
-// 						e.preventDefault();
-// 						toggleResults((prevShowResults) => !prevShowResults);
-// 					}}
-// 				>
-// 					Clear Results
-// 				</Button>
-// 			) : null}
-// 			{selectedAnswer !== null && !showResults && !isPollLeader ? (
-// 				<Button
-// 					className="gold"
-// 					onClick={(e) => {
-// 						e.preventDefault();
-// 						toggleResults((prevShowResults) => !prevShowResults);
-// 					}}
-// 				>
-// 					SUBMIT
-// 				</Button>
-// 			) : null}
-// 		</form>
-// 	);
-// };
+      updateDoc(
+        doc(
+          db,
+          "savedPolls",
+          currentPollID,
+          "pollQuestions",
+          questions.docs[slideIndex].id
+        ),
+        {
+          question: newQuestion,
+          answers: Array.from(inputs).map((input) => input.value),
+        }
+      );
+    }
+  };
 
-// export default Poll;
+  const changeAnswerAmount = async (action) => {
+    if (action === "add") {
+      updateDoc(
+        doc(
+          db,
+          "savedPolls",
+          currentPollID,
+          "pollQuestions",
+          questions.docs[slideIndex].id
+        ),
+        {
+          answers: [...questions.docs[slideIndex].data().answers, ""],
+        }
+      );
+    } else {
+      updateDoc(
+        doc(
+          db,
+          "savedPolls",
+          currentPollID,
+          "pollQuestions",
+          questions.docs[slideIndex].id
+        ),
+        {
+          answers: questions.docs[slideIndex].data().answers.slice(0, -1),
+        }
+      );
+    }
+  };
+
+  const createGuestPoll = async () => {
+    const guestRef = await addDoc(collection(db, "guestPolls"), {}); // Create empty guest poll
+
+    if (!!guestRef) {
+      setDoc(doc(db, "guestPolls", guestRef.id), {
+        question: questions.docs[slideIndex]?.data().question,
+        correctAnswer: 0, //literally serves no purpose
+        joinCode: guestRef.id.substring(0, 5).toUpperCase(),
+        guestID: userID,
+      });
+
+      const promises = questions.docs[slideIndex]
+        ?.data()
+        ?.answers.map((answer) => {
+          console.log(answer);
+          addDoc(collection(db, "guestPolls", guestRef.id, "answers"), {
+            choice: answer,
+            count: 0,
+          });
+        });
+
+      await Promise.all(promises);
+    }
+
+    return guestRef.id;
+  };
+
+  return (
+    <form className="poll">
+      <EditButton
+        edit={edit}
+        onClick={(e, edit) => {
+          e.preventDefault();
+          toggleEdit((prevEdit) => !prevEdit);
+          savePoll(e, edit);
+        }}
+      />
+      <div className="poll__question">
+        <Input
+          className="poll__question"
+          readonly={!edit}
+          value={
+            !isQuestionsLoading
+              ? questions.docs[slideIndex]?.data().question
+              : ""
+          }
+        />
+      </div>
+      <div className="poll__wrapper">
+        {!isQuestionsLoading && (
+          <PollBody
+            isProfile={isProfile}
+            docRef={"docRef"}
+            edit={edit}
+            answers={questions.docs[slideIndex]?.data()?.answers}
+          />
+        )}
+      </div>
+      <div className={`poll__controls ${!edit ? "hidden" : ""}`}>
+        <button
+          className="poll__controls--minus"
+          onClick={(e) => {
+            e.preventDefault();
+            changeAnswerAmount("remove");
+          }}
+        >
+          <FontAwesomeIcon className="icon" icon={faMinusSquare} />
+        </button>
+        <button
+          className="poll__controls--add"
+          onClick={(e) => {
+            e.preventDefault();
+            changeAnswerAmount("add");
+          }}
+        >
+          <FontAwesomeIcon className="icon" icon={faPlusSquare} />
+        </button>
+      </div>
+      <Button
+        className="gold"
+        onClick={(e) => {
+          e.preventDefault();
+          createGuestPoll().then((result) => {
+            router.push(
+              {
+                pathname: `/lobbies/${result}`,
+                query: result,
+              },
+              `/lobbies/${result}`
+            );
+          });
+        }}
+      >
+        Create New Room
+      </Button>
+      <PollControl
+        left
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          slideIndex > 0 && setSlideIndex(slideIndex - 1);
+        }}
+      />
+      <PollControl
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          slideIndex < questions.docs.length - 1 &&
+            setSlideIndex(slideIndex + 1);
+        }}
+      />
+    </form>
+  );
+};
+
+export default Poll;

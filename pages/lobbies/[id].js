@@ -27,6 +27,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import PollBody from "../../components/PollBody";
 import EditButton from "../../components/EditButton";
+import PollControl from "../../components/PollControl";
 
 export const getServerSideProps = async (context) => {
 	const { id } = context.params;
@@ -47,7 +48,7 @@ export default function Lobby({ id }) {
 		snapshotListenOptions: { includeMetadataChanges: true },
 	});
 
-	const [answers, isAnswersLoading, answersError] = useCollectionData(
+	const [answers, isAnswersLoading, answersError] = useCollection(
 		collection(db, "guestPolls", id, "answers"),
 		{
 			snapshotListenOptions: { includeMetadataChanges: true },
@@ -63,15 +64,10 @@ export default function Lobby({ id }) {
 				: [];
 			const newQuestion = document.querySelector(".poll__question input").value;
 			inputs.forEach((input, i) => {
-				console.log({ input });
-				if (input.value !== answers[i].choice) {
-					console.log("updating");
-					updateDoc(
-						doc(db, "guestPolls", id, "answers", answers[i].answerRef),
-						{
-							choice: input.value,
-						}
-					);
+				if (input.value !== answers.docs[i].choice) {
+					updateDoc(doc(db, "guestPolls", id, "answers", answers.docs[i].id), {
+						choice: input.value,
+					});
 				}
 			});
 			updateDoc(docRef, {
@@ -88,15 +84,11 @@ export default function Lobby({ id }) {
 				collection(db, "guestPolls", id, "answers"),
 				{ choice: "", count: 0 }
 			);
-
-			await updateDoc(doc(db, "guestPolls", id, "answers", answerRef.id), {
-				answerRef: answerRef.id,
-			});
 		}
 	};
 
 	const clearPoll = async () => {
-		answers.forEach(({ answerRef }) =>
+		answers.docs.forEach(({ answerRef }) =>
 			deleteDoc(doc(db, "guestPolls", id, "answers", answerRef))
 		);
 		updateDoc(docRef, { question: "" });
@@ -133,21 +125,24 @@ export default function Lobby({ id }) {
 							/>
 						</div>
 						<div className="poll__wrapper">
-							<PollBody
-								docRef={docRef}
-								showResults={showResults}
-								selectedAnswer={selectedAnswer}
-								edit={edit}
-								selectAnswer={selectAnswer}
-								answers={answers}
-							/>
+							{!isAnswersLoading && (
+								<PollBody
+									docRef={docRef}
+									showResults={showResults}
+									selectedAnswer={selectedAnswer}
+									edit={edit}
+									selectAnswer={selectAnswer}
+									answers={answers.docs}
+									isProfile={false}
+								/>
+							)}
 						</div>
 						<div className={`poll__controls ${!edit ? "hidden" : ""}`}>
 							<button
 								className="poll__controls--minus"
 								onClick={(e) => {
 									e.preventDefault();
-									changeAnswerAmount(answers?.at(-1)?.answerRef);
+									changeAnswerAmount(answers?.docs?.at(-1)?.answerRef);
 								}}
 							>
 								<FontAwesomeIcon className="icon" icon={faMinusSquare} />
@@ -192,12 +187,14 @@ export default function Lobby({ id }) {
 								onClick={(e) => {
 									e.preventDefault();
 									toggleResults((prevShowResults) => !prevShowResults);
-									studentSubmit(answers[selectedAnswer]?.answerRef);
+									studentSubmit(answers.docs[selectedAnswer]?.answerRef);
 								}}
 							>
 								SUBMIT
 							</Button>
 						) : null}
+						<PollControl left />
+						<PollControl />
 					</form>
 				</div>
 			</div>
